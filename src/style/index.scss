@@ -1,0 +1,32 @@
+:root {
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.App {
+    position: relative;
+}
+
+*,
+*::after,
+*::before {
+    font-family: inherit;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    visibility: hidden;
+
+    &._show {
+        visibility: visible;
+    }
+}

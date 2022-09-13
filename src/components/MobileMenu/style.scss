@@ -1,0 +1,29 @@
+@import '../../style/mixins.scss';
+
+.mobile-menu {
+    position: fixed;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border-radius: 30px 30px 0 0;
+    padding: 50px 25px;
+
+    &._show {
+        top: calc(100% - 255px);
+    }
+}
+
+.mobile-menu__item {
+    margin-bottom: 25px;
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+    @include flex;
+    align-items: center;
+    justify-content: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
