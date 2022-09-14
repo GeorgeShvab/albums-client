@@ -14,4 +14,11 @@ export interface MobileMenuState {
     state: boolean
 }
 
-export type Page = 'home' | 'photos' | 'albums' | 'settings' | 'add-photo'
+export type Page =
+    | 'home'
+    | 'photos'
+    | 'albums'
+    | 'settings'
+    | 'add-photo'
+    | 'login'
+    | 'registration'

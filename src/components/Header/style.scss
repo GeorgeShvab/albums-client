@@ -85,3 +85,44 @@
         }
     }
 }
+
+.header__auth-btn {
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        line-height: 40px;
+        font-size: 1.8rem;
+    }
+}
+
+.header__registration {
+    background-color: black;
+
+    &:hover {
+        background-color: white;
+
+        span {
+            color: black;
+        }
+    }
+
+    span {
+        color: white;
+    }
+}
+
+.header__login {
+    &:hover {
+        background-color: black;
+
+        span {
+            color: white;
+        }
+    }
+}

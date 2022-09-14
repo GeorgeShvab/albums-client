@@ -40,7 +40,7 @@ const HeaderSvgs = ({ page }: { page: Page }): ReactElement => {
                     <path
                         d="M34.25 36.2501H6.75V21.2501H4.54375C3.12125 21.2501 2.4575 19.4763 3.52875 18.5401L18.1637 4.6813C19.4737 3.44005 21.525 3.44005 22.835 4.6813L37.4687 18.5401C38.5412 19.4751 37.8775 21.2501 36.4537 21.2501H34.25V36.2501Z"
                         stroke="black"
-                        strokeWidth="2.5"
+                        strokeWidth="3"
                         strokeMiterlimit="10"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -48,7 +48,7 @@ const HeaderSvgs = ({ page }: { page: Page }): ReactElement => {
                     <path
                         d="M25.5 36.25H15.5V28.75C15.5 25.9887 17.7387 23.75 20.5 23.75C23.2613 23.75 25.5 25.9887 25.5 28.75V36.25Z"
                         stroke="black"
-                        strokeWidth="2.5"
+                        strokeWidth="3"
                         strokeMiterlimit="10"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -124,6 +124,8 @@ const HeaderSvgs = ({ page }: { page: Page }): ReactElement => {
                     />
                 </svg>
             )
+        default:
+            return <></>
     }
 }
 

@@ -5,6 +5,17 @@
 
 .App {
     position: relative;
+    overflow: hidden;
+    height: 100vh;
+
+    &._background-grey {
+        background-color: #fcfcfc;
+    }
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 25px;
 }
 
 *,
