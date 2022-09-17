@@ -1,15 +1,17 @@
-import { configureStore, Store } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
+import auth from './slices/auth'
 import device from './slices/device'
 import mobileMenu from './slices/mobileMenu'
 import overlay from './slices/overlay'
 import page from './slices/page'
 
-const store: Store = configureStore({
+const store = configureStore({
     reducer: {
-        device: device,
-        page: page,
-        overlay: overlay,
-        mobileMenu: mobileMenu,
+        device,
+        page,
+        overlay,
+        mobileMenu,
+        auth,
     },
 })
 

@@ -1,0 +1,139 @@
+@import '../../style//mixins.scss';
+
+.form__item {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.form__input {
+    width: 100%;
+    max-width: 36rem;
+    height: 6rem;
+    font-size: 1.6rem;
+    color: #bcbcbc;
+    padding: 0 3rem;
+    background-color: #f8f8f8;
+    border-radius: 3rem;
+    outline: none;
+    border: 3px solid transparent;
+
+    &:not(._error) {
+        &:focus {
+            border: 3px solid black;
+        }
+    }
+
+    &::placeholder {
+        color: #bcbcbc;
+    }
+
+    &._error {
+        border: 3px solid #ff9d8a;
+    }
+}
+
+.form__forgot-password {
+    @include flex-center;
+    width: 100%;
+    margin-bottom: 2rem;
+
+    div {
+        max-width: 36rem;
+        width: 100%;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: end;
+    }
+
+    span {
+        font-size: 1.4rem;
+        color: #bcbcbc;
+
+        &:hover {
+            color: #7c7c7c;
+        }
+    }
+}
+
+.form__submit {
+    margin-bottom: 6rem;
+    position: relative;
+
+    &::after {
+        position: absolute;
+        left: 50%;
+        bottom: -32px;
+        height: 1px;
+        width: 100%;
+        max-width: 500px;
+        transform: translateX(-50%);
+        content: '';
+        display: block;
+        background-color: #f1f1f1;
+    }
+}
+
+.form__line {
+    hr {
+        width: 80%;
+        height: 1px;
+    }
+}
+
+.form__oauth-item {
+    width: 100%;
+    max-width: 36rem;
+    height: 60px;
+    background-color: #f8f8f8;
+    border-radius: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-bottom: 15px;
+
+    &:hover {
+        span {
+            color: #7c7c7c;
+        }
+    }
+}
+
+.form__oauth-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    padding-left: 5rem;
+
+    svg {
+        margin-right: 1.5rem;
+    }
+
+    span {
+        color: #bcbcbc;
+        font-size: 1.6rem;
+    }
+}
+
+.form__error {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.form__error-container {
+    max-width: 360px;
+    width: 100%;
+    position: relative;
+
+    > div {
+        width: 100%;
+        text-align: center;
+    }
+}

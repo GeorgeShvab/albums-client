@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from './hooks/reduxHooks'
-import { setIsMobile } from './redux/slices/device'
+import { isMobile, setIsMobile } from './redux/slices/device'
 import throttle from './utils/thorttle'
 import './style/reset.scss'
 import './style/index.scss'
@@ -9,10 +9,12 @@ import { Header, Overlay } from './components'
 import MobileMenu from './components/MobileMenu'
 import { Login } from './pages'
 import { getCurrentPage } from './redux/slices/page'
+import Registration from './pages/Registration'
 
 function App() {
     const dispatch = useAppDispatch()
     const page = useAppSelector(getCurrentPage)
+    const mobile = useAppSelector(isMobile)
 
     const resizeHandler = (e: UIEvent): void => {
         if (window.innerWidth <= 768) {
@@ -31,19 +33,13 @@ function App() {
     }, [])
 
     return (
-        <div
-            className={`App${
-                page === 'login' || page === 'registration'
-                    ? ' _background-grey'
-                    : ''
-            }`}
-        >
+        <div className="App">
             <Overlay />
             <MobileMenu />
             <Header />
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<></>} />
+                <Route path="/registration" element={<Registration />} />
             </Routes>
         </div>
     )

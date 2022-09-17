@@ -1,17 +1,21 @@
 import React, { ReactElement, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { Heading, LoginForm, RoundedButton } from '../../components'
+import {
+    Heading,
+    LoginForm,
+    RegistrationForm,
+    RoundedButton,
+} from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import auth, { getUser } from '../../redux/slices/auth'
+import { getUser } from '../../redux/slices/auth'
 import { setPage } from '../../redux/slices/page'
 
-const Login = (): ReactElement => {
+const Registration = (): ReactElement => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(getUser)
 
     useEffect(() => {
-        dispatch(setPage('login'))
+        dispatch(setPage('registration'))
     }, [])
 
     if (user.status === 'loaded' && user.data) {
@@ -34,16 +38,16 @@ const Login = (): ReactElement => {
                         <div className="auth__item">
                             <div className="auth__heading">
                                 <Heading
-                                    title="Вхід"
-                                    subtitle="Увійдіть, щоб сповна користуватись можливостями Albums"
+                                    title="Реєстрація"
+                                    subtitle="Зареєструйтеся, щоб сповна користуватись можливостями Albums"
                                 />
                             </div>
                             <div className="auth__form-wrapper">
-                                <LoginForm />
+                                <RegistrationForm />
                                 <p className="auth__change-page">
-                                    Ще не маєте аккаунту?{' '}
-                                    <Link to="/registration">
-                                        <span>Зареєструватись</span>
+                                    Вже маєте аккаунт?{' '}
+                                    <Link to="/login">
+                                        <span>Увійти</span>
                                     </Link>
                                 </p>
                             </div>
@@ -55,4 +59,4 @@ const Login = (): ReactElement => {
     )
 }
 
-export default Login
+export default Registration

@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 :root {
     font-size: 10px;
     font-family: 'Roboto', sans-serif;
@@ -6,10 +8,11 @@
 .App {
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: white;
 
     &._background-grey {
-        background-color: #fcfcfc;
+        background-color: #fafafa;
     }
 }
 
@@ -36,8 +39,127 @@ a {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.3);
     visibility: hidden;
+    z-index: 10;
 
     &._show {
         visibility: visible;
     }
+}
+
+.auth {
+    padding-top: 10.5rem;
+
+    .container {
+        padding: 0;
+    }
+
+    @media screen and (min-width: 769px) {
+        padding-top: 7rem;
+        padding-bottom: 7rem;
+
+        .container {
+            padding: 0 25px;
+        }
+    }
+}
+
+.auth__heading {
+    margin-bottom: 5.5rem;
+
+    @media screen and (min-width: 769px) {
+        margin-bottom: 0;
+    }
+}
+
+.auth__form-wrapper {
+    padding: 4.5rem 2.5rem 3rem;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+
+    @media screen and (min-width: 769px) {
+        padding-bottom: 0;
+        box-shadow: none;
+    }
+}
+
+.auth__change-page {
+    text-align: center;
+    color: #d5d5d5;
+    font-size: 1.4rem;
+    margin-top: 30px;
+
+    span {
+        color: #7c7c7c;
+        text-decoration: underline;
+    }
+}
+
+.auth__conatiner {
+    margin: 0 auto;
+
+    @media screen and (min-width: 769px) {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.auth__item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    &:first-child {
+        display: none;
+    }
+
+    @media screen and (min-width: 769px) {
+        width: 50%;
+        height: 100%;
+        min-width: 300px;
+
+        &:last-child {
+            padding: 50px 0;
+        }
+
+        &:first-child {
+            display: block;
+        }
+    }
+}
+
+.auth__wrapper {
+    border-radius: 30px;
+    overflow: hidden;
+    gap: 20px;
+    max-width: 950px;
+    width: 100%;
+
+    @media screen and (min-width: 769px) {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+    }
+}
+
+.auth__img {
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+
+    img {
+        object-fit: cover;
+    }
+}
+
+.error {
+    color: #ff6647;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
 }

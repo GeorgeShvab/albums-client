@@ -108,13 +108,18 @@ const Header = (): ReactElement => {
                     ) : (
                         <ul className="nav__list">
                             <li className="nav__list-item">
+                                <Link to="/home">
+                                    <h5>Головна</h5>
+                                </Link>
+                            </li>
+                            <li className="nav__list-item auth-btn">
                                 <Link to="/registration">
                                     <div className="header__registration header__auth-btn">
                                         <span>Реєстрація</span>
                                     </div>
                                 </Link>
                             </li>
-                            <li className="nav__list-item">
+                            <li className="nav__list-item auth-btn">
                                 <Link to="/login">
                                     <div className="header__login header__auth-btn">
                                         <span>Вхід</span>

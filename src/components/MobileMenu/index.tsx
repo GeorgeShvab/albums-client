@@ -74,6 +74,14 @@ const MobileMenu = (): ReactElement => {
                 ) : (
                     <>
                         <li
+                            className="mobile-menu__item unauthorized"
+                            onClick={menuClickHandler}
+                        >
+                            <Link to="/settings">
+                                <h5>Головна</h5>
+                            </Link>
+                        </li>
+                        <li
                             className="mobile-menu__item"
                             onClick={menuClickHandler}
                         >

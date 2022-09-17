@@ -11,9 +11,13 @@ const overlaySLice = createSlice({
     reducers: {
         showOverlay: (state: OverlayState) => {
             state.state = true
+            const htmlEl = document.querySelector('html')
+            if (htmlEl) htmlEl.style.overflow = 'hidden'
         },
         hideOverlay: (state: OverlayState) => {
             state.state = false
+            const htmlEl = document.querySelector('html')
+            if (htmlEl) htmlEl.style.overflow = 'auto'
         },
     },
 })
