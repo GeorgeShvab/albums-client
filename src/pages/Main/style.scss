@@ -1,0 +1,64 @@
+.intro__container {
+    position: relative;
+    overflow: hidden;
+    background: url('../../static/intro_bg-mobile.png') center no-repeat;
+    background-size: cover;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (min-width: 769px) {
+        height: calc(100vh - 92px);
+        background: url('../../static/intro_bg-dekstop.png') center no-repeat;
+        background-size: cover;
+    }
+}
+
+.intro__content {
+    padding: 50px;
+    background-color: white;
+    box-shadow: 0 0 25px 5px rgba(0, 0, 0, 1);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+
+    @media screen and (min-width: 480px) {
+        border-radius: 35px;
+        max-width: 550px;
+    }
+}
+
+.intro__heading {
+    margin-bottom: 3rem;
+    max-width: 400px;
+
+    @media screen and (min-width: 769px) {
+        margin-bottom: 3.5rem;
+    }
+}
+
+.intro__title {
+    font-size: 3.4rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 3.6rem;
+
+    @media screen and (min-width: 769px) {
+        margin-bottom: 3rem;
+    }
+}
+
+.intro__subtitle {
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 2.2rem;
+    color: #616161;
+}
+
+.intro__button {
+    max-width: 400px;
+}

@@ -7,7 +7,7 @@ import './style/reset.scss'
 import './style/index.scss'
 import { Header, Overlay } from './components'
 import MobileMenu from './components/MobileMenu'
-import { Login } from './pages'
+import { Login, Main } from './pages'
 import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
 import { fetchMe } from './redux/slices/auth'
@@ -26,24 +26,11 @@ function App() {
         }
     }
 
-    const tryToAuth = async () => {
-        try {
-            const data = await dispatch(fetchMe())
-            if (!data.payload.success) {
-                navigate('/login')
-            }
-        } catch (e) {
-            navigate('/login')
-        }
-    }
-
     useEffect(() => {
         window.addEventListener('resize', throttle(resizeHandler, 500))
 
         if (localStorage.getItem('Authorization')) {
-            tryToAuth()
-        } else {
-            navigate('/login')
+            dispatch(fetchMe())
         }
 
         return (): void => {
@@ -59,6 +46,7 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
+                <Route path="/" element={<Main />} />
             </Routes>
         </div>
     )

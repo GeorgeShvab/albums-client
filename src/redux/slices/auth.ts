@@ -130,4 +130,7 @@ const authSlice = createSlice({
 
 export const getUser = ({ auth }: { auth: AuthState }) => auth
 
+export const isAuthorized = ({ auth }: { auth: AuthState }) =>
+    Boolean(auth.data)
+
 export default authSlice.reducer

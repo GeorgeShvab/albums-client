@@ -1,8 +1,12 @@
 @import './mixins.scss';
 
 :root {
-    font-size: 10px;
+    font-size: 9px;
     font-family: 'Roboto', sans-serif;
+
+    @media screen and (min-width: 769px) {
+        font-size: 10px;
+    }
 }
 
 .App {
@@ -19,6 +23,7 @@
 .container {
     margin: 0 auto;
     padding: 0 25px;
+    max-width: 1150px;
 }
 
 *,
