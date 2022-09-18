@@ -27,14 +27,7 @@ const Registration = (): ReactElement => {
             <div className="container">
                 <div className="auth__conatiner">
                     <div className="auth__wrapper">
-                        <div className="auth__item">
-                            <div
-                                className="auth__img"
-                                style={{
-                                    background: 'url(../auth_bg.png)',
-                                }}
-                            ></div>
-                        </div>
+                        <div className="auth__item"></div>
                         <div className="auth__item">
                             <div className="auth__heading">
                                 <Heading

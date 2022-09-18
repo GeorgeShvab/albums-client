@@ -24,12 +24,7 @@ const Login = (): ReactElement => {
                 <div className="auth__conatiner">
                     <div className="auth__wrapper">
                         <div className="auth__item">
-                            <div
-                                className="auth__img"
-                                style={{
-                                    background: 'url(../auth_bg.png)',
-                                }}
-                            ></div>
+                            <div className="auth__img"></div>
                         </div>
                         <div className="auth__item">
                             <div className="auth__heading">
