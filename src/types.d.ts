@@ -15,6 +15,11 @@ export interface OverlayState {
 
 export interface MobileMenuState {
     state: boolean
+    type: null | 'navigation' | 'adding'
+}
+
+export interface MobileMenuAction extends ThunkAction {
+    payload: null | 'navigation' | 'adding'
 }
 
 export type Page =

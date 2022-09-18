@@ -10,7 +10,7 @@ import { hideOverlay } from '../../redux/slices/overlay'
 import RoundedButton from '../RoundedButton'
 import './style.scss'
 
-const MobileMenu = (): ReactElement => {
+const MobileNavigation = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
     const dispatch = useAppDispatch()
 
@@ -32,7 +32,11 @@ const MobileMenu = (): ReactElement => {
 
     return (
         <div
-            className={`mobile-menu${menuState ? ' _show' : ''}`}
+            className={`mobile-menu${
+                menuState.type === 'navigation' && menuState.state
+                    ? ' _show'
+                    : ''
+            }`}
             ref={mobileMenuEl}
         >
             <ul className="mobile-menu__list">
@@ -104,4 +108,4 @@ const MobileMenu = (): ReactElement => {
     )
 }
 
-export default MobileMenu
+export default MobileNavigation

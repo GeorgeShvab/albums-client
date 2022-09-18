@@ -18,7 +18,7 @@ const Header = (): ReactElement => {
 
     const handleMenuClick = () => {
         dispatch(showOverlay())
-        dispatch(showMobileMenu())
+        dispatch(showMobileMenu('navigation'))
     }
 
     // Якщо є токен авторизації, в низу якщо нема

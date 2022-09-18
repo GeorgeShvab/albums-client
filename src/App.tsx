@@ -5,8 +5,7 @@ import { isMobile, setIsMobile } from './redux/slices/device'
 import throttle from './utils/thorttle'
 import './style/reset.scss'
 import './style/index.scss'
-import { Header, Overlay } from './components'
-import MobileMenu from './components/MobileMenu'
+import { Header, MobileNavigation, Overlay } from './components'
 import { Login, Main } from './pages'
 import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
@@ -41,7 +40,7 @@ function App() {
     return (
         <div className="App">
             <Overlay />
-            <MobileMenu />
+            <MobileNavigation />
             <Header />
             <Routes>
                 <Route path="/login" element={<Login />} />
