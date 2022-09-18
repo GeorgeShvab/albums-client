@@ -42,6 +42,45 @@ export const fetchReg = createAsyncThunk(
     }
 )
 
+export const fetchMe = createAsyncThunk(
+    'auth/fetchMe',
+    async (_, { rejectWithValue }) => {
+        try {
+            const data = await axios.get('/me')
+
+            return data.data
+        } catch (e: any) {
+            if (!e.response) {
+                throw e
+            }
+
+            const refresh =
+                localStorage.getItem('Refresh') ||
+                localStorage.getItem('refresh')
+
+            if (e.response.data?.errors.msg === 'token expired' && refresh) {
+                const newTokens = await axios.get('/token', {
+                    headers: { Refresh: refresh },
+                })
+
+                localStorage.setItem('Refresh', newTokens.data.refresh)
+                localStorage.setItem(
+                    'Authorization',
+                    newTokens.data.Authorization
+                )
+
+                const data = await axios.get('/me', {
+                    headers: { Authorization: newTokens.data.authorization },
+                })
+
+                return data.data
+            }
+
+            return rejectWithValue(e.response.data)
+        }
+    }
+)
+
 const initialState: AuthState = {
     data: null,
     status: 'loading',
@@ -59,10 +98,7 @@ const authSlice = createSlice({
             state.status = 'loaded'
             state.data = action.payload.data.user
             localStorage.setItem('Authorization', action.payload.data.authToken)
-            localStorage.setItem(
-                'refreshToken',
-                action.payload.data.refreshToken
-            )
+            localStorage.setItem('Refresh', action.payload.data.refreshToken)
         },
         [fetchLog.rejected.type]: (state: AuthState) => {
             state.status = 'error'
@@ -74,12 +110,19 @@ const authSlice = createSlice({
             state.status = 'loaded'
             state.data = action.payload.data.user
             localStorage.setItem('Authorization', action.payload.data.authToken)
-            localStorage.setItem(
-                'refreshToken',
-                action.payload.data.refreshToken
-            )
+            localStorage.setItem('Refresh', action.payload.data.refreshToken)
         },
         [fetchReg.rejected.type]: (state: AuthState) => {
+            state.status = 'error'
+        },
+        [fetchMe.pending.type]: (state: AuthState) => {
+            state.status = 'loading'
+        },
+        [fetchMe.fulfilled.type]: (state: AuthState, action: AuthAction) => {
+            state.status = 'loaded'
+            state.data = action.payload.data.user
+        },
+        [fetchMe.rejected.type]: (state: AuthState) => {
             state.status = 'error'
         },
     },
