@@ -5,17 +5,24 @@ import { isMobile, setIsMobile } from './redux/slices/device'
 import throttle from './utils/thorttle'
 import './style/reset.scss'
 import './style/index.scss'
-import { Header, MobileNavigation, Overlay } from './components'
+import {
+    AddingButton,
+    AddingMenu,
+    Header,
+    MobileNavigation,
+    Overlay,
+} from './components'
 import { Login, Main } from './pages'
 import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
-import { fetchMe } from './redux/slices/auth'
+import { fetchMe, getUser } from './redux/slices/auth'
+import AddAlbumWindow from './components/AddAlbumWindow'
+import { fetchAlbums } from './redux/slices/albums'
+import AddAlbumMenu from './components/AddAlbumMenu'
 
 function App() {
     const dispatch = useAppDispatch()
-    const page = useAppSelector(getCurrentPage)
-    const mobile = useAppSelector(isMobile)
-    const navigate = useNavigate()
+    const auth = useAppSelector(getUser)
 
     const resizeHandler = (e: UIEvent): void => {
         if (window.innerWidth <= 768) {
@@ -24,6 +31,12 @@ function App() {
             dispatch(setIsMobile(false))
         }
     }
+
+    useEffect(() => {
+        if (auth.data) {
+            dispatch(fetchAlbums())
+        }
+    }, [auth.data])
 
     useEffect(() => {
         window.addEventListener('resize', throttle(resizeHandler, 500))
@@ -42,6 +55,10 @@ function App() {
             <Overlay />
             <MobileNavigation />
             <Header />
+            <AddingButton />
+            <AddingMenu />
+            <AddAlbumWindow />
+            <AddAlbumMenu />
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />

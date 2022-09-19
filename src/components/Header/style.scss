@@ -27,6 +27,7 @@
 
 .nav__list-item {
     margin-right: 45px;
+    position: relative;
 
     &::after {
         position: absolute;

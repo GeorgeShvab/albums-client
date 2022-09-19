@@ -9,7 +9,6 @@ import emailValidator from '../../utils/emailValidator'
 import findError from '../../utils/findErrorByName'
 import nameValidator from '../../utils/nameValidator'
 import passwordValidator from '../../utils/passwordValidator'
-import './style.scss'
 
 const RegistrationFrom = (): ReactElement => {
     const dispatch = useAppDispatch()

@@ -1,3 +1,4 @@
+import { Store } from '@reduxjs/toolkit'
 import { FormEvent } from 'react'
 import { ThunkAction } from 'redux-thunk'
 
@@ -15,11 +16,11 @@ export interface OverlayState {
 
 export interface MobileMenuState {
     state: boolean
-    type: null | 'navigation' | 'adding'
+    type: null | 'navigation' | 'adding' | 'add-album'
 }
 
 export interface MobileMenuAction extends ThunkAction {
-    payload: null | 'navigation' | 'adding'
+    payload: null | 'navigation' | 'adding' | 'add-album'
 }
 
 export type Page =
@@ -86,5 +87,62 @@ export interface RegFormEvent extends FormEvent<HTMLFormElement> {
         email: HTMLInputElement
         password: HTMLInputElement
         name: HTMLInputElement
+    }
+}
+
+export interface WindowState {
+    state: boolean
+    type: null | 'add-album'
+}
+
+export interface WindowAction extends ThunkAction {
+    payload: 'add-album'
+}
+
+export interface AddAlbumFormEvent extends FormEvent<HTMLFormElement> {
+    target: EventTarget & {
+        name: HTMLInputElement
+        visibility: HTMLInputElement
+    }
+}
+
+export interface Album {
+    name: string
+    creator: string
+    count: number
+    visibility: 'private' | 'public'
+    last_photo?: string
+    background?: string
+    createdAt: string
+    updatedAt: string
+    _id: string
+}
+
+export interface AlbumsState {
+    status: Status
+    data: Album[] | null
+}
+
+export interface CustomStore extends Store {
+    auth: AuthState
+    albums: AlbumsState
+    device: DeviceState
+    mobileMenu: MobileMenuState
+    page: PageState
+    overlay: OverlayState
+    window: WindowStates
+}
+
+export interface AlbumsAction extends ThunkAction {
+    payload: {
+        success: boolean
+        data: Album[]
+    }
+}
+
+export interface AlbumsActionOne extends ThunkAction {
+    payload: {
+        success: boolean
+        data: Album
     }
 }

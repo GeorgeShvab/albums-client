@@ -8,7 +8,6 @@ import {
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import RoundedButton from '../RoundedButton'
-import './style.scss'
 
 const MobileNavigation = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -19,16 +18,24 @@ const MobileNavigation = (): ReactElement => {
     const authToken: string | null = localStorage.getItem('Authorization')
 
     const outsideClickFunc = () => {
+        if (menuState.type !== 'navigation' || !menuState.state) return
+
         dispatch(hideMobileMenu())
         dispatch(hideOverlay())
     }
 
     const menuClickHandler = () => {
+        if (menuState.type !== 'navigation' || !menuState.state) return
+
         dispatch(hideMobileMenu())
         dispatch(hideOverlay())
     }
 
-    useOutsideClick(mobileMenuEl, outsideClickFunc, ['nav__menu-btn'])
+    useOutsideClick(mobileMenuEl, outsideClickFunc, [
+        menuState.type === 'navigation' ? 'nav__menu-btn' : 'adding-button',
+    ])
+
+    if (menuState.type !== 'navigation' || !menuState.state) return <></>
 
     return (
         <div

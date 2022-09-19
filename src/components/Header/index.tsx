@@ -1,16 +1,23 @@
-import { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { ReactElement, useRef, useState } from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import { isMobile } from '../../redux/slices/device'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
 import { getCurrentPage } from '../../redux/slices/page'
+import { showWindow } from '../../redux/slices/window'
+import ContextMenu from '../ContextMenu'
 import HeaderSvgs from '../HeaderSvgs'
 import './style.scss'
 
 const Header = (): ReactElement => {
     const mobile = useAppSelector(isMobile)
     const page = useAppSelector(getCurrentPage)
+    const navigate = useNavigate()
+    const [addingMenuState, setAddingMenuState] = useState(false)
+
+    const addBtnEl = useRef<HTMLLIElement>(null)
 
     const authToken: string | null = localStorage.getItem('Authorization')
 
@@ -20,6 +27,21 @@ const Header = (): ReactElement => {
         dispatch(showOverlay())
         dispatch(showMobileMenu('navigation'))
     }
+
+    const hadnleAddClick = () => {
+        setAddingMenuState((prev) => !prev)
+    }
+
+    const handleAddAlbumClick = () => {
+        dispatch(showOverlay())
+        dispatch(showWindow('add-album'))
+    }
+
+    const handleOutsideClick = () => {
+        setAddingMenuState(false)
+    }
+
+    useOutsideClick(addBtnEl, handleOutsideClick, ['context-menu'])
 
     // Якщо є токен авторизації, в низу якщо нема
     if (authToken) {
@@ -41,8 +63,30 @@ const Header = (): ReactElement => {
                             </button>
                         ) : (
                             <ul className="nav__list">
-                                <li className="nav__list-item">
+                                <li
+                                    className="nav__list-item"
+                                    onClick={hadnleAddClick}
+                                    ref={addBtnEl}
+                                >
                                     <HeaderSvgs page="add-photo" />
+                                    {addingMenuState ? (
+                                        <ContextMenu
+                                            elements={[
+                                                {
+                                                    func: () =>
+                                                        navigate('/add-photo'),
+                                                    text: 'Додати фото',
+                                                },
+                                                {
+                                                    func: handleAddAlbumClick,
+                                                    text: 'Додати альбом',
+                                                },
+                                            ]}
+                                            style={{ top: '130%' }}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
                                 </li>
                                 <li
                                     className={`nav__list-item${

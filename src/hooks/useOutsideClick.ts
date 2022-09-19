@@ -1,7 +1,7 @@
 import { Ref, RefObject, useEffect } from 'react'
 
 const useOutsideClick = (
-    ref: RefObject<HTMLDivElement>,
+    ref: RefObject<HTMLElement>,
     func: () => void,
     classList?: string[]
 ) => {

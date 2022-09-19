@@ -6,7 +6,6 @@ import { useAppDispatch } from '../../hooks/reduxHooks'
 import { fetchLog } from '../../redux/slices/auth'
 import { LoginFormEvent } from '../../types'
 import findError from '../../utils/findErrorByName'
-import './style.scss'
 
 const LoginFrom = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -41,7 +40,7 @@ const LoginFrom = (): ReactElement => {
             if (!e.target.password.value.trim() || !e.target.email.value.trim())
                 return
 
-            const data = await dispatch(
+            const data: any = await dispatch(
                 fetchLog({
                     email: e.target.email.value,
                     password: e.target.password.value,
@@ -82,7 +81,7 @@ const LoginFrom = (): ReactElement => {
                         errors[0] ? findError(errors, 'email') : ''
                     }`}
                     name="email"
-                    autoComplete="password"
+                    autoComplete="email"
                     placeholder="Емейл"
                     onInput={handleInput}
                     spellCheck={false}
@@ -90,7 +89,7 @@ const LoginFrom = (): ReactElement => {
             </div>
             <div className="form__item">
                 <input
-                    type="text"
+                    type="password"
                     className={`form__input${
                         errors[0] ? findError(errors, 'password') : ''
                     }`}
