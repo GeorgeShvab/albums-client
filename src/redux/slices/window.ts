@@ -4,6 +4,7 @@ import { WindowAction, WindowState } from '../../types'
 const initialState: WindowState = {
     state: false,
     type: null,
+    data: null,
 }
 
 const windowSlice = createSlice({
@@ -12,7 +13,12 @@ const windowSlice = createSlice({
     reducers: {
         showWindow: (state: WindowState, action: WindowAction) => {
             state.state = true
-            state.type = action.payload
+            if (typeof action.payload === 'object') {
+                state.type = action.payload.type
+                state.data = action.payload.data
+            } else {
+                state.type = action.payload
+            }
         },
         hideWindow: (state: WindowState) => {
             state.state = false

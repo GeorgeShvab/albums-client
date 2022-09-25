@@ -4,12 +4,14 @@ import './style.scss'
 const ContextMenu = ({
     elements,
     style = {},
+    arrow = false,
 }: {
     elements: { func: () => any; text: string }[]
     style?: any
+    arrow?: boolean
 }): ReactElement => {
     return (
-        <div className="context-menu" style={style}>
+        <div className={`context-menu${arrow ? ' _arrow' : ''}`} style={style}>
             <ul className="context-menu__list">
                 {elements.map((item, index) => (
                     <li

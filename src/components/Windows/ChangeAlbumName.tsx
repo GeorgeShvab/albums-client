@@ -1,14 +1,18 @@
-import { FormEvent, ReactElement, useRef, useState, useEffect } from 'react'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RoundedButton } from '..'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import { RoundedButton } from '../'
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { fetchAddAlbum, getAlbums } from '../../redux/slices/albums'
+import {
+    getAlbums,
+    fetchAddAlbum,
+    fetchChangeName,
+} from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { getWindowState, hideWindow } from '../../redux/slices/window'
 import { AddAlbumFormEvent } from '../../types'
 
-const AddAlbumWindow = (): ReactElement => {
+const ChangeAlbumName = (): ReactElement => {
     const window = useAppSelector(getWindowState)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -17,32 +21,14 @@ const AddAlbumWindow = (): ReactElement => {
 
     const userAlbums = useAppSelector(getAlbums)
 
-    const [defaultName, setDefaultName] = useState<string>('')
-
-    useEffect(() => {
-        const largest = userAlbums
-            ?.filter((item) => /^Новий альбом/.test(item.name))
-            .map((item) =>
-                isNaN(Number(item.name.replace(/^Новий альбом/, '')))
-                    ? 1
-                    : Number(item.name.replace(/^Новий альбом/, ''))
-            )
-
-        if (largest) {
-            setDefaultName('Новий альбом ' + (Math.max(...largest) + 1))
-        }
-    }, [userAlbums])
-
     const handleOutsideClick = () => {
         dispatch(hideOverlay())
         dispatch(hideWindow())
     }
 
-    useOutsideClick(windowEl, handleOutsideClick, ['context-menu__item'])
+    useOutsideClick(windowEl, handleOutsideClick, ['dots-menu', 'context-menu'])
 
-    if (window.state !== true && window.type !== 'add-album') {
-        return <></>
-    }
+    if (!window.state || window.type !== 'change-album-name') return <></>
 
     const handleInput = () => {
         if (!errors.length) return
@@ -54,8 +40,6 @@ const AddAlbumWindow = (): ReactElement => {
             e.preventDefault()
 
             const name = e.target.name.value.trim()
-            const visibility =
-                e.target.visibility.checked === true ? 'private' : 'public'
 
             if (!name) {
                 setErrors([{ msg: 'Поле повинно бути заповнено' }])
@@ -68,7 +52,7 @@ const AddAlbumWindow = (): ReactElement => {
             }
 
             const data = await dispatch(
-                fetchAddAlbum({ name: name, visibility: visibility })
+                fetchChangeName({ name: name, albumId: window.data.album._id })
             )
 
             if (!data.payload.success) {
@@ -76,7 +60,6 @@ const AddAlbumWindow = (): ReactElement => {
             } else {
                 dispatch(hideOverlay())
                 dispatch(hideWindow())
-                navigate('/albums')
             }
         } catch (e) {
             setErrors([
@@ -89,11 +72,7 @@ const AddAlbumWindow = (): ReactElement => {
 
     return (
         <div className="window" ref={windowEl}>
-            <form
-                action=""
-                className="form add-album-form"
-                onSubmit={handleSubmit}
-            >
+            <form className="form add-album-form" onSubmit={handleSubmit}>
                 <div className="form__item">
                     <input
                         type="text"
@@ -102,20 +81,10 @@ const AddAlbumWindow = (): ReactElement => {
                         }`}
                         name="name"
                         autoComplete="off"
-                        placeholder="Ім'я альбому"
+                        placeholder="Нова назва"
                         onInput={handleInput}
                         spellCheck={false}
-                        defaultValue={defaultName}
                     />
-                </div>
-                <div className="form__item">
-                    <label>
-                        <div className="form__checkbox-container">
-                            <input type="checkbox" hidden name="visibility" />
-                            <span></span>
-                            <p className="form__checkbox">Приватний альбом</p>
-                        </div>
-                    </label>
                 </div>
                 <div className="form__error">
                     <div className="form__error-container">
@@ -126,16 +95,21 @@ const AddAlbumWindow = (): ReactElement => {
                         </div>
                     </div>
                 </div>
-                <div className="form__submit">
-                    <RoundedButton
-                        text="Створити альбом"
-                        style="dark"
-                        type="submit"
-                    />
+                <div className="form__submit buttons-container">
+                    <div>
+                        <RoundedButton text="Назад" type="button" />
+                    </div>
+                    <div>
+                        <RoundedButton
+                            text="Змінити назву"
+                            style="dark"
+                            type="submit"
+                        />
+                    </div>
                 </div>
             </form>
         </div>
     )
 }
 
-export default AddAlbumWindow
+export default ChangeAlbumName

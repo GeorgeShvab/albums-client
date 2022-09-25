@@ -4,6 +4,7 @@ import { MobileMenuAction, MobileMenuState } from '../../types'
 const initialState: MobileMenuState = {
     state: false,
     type: null,
+    data: null,
 }
 
 const mobileMenuSlice = createSlice({
@@ -12,7 +13,12 @@ const mobileMenuSlice = createSlice({
     reducers: {
         showMobileMenu: (state: MobileMenuState, action: MobileMenuAction) => {
             state.state = true
-            state.type = action.payload
+            if (typeof action.payload === 'object') {
+                state.type = action.payload.type
+                state.data = action.payload.data
+            } else {
+                state.type = action.payload
+            }
         },
         hideMobileMenu: (state) => {
             state.state = false

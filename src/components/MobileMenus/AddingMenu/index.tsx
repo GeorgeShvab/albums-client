@@ -1,13 +1,13 @@
 import { ReactElement, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import useOutsideClick from '../../hooks/useOutsideClick'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
+import useOutsideClick from '../../../hooks/useOutsideClick'
 import {
     getMobileMenuState,
     hideMobileMenu,
     showMobileMenu,
-} from '../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../redux/slices/overlay'
+} from '../../../redux/slices/mobileMenu'
+import { hideOverlay } from '../../../redux/slices/overlay'
 
 const AddingMenu = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)

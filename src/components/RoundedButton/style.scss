@@ -10,9 +10,11 @@
     margin: 0 auto;
     cursor: pointer;
     background-color: white;
+    padding: 0 2rem;
 
     span {
         font-size: 2rem;
+        white-space: nowrap;
     }
 
     &:hover {

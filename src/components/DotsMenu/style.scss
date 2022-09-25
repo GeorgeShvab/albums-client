@@ -1,0 +1,53 @@
+.dots-menu {
+    border-radius: 50%;
+    height: 34px;
+    width: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: none;
+    outline: none;
+    background: none;
+    visibility: visible;
+    padding: 6px;
+
+    @media screen and (min-width: 769px) {
+        visibility: hidden;
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    span {
+        position: relative;
+        height: 4px;
+        width: 4px;
+        background-color: white;
+        display: block;
+        border-radius: 50%;
+
+        &::before {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 4px;
+            background-color: white;
+            display: block;
+            border-radius: 50%;
+            top: -10px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 4px;
+            background-color: white;
+            display: block;
+            border-radius: 50%;
+            bottom: -10px;
+        }
+    }
+}

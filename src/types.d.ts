@@ -1,4 +1,4 @@
-import { Store } from '@reduxjs/toolkit'
+import { Action, AnyAction, Store } from '@reduxjs/toolkit'
 import { FormEvent } from 'react'
 import { ThunkAction } from 'redux-thunk'
 
@@ -14,13 +14,23 @@ export interface OverlayState {
     state: boolean
 }
 
+export type MobileMenuType =
+    | 'navigation'
+    | 'adding'
+    | 'add-album'
+    | 'delete-album'
+    | 'change-album-name'
+    | 'change-album-visibility'
+    | 'change-album-preview'
+
 export interface MobileMenuState {
     state: boolean
-    type: null | 'navigation' | 'adding' | 'add-album'
+    type: null | MobileMenuType
+    data: any
 }
 
 export interface MobileMenuAction extends ThunkAction {
-    payload: null | 'navigation' | 'adding' | 'add-album'
+    payload: { type: MobileMenuType; data: any } | MobileMenuType
 }
 
 export type Page =
@@ -92,11 +102,19 @@ export interface RegFormEvent extends FormEvent<HTMLFormElement> {
 
 export interface WindowState {
     state: boolean
-    type: null | 'add-album'
+    type: null | WindowType
+    data: any
 }
 
+export type WindowType =
+    | 'add-album'
+    | 'delete-album'
+    | 'change-album-visibility'
+    | 'change-album-name'
+    | 'change-album-preview'
+
 export interface WindowAction extends ThunkAction {
-    payload: 'add-album'
+    payload: WindowType | { data: any; type: WindowType }
 }
 
 export interface AddAlbumFormEvent extends FormEvent<HTMLFormElement> {
@@ -111,7 +129,7 @@ export interface Album {
     creator: string
     count: number
     visibility: 'private' | 'public'
-    last_photo?: string
+    last_photo?: Photo
     background?: string
     createdAt: string
     updatedAt: string
@@ -133,16 +151,39 @@ export interface CustomStore extends Store {
     window: WindowStates
 }
 
-export interface AlbumsAction extends ThunkAction {
+export interface AlbumsAction extends ThunkAction, AnyAction {
     payload: {
         success: boolean
         data: Album[]
     }
 }
 
-export interface AlbumsActionOne extends ThunkAction {
+export interface AlbumsActionOne extends ThunkAction, AnyAction {
     payload: {
         success: boolean
         data: Album
     }
+}
+
+export interface Photo {
+    name: string
+    uploader: string
+    album?: string
+    visibility: 'private' | 'public'
+    last_photo: string
+    createdAt: string
+    updatedAt: string
+}
+
+export interface AlbumUpdateParams {
+    albumId: string
+    visibility?: 'private' | 'public'
+    name?: string
+}
+
+export interface FileFormEvent extends FormEvent<HTMLFormElement> {
+    target: EventTarget &
+        HTMLFormElement & {
+            background: HTMLInputElement
+        }
 }

@@ -22,8 +22,12 @@
 
 .container {
     margin: 0 auto;
-    padding: 0 25px;
+    padding: 0 15px;
     max-width: 1150px;
+
+    @media screen and (min-width: 769px) {
+        padding: 0 25px;
+    }
 }
 
 *,
@@ -189,15 +193,11 @@ a {
     position: fixed;
     width: 100%;
     left: 0;
-    bottom: -100%;
     background-color: white;
     border-radius: 30px 30px 0 0;
     padding: 35px 25px;
     z-index: 20;
-
-    &._show {
-        bottom: 0 !important;
-    }
+    bottom: 0 !important;
 }
 
 .mobile-menu__item {
@@ -224,7 +224,7 @@ a {
 
 .window {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -232,6 +232,11 @@ a {
     border-radius: 35px;
     padding: 30px;
     z-index: 15;
+    width: 85%;
+
+    @media screen and (min-width: 769px) {
+        width: fit-content;
+    }
 }
 
 .form__item {
@@ -405,4 +410,48 @@ a {
 
 .form__checkbox {
     font-size: 1.6rem;
+}
+
+.albums {
+    padding-bottom: 50px;
+}
+
+.window__text {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.highlited {
+    font-weight: 800;
+}
+
+.buttons-container {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+
+    > div {
+        width: 100%;
+    }
+}
+
+.mobile-menu__text {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.mobile-menu__button {
+    margin-bottom: 2rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.window-container {
+    margin-bottom: 2rem;
 }

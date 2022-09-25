@@ -7,9 +7,10 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    left: 50%;
-    bottom: 35px;
-    transform: translateX(-50%);
+    //left: 50%;
+    right: 25px;
+    bottom: 25px;
+    //transform: translateX(-50%);
     z-index: 8;
     background-color: white;
 }

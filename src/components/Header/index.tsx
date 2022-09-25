@@ -82,7 +82,12 @@ const Header = (): ReactElement => {
                                                     text: 'Додати альбом',
                                                 },
                                             ]}
-                                            style={{ top: '130%' }}
+                                            style={{
+                                                top: '130%',
+                                                left: '50%',
+                                                transform: 'translateX(-50%)',
+                                            }}
+                                            arrow={true}
                                         />
                                     ) : (
                                         ''

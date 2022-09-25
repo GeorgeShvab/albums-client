@@ -1,13 +1,13 @@
 import { ReactElement, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import useOutsideClick from '../../hooks/useOutsideClick'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
+import useOutsideClick from '../../../hooks/useOutsideClick'
 import {
     getMobileMenuState,
     hideMobileMenu,
-} from '../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../redux/slices/overlay'
-import RoundedButton from '../RoundedButton'
+} from '../../../redux/slices/mobileMenu'
+import { hideOverlay } from '../../../redux/slices/overlay'
+import RoundedButton from '../../RoundedButton'
 
 const MobileNavigation = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
