@@ -4,6 +4,7 @@ import {
     AuthResponseData,
     AuthServerResponse,
     AuthState,
+    FetchMeAction,
     LogBody,
     RegBody,
 } from '../../types'
@@ -42,44 +43,40 @@ export const fetchReg = createAsyncThunk(
     }
 )
 
-export const fetchMe = createAsyncThunk(
-    'auth/fetchMe',
-    async (_, { rejectWithValue }) => {
-        try {
-            const data = await axios.get('/me')
+export const fetchMe = createAsyncThunk('auth/fetchMe', async () => {
+    try {
+        const data = await axios.get('/me')
+
+        return data.data
+    } catch (e: any) {
+        if (!e.response) {
+            throw e
+        }
+
+        const refresh =
+            localStorage.getItem('Refresh') || localStorage.getItem('refresh')
+
+        if (e.response.data?.errors.msg === 'token expired' && refresh) {
+            console.log('token definetly expired')
+            const newTokens = await axios.get('/token', {
+                headers: { Refresh: refresh },
+            })
+
+            localStorage.setItem('Refresh', newTokens.data.data.refreshToken)
+            localStorage.setItem('Authorization', newTokens.data.data.authToken)
+
+            const data = await axios.get('/me', {
+                headers: {
+                    Authorization: newTokens.data.data.authToken,
+                },
+            })
 
             return data.data
-        } catch (e: any) {
-            if (!e.response) {
-                throw e
-            }
-
-            const refresh =
-                localStorage.getItem('Refresh') ||
-                localStorage.getItem('refresh')
-
-            if (e.response.data?.errors.msg === 'token expired' && refresh) {
-                const newTokens = await axios.get('/token', {
-                    headers: { Refresh: refresh },
-                })
-
-                localStorage.setItem('Refresh', newTokens.data.refresh)
-                localStorage.setItem(
-                    'Authorization',
-                    newTokens.data.Authorization
-                )
-
-                const data = await axios.get('/me', {
-                    headers: { Authorization: newTokens.data.authorization },
-                })
-
-                return data.data
-            }
-
-            return rejectWithValue(e.response.data)
         }
+
+        throw e
     }
-)
+})
 
 const initialState: AuthState = {
     data: null,
@@ -118,9 +115,9 @@ const authSlice = createSlice({
         [fetchMe.pending.type]: (state: AuthState) => {
             state.status = 'loading'
         },
-        [fetchMe.fulfilled.type]: (state: AuthState, action: AuthAction) => {
+        [fetchMe.fulfilled.type]: (state: AuthState, action: FetchMeAction) => {
             state.status = 'loaded'
-            state.data = action.payload.data.user
+            state.data = action.payload.data
         },
         [fetchMe.rejected.type]: (state: AuthState) => {
             state.status = 'error'

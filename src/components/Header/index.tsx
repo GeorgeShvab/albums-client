@@ -19,7 +19,11 @@ const Header = (): ReactElement => {
 
     const addBtnEl = useRef<HTMLLIElement>(null)
 
-    const authToken: string | null = localStorage.getItem('Authorization')
+    const authToken: string | null =
+        localStorage.getItem('Authorization') !== 'undefined' &&
+        localStorage.getItem('Authorization') !== 'null'
+            ? localStorage.getItem('Authorization')
+            : null
 
     const dispatch = useAppDispatch()
 
