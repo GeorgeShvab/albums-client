@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { DotsMenu, RoundedButton, Title } from '..'
+import { AlbumHeadingLoader, DotsMenu, RoundedButton, Title } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import {
     activateSelectionMode,
@@ -124,71 +124,81 @@ const AlbumHeading = ({
 
     return (
         <div className="album-page__heading">
-            <div className="album-page__heading-title">
-                <div className="album-page__heading-container">
-                    <Title text={album?.name || '  '} />
-                    {user?._id === album?.creator._id && user && album ? (
-                        <DotsMenu
-                            contextMenuElements={contextMenuElements}
-                            contextMenuStyle={
-                                mobile
-                                    ? {
-                                          top: '110%',
-                                          right: '0',
-                                          transform: 'none',
-                                      }
-                                    : {
-                                          top: '110%',
-                                      }
-                            }
-                            hideContextMenuOnOutsideHover={true}
-                            style={{
-                                position: 'absolute',
-                                left: '110%',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                            }}
-                        />
+            {album ? (
+                <>
+                    <div className="album-page__heading-title">
+                        <div className="album-page__heading-container">
+                            <Title text={album?.name || '  '} />
+                            {user?._id === album?.creator._id &&
+                            user &&
+                            album ? (
+                                <DotsMenu
+                                    contextMenuElements={contextMenuElements}
+                                    contextMenuStyle={
+                                        mobile
+                                            ? {
+                                                  top: '110%',
+                                                  right: '0',
+                                                  transform: 'none',
+                                              }
+                                            : {
+                                                  top: '110%',
+                                              }
+                                    }
+                                    hideContextMenuOnOutsideHover={true}
+                                    style={{
+                                        position: 'absolute',
+                                        left: '110%',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                    }}
+                                />
+                            ) : (
+                                ''
+                            )}
+                        </div>
+                    </div>
+                    {(!selectionMode.state || mobile) && album && user ? (
+                        <div className="album-page__heading-data">
+                            <p className="album-page__heading-count">
+                                {album?.count + ' фото'}
+                            </p>
+                            <p className="album-page__heading-author">
+                                {'Автор: ' + user?.name}
+                            </p>
+                        </div>
                     ) : (
                         ''
                     )}
-                </div>
-            </div>
-            {(!selectionMode.state || mobile) && album && user ? (
-                <div className="album-page__heading-data">
-                    <p className="album-page__heading-count">
-                        {album?.count + ' фото'}
-                    </p>
-                    <p className="album-page__heading-author">
-                        {'Автор: ' + user?.name}
-                    </p>
-                </div>
+                    {selectionMode.state && !mobile ? (
+                        <div className="album-page__heading-selection">
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleDeleteClick}
+                            >
+                                Видалити
+                            </button>
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleMoveClick}
+                            >
+                                Перемістити
+                            </button>
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleCancelClick}
+                            >
+                                Відмінити
+                            </button>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                </>
             ) : (
-                ''
-            )}
-            {selectionMode.state && !mobile ? (
-                <div className="album-page__heading-selection">
-                    <button
-                        className="album-page__heading-btn"
-                        onClick={handleDeleteClick}
-                    >
-                        Видалити
-                    </button>
-                    <button
-                        className="album-page__heading-btn"
-                        onClick={handleMoveClick}
-                    >
-                        Перемістити
-                    </button>
-                    <button
-                        className="album-page__heading-btn"
-                        onClick={handleCancelClick}
-                    >
-                        Відмінити
-                    </button>
+                <div className="album-page__heading-loader">
+                    <AlbumHeadingLoader />
                 </div>
-            ) : (
-                ''
             )}
         </div>
     )

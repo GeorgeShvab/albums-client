@@ -2,10 +2,12 @@ import { ReactElement, useEffect, useState } from 'react'
 import { Link, Route, Routes, useParams } from 'react-router-dom'
 import {
     AlbumHeading,
+    AlbumHeadingLoader,
     DotsMenu,
     Error,
     FullScreenPhoto,
     Photo,
+    PhotoLoader,
     Title,
 } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
@@ -58,7 +60,7 @@ const Album = (): ReactElement => {
         ;(async () => {
             if (params.albumId) {
                 try {
-                    await dispatch(fetchPhotos(params.albumId)).unwrap()
+                    dispatch(fetchPhotos(params.albumId)).unwrap()
                     await dispatch(fetchAlbum(params.albumId)).unwrap()
                     if (error) setError(null)
                 } catch (e: any) {
@@ -106,23 +108,22 @@ const Album = (): ReactElement => {
         errorImg = UnexpectedError
     }
 
+    // Якщо помилка
     if (error)
         return (
-            <>
-                <div className="album-page">
-                    <Error
-                        style={
-                            album?.creator._id === user.data?._id &&
-                            user.data &&
-                            album
-                                ? { top: '60%' }
-                                : {}
-                        }
-                        imageEl={errorImg}
-                        text={errorText}
-                    />
-                </div>
-            </>
+            <div className="album-page">
+                <Error
+                    style={
+                        album?.creator._id === user.data?._id &&
+                        user.data &&
+                        album
+                            ? { top: '60%' }
+                            : {}
+                    }
+                    imageEl={errorImg}
+                    text={errorText}
+                />
+            </div>
         )
 
     //по дефолту
@@ -133,27 +134,34 @@ const Album = (): ReactElement => {
             </Routes>
             <div className="album-page">
                 <AlbumHeading user={user.data} album={album} />
-
                 <div
                     className={`album-page__container${
                         selectionMode.state ? ' _selection-mode' : ''
                     }`}
                 >
-                    {photos?.map((item) => (
-                        <Photo
-                            selectionMode={selectionMode.state}
-                            {...item}
-                            key={item._id}
-                            selected={selectionMode.selected.includes(item._id)}
-                            isAuthor={
-                                album?.creator._id === user.data?._id &&
-                                album &&
-                                user.data
-                                    ? true
-                                    : false
-                            }
-                        />
-                    ))}
+                    {photos
+                        ? photos.map((item) => (
+                              <Photo
+                                  selectionMode={selectionMode.state}
+                                  {...item}
+                                  key={item._id}
+                                  selected={selectionMode.selected.includes(
+                                      item._id
+                                  )}
+                                  isAuthor={
+                                      album?.creator._id === user.data?._id &&
+                                      album &&
+                                      user.data
+                                          ? true
+                                          : false
+                                  }
+                              />
+                          ))
+                        : new Array(16)
+                              .fill(null)
+                              .map((item, index) => (
+                                  <PhotoLoader key={index} />
+                              ))}
                 </div>
             </div>
         </>
