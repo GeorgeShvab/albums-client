@@ -11,7 +11,7 @@ const PhotoLoader = (props: any) => (
         foregroundColor="#ecebeb"
         {...props}
     >
-        <rect x="0" y="0" rx="8" ry="8" width="150" height="150" />
+        <rect x="0" y="0" rx="8" ry="8" width="100%" height="100%" />
     </ContentLoader>
 )
 
