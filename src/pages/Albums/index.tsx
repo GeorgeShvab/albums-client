@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Album } from '../../components'
+import { Album, AlbumLoader } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { getAlbums } from '../../redux/slices/albums'
 import { isAuthorized } from '../../redux/slices/auth'
@@ -21,9 +21,13 @@ const Albums = (): ReactElement => {
     return (
         <div className="albums">
             <div className="albums__container">
-                {albums?.map((item, index) => (
-                    <Album {...item} key={item._id} />
-                ))}
+                {albums
+                    ? albums?.map((item, index) => (
+                          <Album {...item} key={item._id} />
+                      ))
+                    : new Array(10)
+                          .fill(null)
+                          .map((item, index) => <AlbumLoader key={index} />)}
             </div>
         </div>
     )
