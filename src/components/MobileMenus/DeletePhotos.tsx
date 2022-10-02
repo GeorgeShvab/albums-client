@@ -1,41 +1,36 @@
 import { ReactElement, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { RoundedButton } from '..'
-import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { fetchDeleteAlbum } from '../../redux/slices/albums'
 import {
     getMobileMenuState,
     hideMobileMenu,
-    showMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
+import { fetchDeletePhotos } from '../../redux/slices/photos'
+import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
 
-const DeleteAlbum = (): ReactElement => {
+const DeletePhotos = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
+
     const dispatch = useAppDispatch()
 
     const mobileMenuEl = useRef<HTMLDivElement>(null)
 
-    const handleOutsideClick = () => {
-        dispatch(hideMobileMenu())
-        dispatch(hideOverlay())
-    }
-
     const handleDeleteClick = async () => {
         try {
-            const data = await dispatch(
-                fetchDeleteAlbum(menuState.data.album._id)
-            )
-            if (!data.payload.success) {
-                alert('Помилка при видаленні')
-                return
-            }
+            await dispatch(fetchDeletePhotos()).unwrap()
+            dispatch(deactivateSelectionMode())
             dispatch(hideOverlay())
             dispatch(hideMobileMenu())
         } catch (e) {
-            alert('Помилка при видаленні')
+            alert('Не вдалось видалити фото')
         }
+    }
+
+    const handleOutsideClick = () => {
+        dispatch(hideMobileMenu())
+        dispatch(hideOverlay())
     }
 
     const handleBackClick = () => {
@@ -45,16 +40,15 @@ const DeleteAlbum = (): ReactElement => {
 
     useOutsideClick(mobileMenuEl, handleOutsideClick, [
         'context-menu',
-        'album-heading__item',
+        'mobile-button',
     ])
 
-    if (menuState.type !== 'delete-album' || !menuState.state) return <></>
+    if (menuState.type !== 'delete-photos' || !menuState.state) return <></>
 
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>
             <p className="mobile-menu__text">
-                Ви впевнені, що хочете видалити{' '}
-                <span className="highlited">{menuState.data.album.name}</span>?
+                Ви впевнені, що хочете видалити обрані фотографії?
             </p>
             <div className="mobile-menu__buttons">
                 <div className="mobile-menu__button" onClick={handleBackClick}>
@@ -71,4 +65,4 @@ const DeleteAlbum = (): ReactElement => {
     )
 }
 
-export default DeleteAlbum
+export default DeletePhotos

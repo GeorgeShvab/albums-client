@@ -22,6 +22,8 @@ export type MobileMenuType =
     | 'change-album-name'
     | 'change-album-visibility'
     | 'change-album-preview'
+    | 'delete-photos'
+    | 'move-photos'
 
 export interface MobileMenuState {
     state: boolean
@@ -41,6 +43,7 @@ export type Page =
     | 'add-photo'
     | 'login'
     | 'registration'
+    | 'album'
 
 export interface User {
     _id: string
@@ -68,6 +71,13 @@ export interface AuthResponseData {
     user: User
     refreshToken: string
     authToken: string
+}
+
+export interface FetchMeAction extends ThunkAction, AnyAction {
+    payload: {
+        success: boolean
+        data: User
+    }
 }
 
 export interface LogBody {
@@ -112,6 +122,8 @@ export type WindowType =
     | 'change-album-visibility'
     | 'change-album-name'
     | 'change-album-preview'
+    | 'delete-photos'
+    | 'move-photos'
 
 export interface WindowAction extends ThunkAction {
     payload: WindowType | { data: any; type: WindowType }
@@ -126,7 +138,7 @@ export interface AddAlbumFormEvent extends FormEvent<HTMLFormElement> {
 
 export interface Album {
     name: string
-    creator: string
+    creator: User
     count: number
     visibility: 'private' | 'public'
     last_photo?: Photo
@@ -186,4 +198,90 @@ export interface FileFormEvent extends FormEvent<HTMLFormElement> {
         HTMLFormElement & {
             background: HTMLInputElement
         }
+}
+
+export interface Photo {
+    name: string
+    uploader: string
+    album?: mongoose.Schema.Types.ObjectId
+    visibility: 'private' | 'public'
+    createdAt: string
+    updatedAt: string
+    _id: string
+}
+
+export interface PhotosState {
+    status: Status
+    data: null | Photo[]
+}
+
+export interface PhotosAction extends ThunkAction, AnyAction {
+    payload: {
+        data: Photo[]
+        status: boolean
+    }
+}
+
+export interface AlbumState {
+    status: Status
+    data: null | Album
+}
+
+export interface AlbumAction {
+    payload: {
+        data: Album
+        status: boolean
+    }
+}
+
+export interface SelectionModeState {
+    state: boolean
+    selected: string[]
+}
+
+export interface SelectAction extends AnyAction, ThunkAction {
+    payload: string
+}
+
+export interface DeletePhotosAction extends AnyAction, ThunkAction {
+    payload: {
+        data: string[]
+        success: boolean
+    }
+}
+
+export interface MovePhotosAction extends AnyAction, ThunkAction {
+    payload: {
+        data: { photos: string[]; album: undefined | Album }
+        success: boolean
+    }
+}
+
+export interface SelectElement {
+    func: () => void
+    text: string
+    value: string
+    selected?: boolean
+}
+
+export interface DataListElement {
+    text: string
+    value: string
+    id: string
+}
+
+export interface ChangeNumberOfPhotosAction extends ThunkAction, AnyAction {
+    payload: {
+        albumId: string
+        count: number
+    }
+}
+
+export interface FullScreenState {
+    state: boolean
+    data: Photo | null
+}
+
+export interface FullScreenAction extends ThunkAction, AnyAction {
+    payload: Photo
 }

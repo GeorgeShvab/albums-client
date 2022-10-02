@@ -11,6 +11,7 @@
     background: none;
     visibility: visible;
     padding: 6px;
+    z-index: 10;
 
     @media screen and (min-width: 769px) {
         visibility: hidden;

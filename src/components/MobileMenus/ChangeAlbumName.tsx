@@ -25,7 +25,10 @@ const ChangeAlbumName = (): ReactElement => {
         dispatch(hideMobileMenu())
     }
 
-    useOutsideClick(mobileMenuEl, handleOutsideClick, ['context-menu'])
+    useOutsideClick(mobileMenuEl, handleOutsideClick, [
+        'context-menu',
+        'album-heading__item',
+    ])
 
     if (!menuState.state || menuState.type !== 'change-album-name') return <></>
 

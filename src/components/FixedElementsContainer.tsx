@@ -6,9 +6,16 @@ import {
     ChangeAlbumNameMobileMenu,
     ChangeAlbumPreviewWindow,
     ChangeAlbumPreviewMobileMenu,
+    DeletePhotos,
+    CancelSelection,
+    MovePhotos,
+    DeletePhotosMobileMenu,
+    DeletePhotosWindow,
+    MovePhotosMobileMenu,
+    MovePhotosWindow,
 } from '.'
 import AddAlbumMenu from './MobileMenus/AddAlbumMenu'
-import AddingButton from './AddingButton'
+import AddingButton from './MobileButtons/AddingButton'
 import AddingMenu from './MobileMenus/AddingMenu'
 import MobileNavigation from './MobileMenus/MobileNavigation'
 import Overlay from './Overlay'
@@ -32,6 +39,13 @@ const FixedElementsContainer = () => {
             <ChangeAlbumNameMobileMenu />
             <ChangeAlbumPreviewWindow />
             <ChangeAlbumPreviewMobileMenu />
+            <DeletePhotos />
+            <CancelSelection />
+            <MovePhotos />
+            <DeletePhotosMobileMenu />
+            <DeletePhotosWindow />
+            <MovePhotosMobileMenu />
+            <MovePhotosWindow />
         </>
     )
 }

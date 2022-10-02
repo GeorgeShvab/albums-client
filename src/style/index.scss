@@ -196,7 +196,7 @@ a {
     background-color: white;
     border-radius: 30px 30px 0 0;
     padding: 35px 25px;
-    z-index: 20;
+    z-index: 35;
     bottom: 0 !important;
 }
 
@@ -453,5 +453,13 @@ a {
 }
 
 .window-container {
+    margin-bottom: 2rem;
+}
+
+.mobile-menu__input {
+    margin-bottom: 2rem;
+}
+
+.window__input {
     margin-bottom: 2rem;
 }

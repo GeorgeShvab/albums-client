@@ -10,11 +10,12 @@ import {
     AddingMenu,
     DeleteAlbumWindow,
     FixedElementsContainer,
+    FullScreenPhoto,
     Header,
     MobileNavigation,
     Overlay,
 } from './components'
-import { Albums, Login, Main } from './pages'
+import { AlbumPage, Albums, Login, Main } from './pages'
 import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
 import { fetchMe, getUser } from './redux/slices/auth'
@@ -43,7 +44,11 @@ function App() {
     useEffect(() => {
         window.addEventListener('resize', throttle(resizeHandler, 500))
 
-        if (localStorage.getItem('Authorization')) {
+        if (
+            localStorage.getItem('Authorization') &&
+            localStorage.getItem('Authorization') !== 'undefined' &&
+            localStorage.getItem('Authorization') !== 'null'
+        ) {
             dispatch(fetchMe())
         }
 
@@ -61,6 +66,7 @@ function App() {
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/" element={<Main />} />
                 <Route path="/albums" element={<Albums />} />
+                <Route path="/albums/:albumId/*" element={<AlbumPage />} />
             </Routes>
         </div>
     )

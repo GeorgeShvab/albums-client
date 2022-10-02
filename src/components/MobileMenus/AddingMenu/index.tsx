@@ -35,7 +35,7 @@ const AddingMenu = (): ReactElement => {
         dispatch(showMobileMenu('add-album'))
     }
 
-    useOutsideClick(mobileMenuEl, outsideClickFunc, ['adding-button'])
+    useOutsideClick(mobileMenuEl, outsideClickFunc, ['mobile-button'])
 
     if (menuState.type !== 'adding' || !menuState.state) return <></>
 

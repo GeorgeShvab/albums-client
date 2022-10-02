@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk, Store } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import {
+    Album,
     AlbumsAction,
     AlbumsActionOne,
     AlbumsState,
     AlbumUpdateParams,
     AuthState,
+    ChangeNumberOfPhotosAction,
     CustomStore,
 } from '../../types'
+import { changeAlbumName, changeAlbumVisibility } from './album'
 
 export const fetchAlbums = createAsyncThunk(
     'albums/fetchAlbums',
@@ -65,10 +68,12 @@ export const fetchDeleteAlbum = createAsyncThunk(
 
 export const fetchChangeVisibility = createAsyncThunk(
     'albums/fetchChangeVisibility',
-    async ({ albumId, visibility }: AlbumUpdateParams) => {
+    async ({ albumId, visibility }: AlbumUpdateParams, { dispatch }) => {
         const data = await axios.patch(`/album/${albumId}`, {
             visibility: visibility,
         })
+
+        dispatch(changeAlbumVisibility({ albumId: albumId }))
 
         return data.data
     }
@@ -76,11 +81,20 @@ export const fetchChangeVisibility = createAsyncThunk(
 
 export const fetchChangeName = createAsyncThunk(
     'albums/fetchChangeName',
-    async (params: AlbumUpdateParams, { rejectWithValue }) => {
+    async (params: AlbumUpdateParams, { rejectWithValue, dispatch }) => {
         try {
             const data = await axios.patch(`/album/${params.albumId}`, {
                 newName: params.name,
             })
+
+            if (params.name) {
+                dispatch(
+                    changeAlbumName({
+                        albumId: params.albumId,
+                        name: params.name,
+                    })
+                )
+            }
 
             return data.data
         } catch (e: any) {
@@ -128,6 +142,25 @@ const albumsSlice = createSlice({
         cleanAlbums: (state: AlbumsState) => {
             state.status = 'loading'
             state.data = null
+        },
+        changeNumberOfPhotos: (
+            state: AlbumsState,
+            action: ChangeNumberOfPhotosAction
+        ) => {
+            if (state.data) {
+                state.data = state.data.map((item) => {
+                    if (item._id === action.payload.albumId) {
+                        return {
+                            ...item,
+                            count: item.count + action.payload.count,
+                        }
+                    }
+                    return item
+                })
+            }
+        },
+        addAlbum: (state: AlbumsState, action: { payload: Album }) => {
+            state.data?.unshift(action.payload)
         },
     },
     extraReducers: {
@@ -219,4 +252,5 @@ const albumsSlice = createSlice({
 export const getAlbums = ({ albums }: { albums: AlbumsState }) => albums.data
 
 export default albumsSlice.reducer
-export const { cleanAlbums } = albumsSlice.actions
+export const { cleanAlbums, changeNumberOfPhotos, addAlbum } =
+    albumsSlice.actions

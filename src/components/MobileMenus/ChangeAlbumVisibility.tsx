@@ -48,7 +48,10 @@ const ChangeAlbumVisibility = (): ReactElement => {
         }
     }
 
-    useOutsideClick(mobileMenuEl, handleOutsideClick, ['context-menu'])
+    useOutsideClick(mobileMenuEl, handleOutsideClick, [
+        'context-menu',
+        'album-heading__item',
+    ])
 
     if (!menuState.state || menuState.type !== 'change-album-visibility')
         return <></>

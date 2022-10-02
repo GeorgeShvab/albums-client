@@ -4,9 +4,12 @@ import throttle from '../utils/thorttle'
 const useOutsideHover = (
     ref: RefObject<HTMLElement>,
     func: () => void,
-    classList?: string[]
+    classList?: string[],
+    disabled?: boolean
 ) => {
     const documentHoverHandler = (e: MouseEvent & { target: any }) => {
+        if (disabled) return
+
         if (!ref.current || ref.current.contains(<Node>e.target)) {
             return
         }

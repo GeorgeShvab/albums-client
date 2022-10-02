@@ -5,9 +5,10 @@ import ContextMenu from '../ContextMenu'
 import './style.scss'
 
 const DotsMenu = (props: {
-    style: any
+    style?: any
     contextMenuStyle: any
     contextMenuElements: { func: () => void; text: string }[]
+    hideContextMenuOnOutsideHover?: boolean
 }): ReactElement => {
     const [showConextMenu, setShowContextMenu] = useState<boolean>(false)
 
@@ -21,13 +22,18 @@ const DotsMenu = (props: {
         setShowContextMenu(false)
     }
 
-    useOutsideHover(btnEl, handleOutsideClick, ['dots-menu'])
+    useOutsideHover(
+        btnEl,
+        handleOutsideClick,
+        ['dots-menu'],
+        props.hideContextMenuOnOutsideHover
+    )
 
     useOutsideClick(btnEl, handleOutsideClick)
 
     return (
         <button
-            className="dots-menu"
+            className={`dots-menu${showConextMenu ? ' _show-menu' : ''}`}
             style={props.style}
             onClick={handleButtonClcick}
             ref={btnEl}

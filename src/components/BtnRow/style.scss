@@ -1,0 +1,39 @@
+.btn-row {
+    display: grid;
+    grid-gap: 10px;
+}
+
+.btn-row__item {
+    display: none;
+    background: none;
+    outline: none;
+    background-color: black;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0 20px;
+    border: 2px solid black;
+    cursor: pointer;
+
+    > span {
+        color: white;
+    }
+
+    &:hover {
+        background-color: transparent !important;
+        border: 2px solid black !important;
+
+        > span {
+            color: black;
+        }
+    }
+
+    &:last-child {
+        border-radius: 0 20px 20px 0;
+    }
+    &:first-child {
+        border-radius: 20px 0 0 20px;
+    }
+}

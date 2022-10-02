@@ -26,7 +26,10 @@ const ChangeAlbumName = (): ReactElement => {
         dispatch(hideWindow())
     }
 
-    useOutsideClick(windowEl, handleOutsideClick, ['dots-menu', 'context-menu'])
+    useOutsideClick(windowEl, handleOutsideClick, [
+        'context-menu',
+        'album-heading__item',
+    ])
 
     if (!window.state || window.type !== 'change-album-name') return <></>
 

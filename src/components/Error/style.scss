@@ -1,0 +1,25 @@
+.page-error {
+    padding: 0 2rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.page-error__text {
+    text-align: center;
+    font-size: 2rem;
+    color: #d5d5d5;
+    line-height: 1.4;
+
+    @media screen and (min-width: 769px) {
+        font-size: 2rem;
+    }
+}
+
+.page-error__img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}

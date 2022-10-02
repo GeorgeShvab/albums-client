@@ -1,0 +1,83 @@
+.album-page__heading-selection {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.album-page__heading-title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: 769px) {
+        gap: 20px;
+    }
+}
+
+.album-page__heading-btn {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 3px;
+
+    ._delete {
+        color: #df786c;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+}
+
+.album-page__heading {
+    margin-bottom: 20px;
+
+    .dots-menu {
+        position: relative;
+        visibility: visible;
+
+        &:hover {
+            background-color: rgb(0, 0, 0, 0.04);
+        }
+
+        &._show-menu {
+            background-color: rgb(0, 0, 0, 0.04);
+        }
+
+        span {
+            background-color: black;
+
+            &::before {
+                background-color: black;
+            }
+
+            &::after {
+                background-color: black;
+            }
+        }
+    }
+}
+
+.album-page__heading-container {
+    position: relative;
+}
+
+.album-page__heading-data {
+    padding-top: 10px;
+}
+
+.album-page__heading-count {
+    margin-bottom: 5px;
+}
+
+.album-page__heading-count,
+.album-page__heading-author {
+    text-align: center;
+    font-size: 1.7rem;
+    color: rgba(0, 0, 0, 0.4);
+}

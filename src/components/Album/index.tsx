@@ -123,7 +123,7 @@ const Album = (props: types.Album): ReactElement => {
             className="album"
             style={{ backgroundImage: `url(${encodeURI(imgLink)})` }}
         >
-            <Link to={`/album/${props._id}`}>
+            <Link to={`/albums/${props._id}`}>
                 <div className="album__content">
                     <h2 className="album__title">{props.name}</h2>
                     <p className="album__count">{props.count + ' фото'}</p>

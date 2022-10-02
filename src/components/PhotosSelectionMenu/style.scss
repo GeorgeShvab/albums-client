@@ -1,0 +1,19 @@
+.photos-selection__btn {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 5px 15px;
+
+    &._delete {
+        color: #df786c;
+    }
+}
+
+.photos-selection {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    padding-top: 15px;
+}
