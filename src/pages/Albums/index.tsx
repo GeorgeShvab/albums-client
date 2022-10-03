@@ -13,6 +13,7 @@ const Albums = (): ReactElement => {
 
     useEffect(() => {
         dispatch(setPage('albums'))
+        document.title = 'Ваші альбоми'
     }, [])
 
     if (!localStorage.getItem('Authorization'))

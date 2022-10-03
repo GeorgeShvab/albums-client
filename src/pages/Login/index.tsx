@@ -12,6 +12,7 @@ const Login = (): ReactElement => {
 
     useEffect(() => {
         dispatch(setPage('login'))
+        document.title = 'Вхід'
     }, [])
 
     if (user.status === 'loaded' && user.data) {

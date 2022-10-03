@@ -16,6 +16,7 @@ const Registration = (): ReactElement => {
 
     useEffect(() => {
         dispatch(setPage('registration'))
+        document.title = 'Реєстрація'
     }, [])
 
     if (user.status === 'loaded' && user.data) {

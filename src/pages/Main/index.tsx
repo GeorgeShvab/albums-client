@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Heading, RoundedButton } from '../../components'
 import { useAppSelector } from '../../hooks/reduxHooks'
@@ -6,6 +6,10 @@ import { isAuthorized } from '../../redux/slices/auth'
 import './style.scss'
 
 const Main = (): ReactElement => {
+    useEffect(() => {
+        document.title = 'Головна'
+    }, [])
+
     const isAuth = useAppSelector(isAuthorized)
 
     return (

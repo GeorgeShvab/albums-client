@@ -39,7 +39,6 @@ const Album = (): ReactElement => {
     const photos = useAppSelector(getPhotos)
     const album = useAppSelector(getAlbum)
     const user = useAppSelector(getUser)
-    const mobile = useAppSelector(isMobile)
     const selectionMode = useAppSelector(isSelectionMode)
 
     const dispatch = useAppDispatch()
@@ -54,6 +53,16 @@ const Album = (): ReactElement => {
         if (photos && !photos.length)
             setError({ type: 'EMPTY', text: 'Альбом пустий' })
     }, [photos])
+
+    useEffect(() => {
+        if (album) {
+            document.title = album.name
+        } else if (error && !album) {
+            document.title = 'Помилка'
+        } else {
+            document.title = 'Альбом'
+        }
+    }, [album, error])
 
     useEffect(() => {
         dispatch(setPage('album'))
