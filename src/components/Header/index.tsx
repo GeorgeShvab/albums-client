@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState } from 'react'
+import { memo, ReactElement, useRef, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
@@ -11,7 +11,7 @@ import ContextMenu from '../ContextMenu'
 import HeaderSvgs from '../HeaderSvgs'
 import './style.scss'
 
-const Header = (): ReactElement => {
+const Header = memo((): ReactElement => {
     const mobile = useAppSelector(isMobile)
     const page = useAppSelector(getCurrentPage)
     const navigate = useNavigate()
@@ -185,6 +185,6 @@ const Header = (): ReactElement => {
             </div>
         </header>
     )
-}
+})
 
 export default Header

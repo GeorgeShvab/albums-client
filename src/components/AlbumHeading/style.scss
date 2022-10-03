@@ -11,8 +11,16 @@
     align-items: center;
     justify-content: center;
 
+    .title {
+        font-size: 3rem;
+    }
+
     @media screen and (min-width: 769px) {
         gap: 20px;
+
+        .title {
+            font-size: 4rem;
+        }
     }
 }
 

@@ -157,7 +157,7 @@ const Album = (): ReactElement => {
                                   }
                               />
                           ))
-                        : new Array(30)
+                        : new Array(50)
                               .fill(null)
                               .map((item, index) => (
                                   <PhotoLoader key={index} />
