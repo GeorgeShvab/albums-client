@@ -45,14 +45,9 @@ const Album = (): ReactElement => {
     const params = useParams()
 
     const [error, setError] = useState<{
-        type: 'UNEXPECTED' | 'NOT_FOUND' | 'FORBIDDEN' | 'EMPTY'
+        type: 'UNEXPECTED' | 'NOT_FOUND' | 'FORBIDDEN'
         text: string
     } | null>(null)
-
-    useEffect(() => {
-        if (photos && !photos.length)
-            setError({ type: 'EMPTY', text: 'Альбом пустий' })
-    }, [photos])
 
     useEffect(() => {
         if (album) {
@@ -106,9 +101,6 @@ const Album = (): ReactElement => {
     if (error?.type === 'NOT_FOUND') {
         errorText = 'Альбом не знайдено'
         errorImg = NotFoundError
-    } else if (error?.type === 'EMPTY') {
-        errorText = 'Альбом пустий'
-        errorImg = Empty
     } else if (error?.type === 'FORBIDDEN') {
         errorText = 'Альбом приватний, отже доступний тільки власнику'
         errorImg = ForbiddenError
@@ -143,35 +135,44 @@ const Album = (): ReactElement => {
             </Routes>
             <div className="album-page">
                 <AlbumHeading user={user.data} album={album} />
-                <div
-                    className={`album-page__container${
-                        selectionMode.state ? ' _selection-mode' : ''
-                    }`}
-                >
-                    {photos
-                        ? photos.map((item) => (
-                              <Photo
-                                  selectionMode={selectionMode.state}
-                                  {...item}
-                                  key={item._id}
-                                  selected={selectionMode.selected.includes(
-                                      item._id
-                                  )}
-                                  isAuthor={
-                                      album?.creator._id === user.data?._id &&
-                                      album &&
-                                      user.data
-                                          ? true
-                                          : false
-                                  }
-                              />
-                          ))
-                        : new Array(50)
-                              .fill(null)
-                              .map((item, index) => (
-                                  <PhotoLoader key={index} />
-                              ))}
-                </div>
+                {photos && photos?.length === 0 ? (
+                    <Error
+                        style={{ top: '60%' }}
+                        imageEl={Empty}
+                        text={errorText}
+                    />
+                ) : (
+                    <div
+                        className={`album-page__container${
+                            selectionMode.state ? ' _selection-mode' : ''
+                        }`}
+                    >
+                        {photos
+                            ? photos.map((item) => (
+                                  <Photo
+                                      selectionMode={selectionMode.state}
+                                      {...item}
+                                      key={item._id}
+                                      selected={selectionMode.selected.includes(
+                                          item._id
+                                      )}
+                                      isAuthor={
+                                          album?.creator._id ===
+                                              user.data?._id &&
+                                          album &&
+                                          user.data
+                                              ? true
+                                              : false
+                                      }
+                                  />
+                              ))
+                            : new Array(50)
+                                  .fill(null)
+                                  .map((item, index) => (
+                                      <PhotoLoader key={index} />
+                                  ))}
+                    </div>
+                )}
             </div>
         </>
     )
