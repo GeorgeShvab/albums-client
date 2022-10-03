@@ -25,12 +25,16 @@ const FullScreenPhoto = (): ReactElement => {
     }
 
     useEffect(() => {
-        const html = document.querySelector('html')
-        if (html) html.style.overflow = 'hidden'
+        const body = document.querySelector('body')
+        if (body?.offsetHeight !== window.innerHeight) {
+            body?.classList.add('_overflow-hidden')
+        }
+        if (body) body.style.overflow = 'hidden'
 
         return () => {
-            const html = document.querySelector('html')
-            if (html) html.style.overflow = 'auto'
+            const body = document.querySelector('body')
+            body?.classList.remove('_overflow-hidden')
+            if (body) body.style.overflow = 'auto'
         }
     }, [])
 

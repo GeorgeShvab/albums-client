@@ -61,13 +61,15 @@ function App() {
         <div className="App">
             <FixedElementsContainer />
             <Header />
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<Registration />} />
-                <Route path="/" element={<Main />} />
-                <Route path="/albums" element={<Albums />} />
-                <Route path="/albums/:albumId/*" element={<AlbumPage />} />
-            </Routes>
+            <main className="main">
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/registration" element={<Registration />} />
+                    <Route path="/" element={<Main />} />
+                    <Route path="/albums" element={<Albums />} />
+                    <Route path="/albums/:albumId/*" element={<AlbumPage />} />
+                </Routes>
+            </main>
         </div>
     )
 }

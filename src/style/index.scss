@@ -9,6 +9,14 @@
     }
 }
 
+body {
+    &._overflow-hidden {
+        @media screen and (min-width: 993px) {
+            padding-right: 18.5px;
+        }
+    }
+}
+
 .App {
     position: relative;
     overflow: hidden;
