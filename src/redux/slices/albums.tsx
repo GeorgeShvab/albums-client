@@ -233,7 +233,6 @@ const albumsSlice = createSlice({
             state: AlbumsState,
             action: AlbumsActionOne
         ) => {
-            console.log(action.payload)
             if (state.data) {
                 state.data = state.data.map((item) => {
                     if (item._id === action.meta.arg.albumId) {

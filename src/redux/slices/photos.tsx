@@ -71,8 +71,7 @@ export const fetchMovePhotos = createAsyncThunk(
         }
 
         if (body.newAlbum) {
-            console.log(data.data)
-            //dispatch(addAlbum(data.data.data.album))
+            dispatch(addAlbum(data.data.data.album))
         }
 
         return data.data
