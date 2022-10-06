@@ -7,7 +7,7 @@ import {
     hideMobileMenu,
     showMobileMenu,
 } from '../../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../../redux/slices/overlay'
+import { hideOverlay, showOverlay } from '../../../redux/slices/overlay'
 
 const AddingMenu = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -29,6 +29,11 @@ const AddingMenu = (): ReactElement => {
         dispatch(hideOverlay())
     }
 
+    const addPhotoClickHadler = () => {
+        dispatch(showOverlay())
+        dispatch(showMobileMenu('add-photo'))
+    }
+
     const addAlbumClickHadler = () => {
         if (menuState.type !== 'adding' || !menuState.state) return
 
@@ -47,10 +52,8 @@ const AddingMenu = (): ReactElement => {
             ref={mobileMenuEl}
         >
             <ul className="mobile-menu__list">
-                <li className="mobile-menu__item" onClick={menuClickHandler}>
-                    <Link to="/add-photo">
-                        <h5>Додати фото</h5>
-                    </Link>
+                <li className="mobile-menu__item" onClick={addPhotoClickHadler}>
+                    <h5>Додати фото</h5>
                 </li>
                 <li className="mobile-menu__item" onClick={addAlbumClickHadler}>
                     <h5>Додати альбом</h5>

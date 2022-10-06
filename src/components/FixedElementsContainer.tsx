@@ -13,6 +13,8 @@ import {
     DeletePhotosWindow,
     MovePhotosMobileMenu,
     MovePhotosWindow,
+    AddPhotoMobileMenu,
+    AddPhotoWindow,
 } from '.'
 import AddAlbumMenu from './MobileMenus/AddAlbumMenu'
 import AddingButton from './MobileButtons/AddingButton'
@@ -46,6 +48,8 @@ const FixedElementsContainer = () => {
             <DeletePhotosWindow />
             <MovePhotosMobileMenu />
             <MovePhotosWindow />
+            <AddPhotoMobileMenu />
+            <AddPhotoWindow />
         </>
     )
 }

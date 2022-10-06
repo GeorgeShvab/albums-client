@@ -41,17 +41,12 @@ const MovePhotos = (): ReactElement => {
 
     if (menuState.type !== 'move-photos' || !menuState.state) return <></>
 
-    const elements: DataListElement[] = albums
-        ? [
-              ...albums
-                  ?.map((item) => ({
-                      text: item.name,
-                      value: item._id,
-                      id: item._id,
-                  }))
-                  .filter((item) => item.id !== album?._id),
-          ]
-        : []
+    const elements: DataListElement[] | undefined = albums
+        ?.map((item) => ({
+            text: item.name,
+            id: item._id,
+        }))
+        .filter((item) => item.id !== album?._id)
 
     const handleSubmit = async (
         e: FormEvent<HTMLFormElement> & {
@@ -59,23 +54,39 @@ const MovePhotos = (): ReactElement => {
         }
     ) => {
         e.preventDefault()
+
         try {
-            await dispatch(
-                fetchMovePhotos({
-                    newAlbum:
-                        !e.target.album.dataset.albumid &&
-                        e.target.album.value.trim()
-                            ? e.target.album.value.trim()
-                            : false,
-                    albumId: e.target.album.dataset.albumid,
-                })
-            ).unwrap()
+            if (!e.target.album.value.trim()) {
+                alert('Некорректна назва')
+                return
+            }
+
+            const albumId: string | undefined = albums?.find(
+                (item) => item.name === e.target.album.value.trim()
+            )?._id
+
+            if (albumId) {
+                await dispatch(
+                    fetchMovePhotos({
+                        album: albumId,
+                    })
+                ).unwrap()
+            } else {
+                await dispatch(
+                    fetchMovePhotos({
+                        album: {
+                            name: e.target.album.value,
+                            visibility: 'private',
+                        },
+                    })
+                ).unwrap()
+            }
 
             dispatch(hideOverlay())
             dispatch(hideMobileMenu())
             dispatch(deactivateSelectionMode())
         } catch (e) {
-            alert('Не вдалось перемістити альбом')
+            alert('Не вдалось перемістити фото')
         }
     }
 
@@ -83,11 +94,12 @@ const MovePhotos = (): ReactElement => {
         <div className="mobile-menu" ref={mobileMenuEl}>
             <form onSubmit={handleSubmit} className="form">
                 <p className="mobile-menu__text">
-                    Виберіть альбом в який перемістити фото
+                    Введіть назву нового або вже існуючого альбому, в який
+                    хочете перемістити фото
                 </p>
                 <div className="mobile-menu__input">
                     <InputWithDatalist
-                        elements={elements}
+                        elements={elements ? elements : []}
                         name="album"
                         style={{ bottom: '95%' }}
                     />

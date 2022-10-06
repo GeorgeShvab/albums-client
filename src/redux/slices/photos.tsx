@@ -1,6 +1,7 @@
 import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import {
+    AddPhotoAction,
     CustomStore,
     DeletePhotosAction,
     MovePhotosAction,
@@ -32,22 +33,16 @@ export const fetchDeletePhotos = createAsyncThunk(
 export const fetchMovePhotos = createAsyncThunk(
     'photos/fetchMovePhotos',
     async (
-        body: { newAlbum: string | false; albumId?: string },
+        body: {
+            album: string | { name: string; visibility: 'private' | 'public' }
+        },
         { getState, dispatch }
     ) => {
         const store: any = getState()
-        const data = await axios.patch(
-            '/photos/update',
-            body.newAlbum
-                ? {
-                      photos: store.selectionMode.selected,
-                      newAlbum: { name: body.newAlbum, visibility: 'private' },
-                  }
-                : {
-                      photos: store.selectionMode.selected,
-                      album: body.albumId,
-                  }
-        )
+        const data = await axios.patch('/photos/update', {
+            ...body,
+            photos: store.selectionMode.selected,
+        })
 
         dispatch(
             changeNumberOfPhotos({
@@ -61,20 +56,45 @@ export const fetchMovePhotos = createAsyncThunk(
                 count: -Number(store.selectionMode.selected.length),
             })
         )
-        if (body.albumId) {
+
+        if (typeof body.album === 'string') {
             dispatch(
                 changeNumberOfPhotos({
-                    albumId: body.albumId,
+                    albumId: body.album,
                     count: Number(store.selectionMode.selected.length),
                 })
             )
-        }
-
-        if (body.newAlbum) {
+        } else {
             dispatch(addAlbum(data.data.data.album))
         }
 
         return data.data
+    }
+)
+
+export const fetchAddPhotos = createAsyncThunk(
+    'photos/fetchAddPhotos',
+    async (body: FormData, { dispatch, getState }) => {
+        const data = await axios.post('/photo', body)
+
+        const store: any = getState()
+
+        if (data.data.data.album) {
+            dispatch(addAlbum(data.data.data.album))
+        }
+
+        if (store.album.data?._id === data.data.data.photos[0].album) {
+            dispatch(changeNumberOfPhotosAlbum(data.data.data.photos.length))
+        }
+
+        dispatch(
+            changeNumberOfPhotos({
+                albumId: data.data.data.photos[0].album,
+                count: data.data.data.photos.length,
+            })
+        )
+
+        return data.data.data
     }
 )
 
@@ -121,6 +141,17 @@ const photosSlice = createSlice({
                 state.data = state.data.filter(
                     (item) => !action.payload.data.photos.includes(item._id)
                 )
+            }
+        },
+        [fetchAddPhotos.fulfilled.type]: (
+            state: PhotosState,
+            action: AddPhotoAction
+        ) => {
+            if (
+                state.data &&
+                state.data[0].album === action.payload.photos[0].album
+            ) {
+                state.data = [...action.payload.photos, ...state.data]
             }
         },
     },

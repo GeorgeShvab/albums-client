@@ -24,6 +24,7 @@ export type MobileMenuType =
     | 'change-album-preview'
     | 'delete-photos'
     | 'move-photos'
+    | 'add-photo'
 
 export interface MobileMenuState {
     state: boolean
@@ -124,6 +125,7 @@ export type WindowType =
     | 'change-album-preview'
     | 'delete-photos'
     | 'move-photos'
+    | 'add-photo'
 
 export interface WindowAction extends ThunkAction {
     payload: WindowType | { data: any; type: WindowType }
@@ -266,7 +268,6 @@ export interface SelectElement {
 
 export interface DataListElement {
     text: string
-    value: string
     id: string
 }
 
@@ -284,4 +285,19 @@ export interface FullScreenState {
 
 export interface FullScreenAction extends ThunkAction, AnyAction {
     payload: Photo
+}
+
+export interface AddPhotoFormEvent extends FormEvent<HTMLFormElement> {
+    target: EventTarget &
+        HTMLFormElement & {
+            photos: HTMLInputElement
+            albumName: HTMLInputElement
+        }
+}
+
+export interface AddPhotoAction extends ThunkAction, AnyAction {
+    payload: {
+        photos: Photo[]
+        album?: Album
+    }
 }

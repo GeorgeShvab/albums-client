@@ -19,15 +19,11 @@ const InputWithList = ({
         data: DataListElement[]
     }>({ state: false, data: elements })
 
-    const albums = useAppSelector(getAlbums)
-
     const divEl = useRef<HTMLDivElement>(null)
 
-    const [inputValue, setInputValue] = useState<{ value: string; id: string }>(
-        { value: '', id: '' }
-    )
-
-    const [newAlbum, setNewAlbum] = useState<boolean>(false)
+    const [inputValue, setInputValue] = useState<{ value: string }>({
+        value: '',
+    })
 
     const handleInputFocus = () => {
         setList((prev) => ({ ...prev, state: true }))
@@ -36,42 +32,17 @@ const InputWithList = ({
     const handleInput = (
         e: FormEvent<HTMLInputElement> & { target: HTMLInputElement }
     ) => {
+        const filtredElements = elements.filter((item, index) =>
+            new RegExp(e.target.value, 'ig').test(item.text)
+        )
+
         setList((prev) => ({
             ...prev,
-            data:
-                e.target.value.trim() &&
-                albums?.findIndex(
-                    (item) => item.name === e.target.value.trim()
-                ) === -1
-                    ? [
-                          {
-                              text: 'Створити альбом ' + e.target.value,
-                              value: 'newAlbum',
-                              id: 'new',
-                          },
-                          ...elements.filter((item) =>
-                              new RegExp(e.target.value.trim(), 'ig').test(
-                                  item.text
-                              )
-                          ),
-                      ]
-                    : elements.filter((item) =>
-                          new RegExp(e.target.value.trim(), 'ig').test(
-                              item.text
-                          )
-                      ),
+            data: filtredElements,
         }))
+
         setInputValue({
             value: e.target.value,
-            id:
-                elements.findIndex((item) => item.text === e.target.value) !==
-                -1
-                    ? elements[
-                          elements.findIndex(
-                              (item) => item.text === e.target.value
-                          )
-                      ].id
-                    : 'new',
         })
     }
 
@@ -80,21 +51,14 @@ const InputWithList = ({
         setList((prev) => ({ ...prev, state: false }))
     }
 
-    const handleDatalistItemClick = (
-        text: string,
-        value: string,
-        id: string
-    ) => {
+    const handleDatalistItemClick = (text: string) => {
         setInputValue({
             value: /Створити альбом /.test(text)
                 ? text.replace(/Створити альбом /, '')
                 : text,
-            id: id,
         })
+
         setList((prev) => ({ ...prev, state: false }))
-        if (value === 'newAlbum') {
-            setNewAlbum(true)
-        }
     }
 
     useOutsideClick(divEl, handleOutsideClick, ['mobile-button'])
@@ -115,12 +79,6 @@ const InputWithList = ({
                 value={inputValue.value}
                 autoComplete="off"
                 spellCheck={false}
-                data-new={newAlbum}
-                data-albumid={
-                    inputValue.id === 'new' || !inputValue.id
-                        ? ''
-                        : inputValue.id
-                }
             />
             <ul className="list-input__datalist" style={style}>
                 {list.data.map((item, index) => (
@@ -128,11 +86,7 @@ const InputWithList = ({
                         key={item.id}
                         className="list-input__datalist-item"
                         onClick={() => {
-                            handleDatalistItemClick(
-                                item.text,
-                                item.value,
-                                item.id
-                            )
+                            handleDatalistItemClick(item.text)
                         }}
                     >
                         <span>{item.text}</span>

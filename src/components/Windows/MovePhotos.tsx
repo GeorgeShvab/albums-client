@@ -29,17 +29,12 @@ const MovePhotos = (): ReactElement => {
         dispatch(hideWindow())
     }
 
-    const elements: DataListElement[] = albums
-        ? [
-              ...albums
-                  ?.map((item) => ({
-                      text: item.name,
-                      value: item._id,
-                      id: item._id,
-                  }))
-                  .filter((item) => item.id !== album?._id),
-          ]
-        : []
+    const elements: DataListElement[] | undefined = albums
+        ?.map((item) => ({
+            text: item.name,
+            id: item._id,
+        }))
+        .filter((item) => item.id !== album?._id)
 
     const handleSubmit = async (
         e: FormEvent<HTMLFormElement> & {
@@ -47,17 +42,33 @@ const MovePhotos = (): ReactElement => {
         }
     ) => {
         e.preventDefault()
+
         try {
-            await dispatch(
-                fetchMovePhotos({
-                    newAlbum:
-                        !e.target.album.dataset.albumid &&
-                        e.target.album.value.trim()
-                            ? e.target.album.value.trim()
-                            : false,
-                    albumId: e.target.album.dataset.albumid,
-                })
-            ).unwrap()
+            if (!e.target.album.value.trim()) {
+                alert('Некорректна назва')
+                return
+            }
+
+            const albumId: string | undefined = albums?.find(
+                (item) => item.name === e.target.album.value.trim()
+            )?._id
+
+            if (albumId) {
+                dispatch(
+                    fetchMovePhotos({
+                        album: albumId,
+                    })
+                ).unwrap()
+            } else {
+                dispatch(
+                    fetchMovePhotos({
+                        album: {
+                            name: e.target.album.value,
+                            visibility: 'private',
+                        },
+                    })
+                ).unwrap()
+            }
 
             dispatch(hideOverlay())
             dispatch(hideWindow())
@@ -78,11 +89,12 @@ const MovePhotos = (): ReactElement => {
         <div className="window" ref={windowEl}>
             <form className="form" onSubmit={handleSubmit}>
                 <p className="window__text">
-                    Виберіть альбом в який перемістити фото
+                    Введіть назву нового або вже існуючого альбому, в який
+                    хочете перемістити фото
                 </p>
                 <div className="window__input">
                     <InputWithDatalist
-                        elements={elements}
+                        elements={elements ? elements : []}
                         name="album"
                         style={{ bottom: '95%' }}
                     />

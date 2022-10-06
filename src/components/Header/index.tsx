@@ -45,6 +45,10 @@ const Header = memo((): ReactElement => {
         setAddingMenuState(false)
     }
 
+    const handleAddPhotoClick = () => {
+        dispatch(showOverlay())
+        dispatch(showWindow('add-photo'))
+    }
     useOutsideClick(addBtnEl, handleOutsideClick, ['context-menu'])
 
     // Якщо є токен авторизації, в низу якщо нема
@@ -77,8 +81,7 @@ const Header = memo((): ReactElement => {
                                         <ContextMenu
                                             elements={[
                                                 {
-                                                    func: () =>
-                                                        navigate('/add-photo'),
+                                                    func: handleAddPhotoClick,
                                                     text: 'Додати фото',
                                                 },
                                                 {
