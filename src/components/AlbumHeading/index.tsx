@@ -170,13 +170,13 @@ const AlbumHeading = memo(
                                 )}
                             </div>
                         </div>
-                        {(!selectionMode.state || mobile) && album && user ? (
+                        {(!selectionMode.state || mobile) && album ? (
                             <div className="album-page__heading-data">
                                 <p className="album-page__heading-count">
                                     {album?.count + ' фото'}
                                 </p>
                                 <p className="album-page__heading-author">
-                                    {'Автор: ' + user?.name}
+                                    {'Автор: ' + album?.creator.name}
                                 </p>
                             </div>
                         ) : (
@@ -209,7 +209,7 @@ const AlbumHeading = memo(
                     </>
                 ) : (
                     <div className="album-page__heading-loader">
-                        <AlbumHeadingLoader />
+                        <AlbumHeadingLoader mobile={mobile} />
                     </div>
                 )}
             </div>
