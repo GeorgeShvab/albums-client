@@ -1,4 +1,5 @@
 import { FormEvent, ReactElement, useRef, useState } from 'react'
+import FilePreviewItem from './FIlePreviewItem'
 
 import './style.scss'
 
@@ -39,15 +40,7 @@ const FIleInput = ({
                     <div className="file-input__preview-container">
                         {choosedImageUrls
                             ? choosedImageUrls.map((item, index) => (
-                                  <div
-                                      className="file-input__preview-item"
-                                      key={index}
-                                  >
-                                      <img
-                                          src={item}
-                                          alt="your image preview"
-                                      />
-                                  </div>
+                                  <FilePreviewItem url={item} key={index} />
                               ))
                             : ''}
                     </div>
