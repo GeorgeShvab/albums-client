@@ -162,3 +162,4 @@ export default photosSlice.reducer
 export const { cleanPhotosState } = photosSlice.actions
 
 export const getPhotos = ({ photos }: { photos: PhotosState }) => photos.data
+export const getPhotosState = ({ photos }: { photos: PhotosState }) => photos

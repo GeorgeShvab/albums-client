@@ -21,6 +21,7 @@ import {
     cleanPhotosState,
     fetchPhotos,
     getPhotos,
+    getPhotosState,
 } from '../../redux/slices/photos'
 import { showWindow } from '../../redux/slices/window'
 import './style.scss'
@@ -37,6 +38,7 @@ import {
 
 const Album = (): ReactElement => {
     const photos = useAppSelector(getPhotos)
+    const photosState = useAppSelector(getPhotosState)
     const album = useAppSelector(getAlbum)
     const user = useAppSelector(getUser)
     const selectionMode = useAppSelector(isSelectionMode)
@@ -60,6 +62,12 @@ const Album = (): ReactElement => {
     }, [album, error])
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [photosState.status])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+
         dispatch(setPage('album'))
         ;(async () => {
             if (params.albumId) {
