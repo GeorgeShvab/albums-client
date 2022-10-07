@@ -17,7 +17,6 @@ import {
     AddPhotoWindow,
 } from '.'
 import AddAlbumMenu from './MobileMenus/AddAlbumMenu'
-import AddingButton from './MobileButtons/AddingButton'
 import AddingMenu from './MobileMenus/AddingMenu'
 import MobileNavigation from './MobileMenus/MobileNavigation'
 import Overlay from './Overlay'
@@ -27,7 +26,6 @@ import DeleteAlbumWindow from './Windows/DeleteAlbumWindow'
 const FixedElementsContainer = () => {
     return (
         <>
-            <AddingButton />
             <AddingMenu />
             <AddAlbumMenu />
             <DeleteAlbumWindow />

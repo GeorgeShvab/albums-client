@@ -66,8 +66,24 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/" element={<Main />} />
-                    <Route path="/albums" element={<Albums />} />
-                    <Route path="/albums/:albumId/*" element={<AlbumPage />} />
+                    <Route
+                        path="/albums"
+                        element={
+                            <>
+                                <Albums />
+                                <AddingButton />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/albums/:albumId/*"
+                        element={
+                            <>
+                                <AlbumPage />
+                                <AddingButton />
+                            </>
+                        }
+                    />
                 </Routes>
             </main>
         </div>
