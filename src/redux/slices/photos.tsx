@@ -13,8 +13,18 @@ import { addAlbum, changeNumberOfPhotos } from './albums'
 
 export const fetchPhotos = createAsyncThunk(
     'photos/fetchPhotos',
-    async (albumId: string) => {
-        const data = await axios.get(`/album/${albumId}/photos`)
+    async (albumId: string, { getState }) => {
+        const store: any = getState()
+        const loadedPhotosCount = store.photos.data?.length
+
+        if (!store.photos.data) {
+            const data = await axios.get(`/album/${albumId}/photos`)
+            return data.data
+        }
+
+        const data = await axios.get(
+            `/album/${albumId}/photos?beginning=${loadedPhotosCount}`
+        )
         return data.data
     }
 )
@@ -118,7 +128,11 @@ const photosSlice = createSlice({
             action: PhotosAction
         ) => {
             state.status = 'loaded'
-            state.data = action.payload.data
+            if (state.data) {
+                state.data = state.data.concat(action.payload.data)
+            } else {
+                state.data = action.payload.data
+            }
         },
         [fetchPhotos.rejected.type]: (state: PhotosState) => {
             state.status = 'error'

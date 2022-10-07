@@ -35,6 +35,7 @@ import {
     deactivateSelectionMode,
     isSelectionMode,
 } from '../../redux/slices/selectionMode'
+import throttle from '../../utils/thorttle'
 
 const Album = (): ReactElement => {
     const photos = useAppSelector(getPhotos)
@@ -50,6 +51,29 @@ const Album = (): ReactElement => {
         type: 'UNEXPECTED' | 'NOT_FOUND' | 'FORBIDDEN'
         text: string
     } | null>(null)
+
+    const handleScroll = (e: Event) => {
+        if (album?.count === photos?.length || album?.count === 0) {
+            return
+        }
+        if (
+            window.scrollY + window.innerHeight + 300 >
+                document.documentElement.offsetHeight &&
+            album
+        ) {
+            dispatch(fetchPhotos(album._id))
+        }
+    }
+
+    const handleScrollThrottle = throttle(handleScroll, 500)
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScrollThrottle)
+
+        return () => {
+            window.removeEventListener('scroll', handleScrollThrottle)
+        }
+    }, [album, photos])
 
     useEffect(() => {
         if (album) {
