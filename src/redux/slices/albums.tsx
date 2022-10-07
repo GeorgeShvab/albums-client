@@ -17,11 +17,18 @@ export const fetchAlbums = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const store: any = getState()
-            const userId = store?.auth?.data?._id
+            const userId = store.auth.data?._id
 
-            if (!userId) throw new Error('no connection to the server')
+            if (!userId) throw new Error('Error')
 
-            const data = await axios.get(`/user/${userId}/albums?amount=30`)
+            if (!store.albums.data) {
+                const data = await axios.get(`/user/${userId}/albums?amount=25`)
+                return data.data
+            }
+
+            const data = await axios.get(
+                `/user/${userId}/albums?amount=25&beginning=${store.albums.data.length}`
+            )
             return data.data
         } catch (e: any) {
             if (!e.response) {
@@ -171,8 +178,15 @@ const albumsSlice = createSlice({
             state: AlbumsState,
             action: AlbumsAction
         ) => {
-            state.data = action.payload.data
             state.status = 'loaded'
+            if (state.data && !action.payload.data.length) {
+                return
+            }
+            if (state.data) {
+                state.data = state.data.concat(action.payload.data)
+            } else {
+                state.data = action.payload.data
+            }
         },
         [fetchAlbums.rejected.type]: (state: AlbumsState) => {
             state.status = 'error'

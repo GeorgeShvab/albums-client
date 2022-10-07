@@ -2,18 +2,36 @@ import { ReactElement, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Album, AlbumLoader } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { getAlbums } from '../../redux/slices/albums'
+import { fetchAlbums, getAlbums } from '../../redux/slices/albums'
 import { isAuthorized } from '../../redux/slices/auth'
 import { setPage } from '../../redux/slices/page'
+import throttle from '../../utils/thorttle'
 import './style.scss'
 
 const Albums = (): ReactElement => {
     const albums = useAppSelector(getAlbums)
     const dispatch = useAppDispatch()
 
+    const hadnleScroll = (e: Event) => {
+        if (
+            window.scrollY + window.innerHeight + 400 >
+            document.documentElement.offsetHeight
+        ) {
+            dispatch(fetchAlbums())
+        }
+    }
+
+    const handleScrollThrottle = throttle(hadnleScroll, 250)
+
     useEffect(() => {
         dispatch(setPage('albums'))
         document.title = 'Ваші альбоми'
+
+        window.addEventListener('scroll', handleScrollThrottle)
+
+        return () => {
+            window.removeEventListener('scroll', handleScrollThrottle)
+        }
     }, [])
 
     if (!localStorage.getItem('Authorization'))
