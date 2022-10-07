@@ -12,26 +12,11 @@ const Albums = (): ReactElement => {
     const albums = useAppSelector(getAlbums)
     const dispatch = useAppDispatch()
 
-    const hadnleScroll = (e: Event) => {
-        if (
-            window.scrollY + window.innerHeight + 400 >
-            document.documentElement.offsetHeight
-        ) {
-            dispatch(fetchAlbums())
-        }
-    }
-
-    const handleScrollThrottle = throttle(hadnleScroll, 250)
-
     useEffect(() => {
         dispatch(setPage('albums'))
         document.title = 'Ваші альбоми'
 
-        window.addEventListener('scroll', handleScrollThrottle)
-
-        return () => {
-            window.removeEventListener('scroll', handleScrollThrottle)
-        }
+        window.scrollTo(0, 0)
     }, [])
 
     if (!localStorage.getItem('Authorization'))

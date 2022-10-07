@@ -21,14 +21,7 @@ export const fetchAlbums = createAsyncThunk(
 
             if (!userId) throw new Error('Error')
 
-            if (!store.albums.data) {
-                const data = await axios.get(`/user/${userId}/albums?amount=25`)
-                return data.data
-            }
-
-            const data = await axios.get(
-                `/user/${userId}/albums?amount=25&beginning=${store.albums.data.length}`
-            )
+            const data = await axios.get(`/user/${userId}/albums?amount=200`)
             return data.data
         } catch (e: any) {
             if (!e.response) {
