@@ -172,14 +172,7 @@ const albumsSlice = createSlice({
             action: AlbumsAction
         ) => {
             state.status = 'loaded'
-            if (state.data && !action.payload.data.length) {
-                return
-            }
-            if (state.data) {
-                state.data = state.data.concat(action.payload.data)
-            } else {
-                state.data = action.payload.data
-            }
+            state.data = action.payload.data
         },
         [fetchAlbums.rejected.type]: (state: AlbumsState) => {
             state.status = 'error'
