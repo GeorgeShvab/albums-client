@@ -1,5 +1,11 @@
 import { memo, ReactElement } from 'react'
-import { AlbumHeadingLoader, DotsMenu, RoundedButton, Title } from '..'
+import {
+    AlbumHeadingLoader,
+    AlbumHeadingLoaderMobile,
+    DotsMenu,
+    RoundedButton,
+    Title,
+} from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import {
     activateSelectionMode,
@@ -209,7 +215,11 @@ const AlbumHeading = memo(
                     </>
                 ) : (
                     <div className="album-page__heading-loader">
-                        <AlbumHeadingLoader mobile={mobile} />
+                        {mobile ? (
+                            <AlbumHeadingLoaderMobile />
+                        ) : (
+                            <AlbumHeadingLoader />
+                        )}
                     </div>
                 )}
             </div>
