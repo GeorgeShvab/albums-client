@@ -24,6 +24,12 @@ const FullScreenPhoto = (): ReactElement => {
         navigate('../')
     }
 
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.code === 'Escape') {
+            navigate(-1)
+        }
+    }
+
     useEffect(() => {
         const body = document.querySelector('body')
         if (body?.offsetHeight !== window.innerHeight) {
@@ -31,10 +37,14 @@ const FullScreenPhoto = (): ReactElement => {
         }
         if (body) body.style.overflow = 'hidden'
 
+        document.addEventListener('keyup', handleKeyUp)
+
         return () => {
             const body = document.querySelector('body')
             body?.classList.remove('_overflow-hidden')
             if (body) body.style.overflow = 'auto'
+
+            document.removeEventListener('keyup', handleKeyUp)
         }
     }, [])
 
