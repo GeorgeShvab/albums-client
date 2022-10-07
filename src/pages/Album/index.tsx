@@ -57,7 +57,7 @@ const Album = (): ReactElement => {
             return
         }
         if (
-            window.scrollY + window.innerHeight + 300 >
+            window.scrollY + window.innerHeight + 400 >
                 document.documentElement.offsetHeight &&
             album
         ) {
@@ -65,7 +65,7 @@ const Album = (): ReactElement => {
         }
     }
 
-    const handleScrollThrottle = throttle(handleScroll, 500)
+    const handleScrollThrottle = throttle(handleScroll, 250)
 
     useEffect(() => {
         window.addEventListener('scroll', handleScrollThrottle)
