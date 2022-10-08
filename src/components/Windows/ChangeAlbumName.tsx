@@ -1,13 +1,8 @@
-import { ReactElement, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { ReactElement, useRef, useState } from 'react'
 import { RoundedButton } from '../'
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import {
-    getAlbums,
-    fetchAddAlbum,
-    fetchChangeName,
-} from '../../redux/slices/albums'
+import { getAlbums, fetchChangeName } from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { getWindowState, hideWindow } from '../../redux/slices/window'
 import { AddAlbumFormEvent } from '../../types'
@@ -15,7 +10,6 @@ import { AddAlbumFormEvent } from '../../types'
 const ChangeAlbumName = (): ReactElement => {
     const window = useAppSelector(getWindowState)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const windowEl = useRef(null)
     const [errors, setErrors] = useState<any[]>([])
 
@@ -30,8 +24,6 @@ const ChangeAlbumName = (): ReactElement => {
         'context-menu',
         'album-heading__item',
     ])
-
-    if (!window.state || window.type !== 'change-album-name') return <></>
 
     const handleInput = () => {
         if (!errors.length) return

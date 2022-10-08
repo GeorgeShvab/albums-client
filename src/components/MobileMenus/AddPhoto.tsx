@@ -1,13 +1,9 @@
-import { FormEvent, ReactElement, useRef } from 'react'
+import { ReactElement, useRef } from 'react'
 import { FileInput, InputWithDatalist, RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { getAlbum } from '../../redux/slices/album'
 import { getAlbums } from '../../redux/slices/albums'
-import {
-    getMobileMenuState,
-    hideMobileMenu,
-} from '../../redux/slices/mobileMenu'
+import { hideMobileMenu } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchAddPhotos } from '../../redux/slices/photos'
 import { AddPhotoFormEvent, DataListElement } from '../../types'
@@ -15,9 +11,7 @@ import { AddPhotoFormEvent, DataListElement } from '../../types'
 const AddPhoto = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const mobileMenu = useAppSelector(getMobileMenuState)
     const albums = useAppSelector(getAlbums)
-    const album = useAppSelector(getAlbum)
 
     const mobileMenuEl = useRef<HTMLDivElement>(null)
 
@@ -76,8 +70,6 @@ const AddPhoto = (): ReactElement => {
         text: item.name,
         id: item._id,
     }))
-
-    if (mobileMenu.type !== 'add-photo' || !mobileMenu.state) return <></>
 
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>

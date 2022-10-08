@@ -53,9 +53,6 @@ const ChangeAlbumVisibility = (): ReactElement => {
         'album-heading__item',
     ])
 
-    if (!menuState.state || menuState.type !== 'change-album-visibility')
-        return <></>
-
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>
             <p className="mobile-menu__text">

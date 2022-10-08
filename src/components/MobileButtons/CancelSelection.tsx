@@ -1,18 +1,9 @@
 import { ReactElement } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { isMobile } from '../../redux/slices/device'
-import {
-    deactivateSelectionMode,
-    isSelectionMode,
-} from '../../redux/slices/selectionMode'
+import { useAppDispatch } from '../../hooks/reduxHooks'
+import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
 
 const CancelSelection = (): ReactElement => {
-    const selectionMode = useAppSelector(isSelectionMode)
-    const mobile = useAppSelector(isMobile)
-
     const dispatch = useAppDispatch()
-
-    if (!mobile || !selectionMode.state) return <></>
 
     const handleBtnClick = () => {
         dispatch(deactivateSelectionMode())

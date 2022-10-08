@@ -1,48 +1,37 @@
-import { FormEvent, ReactElement, useRef, useState, useEffect } from 'react'
+import { ReactElement, useEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import { getMobileMenuState } from '../../redux/slices/mobileMenu'
+import useOutsideClick from '../../hooks/useOutsideClick'
+import { hideOverlay } from '../../redux/slices/overlay'
+import { hideMobileMenu } from '../../redux/slices/mobileMenu'
+import { AddAlbumFormEvent } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import { RoundedButton } from '../../'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
-import useOutsideClick from '../../../hooks/useOutsideClick'
-import { fetchAddAlbum, getAlbums } from '../../../redux/slices/albums'
-import { hideOverlay } from '../../../redux/slices/overlay'
-import { getWindowState, hideWindow } from '../../../redux/slices/window'
-import { AddAlbumFormEvent } from '../../../types'
+import { fetchAddAlbum, getAlbums } from '../../redux/slices/albums'
+import { RoundedButton } from '..'
+import getNewAlbumName from '../../utils/getNewAlbumName'
 
-const AddAlbumWindow = (): ReactElement => {
-    const window = useAppSelector(getWindowState)
+const AddAlbumMenu = (): ReactElement => {
     const dispatch = useAppDispatch()
+    const menuState = useAppSelector(getMobileMenuState)
+    const mobileMenuEl = useRef<HTMLDivElement>(null)
     const navigate = useNavigate()
-    const windowEl = useRef(null)
-    const [errors, setErrors] = useState<any[]>([])
 
     const userAlbums = useAppSelector(getAlbums)
+
+    const [errors, setErrors] = useState<any[]>([])
 
     const [defaultName, setDefaultName] = useState<string>('')
 
     useEffect(() => {
-        const largest = userAlbums
-            ?.filter((item) => /^Новий альбом/.test(item.name))
-            .map((item) =>
-                isNaN(Number(item.name.replace(/^Новий альбом/, '')))
-                    ? 1
-                    : Number(item.name.replace(/^Новий альбом/, ''))
-            )
-
-        if (largest) {
-            setDefaultName('Новий альбом ' + (Math.max(...largest) + 1))
-        }
+        if (userAlbums) setDefaultName(getNewAlbumName(userAlbums))
     }, [userAlbums])
 
-    const handleOutsideClick = () => {
+    const outsideClickFunc = () => {
+        dispatch(hideMobileMenu())
         dispatch(hideOverlay())
-        dispatch(hideWindow())
     }
 
-    useOutsideClick(windowEl, handleOutsideClick, ['context-menu__item'])
-
-    if (!window.state || window.type !== 'add-album') {
-        return <></>
-    }
+    useOutsideClick(mobileMenuEl, outsideClickFunc, ['mobile-menu'])
 
     const handleInput = () => {
         if (!errors.length) return
@@ -75,7 +64,7 @@ const AddAlbumWindow = (): ReactElement => {
                 setErrors(data.payload.errors)
             } else {
                 dispatch(hideOverlay())
-                dispatch(hideWindow())
+                dispatch(hideMobileMenu())
                 navigate('/albums')
             }
         } catch (e) {
@@ -88,7 +77,7 @@ const AddAlbumWindow = (): ReactElement => {
     }
 
     return (
-        <div className="window" ref={windowEl}>
+        <div className="mobile-menu" ref={mobileMenuEl}>
             <form
                 action=""
                 className="form add-album-form"
@@ -138,4 +127,4 @@ const AddAlbumWindow = (): ReactElement => {
     )
 }
 
-export default AddAlbumWindow
+export default AddAlbumMenu

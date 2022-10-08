@@ -1,5 +1,4 @@
 import { ReactElement, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { RoundedButton } from '..'
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
@@ -7,7 +6,6 @@ import { fetchDeleteAlbum } from '../../redux/slices/albums'
 import {
     getMobileMenuState,
     hideMobileMenu,
-    showMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 
@@ -47,8 +45,6 @@ const DeleteAlbum = (): ReactElement => {
         'context-menu',
         'album-heading__item',
     ])
-
-    if (menuState.type !== 'delete-album' || !menuState.state) return <></>
 
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>

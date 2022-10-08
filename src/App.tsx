@@ -21,7 +21,7 @@ import Registration from './pages/Registration'
 import { fetchMe, getUser } from './redux/slices/auth'
 import { AddAlbumWindow } from './components'
 import { fetchAlbums } from './redux/slices/albums'
-import AddAlbumMenu from './components/MobileMenus/AddAlbumMenu'
+import AddAlbumMenu from './components/MobileMenus/AddAlbum'
 
 function App() {
     const dispatch = useAppDispatch()

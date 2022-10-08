@@ -1,17 +1,14 @@
 import { ReactElement, useRef } from 'react'
 import { RoundedButton } from '..'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import { useAppDispatch } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { hideMobileMenu } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchDeletePhotos } from '../../redux/slices/photos'
 import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
-import { getWindowState, hideWindow } from '../../redux/slices/window'
+import { hideWindow } from '../../redux/slices/window'
 
 const DeletePhotos = (): ReactElement => {
     const dispatch = useAppDispatch()
-
-    const window = useAppSelector(getWindowState)
 
     const windowEl = useRef<HTMLDivElement>(null)
 
@@ -40,8 +37,6 @@ const DeletePhotos = (): ReactElement => {
         'context-menu',
         'album-page__heading-btn',
     ])
-
-    if (window.type !== 'delete-photos' || !window.state) return <></>
 
     return (
         <div className="window" ref={windowEl}>

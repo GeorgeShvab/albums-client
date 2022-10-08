@@ -4,21 +4,15 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { getAlbum } from '../../redux/slices/album'
 import { getAlbums } from '../../redux/slices/albums'
-import {
-    getMobileMenuState,
-    hideMobileMenu,
-} from '../../redux/slices/mobileMenu'
+import { hideMobileMenu } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchMovePhotos } from '../../redux/slices/photos'
 import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
-import { getWindowState } from '../../redux/slices/window'
-import { DataListElement, SelectElement } from '../../types'
-import getNewAlbumName from '../../utils/getNewAlbumName'
+import { DataListElement } from '../../types'
 
 const MovePhotos = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const menuState = useAppSelector(getMobileMenuState)
     const albums = useAppSelector(getAlbums)
     const album = useAppSelector(getAlbum)
 
@@ -38,8 +32,6 @@ const MovePhotos = (): ReactElement => {
         'mobile-button',
         'context-menu',
     ])
-
-    if (menuState.type !== 'move-photos' || !menuState.state) return <></>
 
     const elements: DataListElement[] | undefined = albums
         ?.map((item) => ({

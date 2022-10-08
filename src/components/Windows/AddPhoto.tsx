@@ -2,19 +2,16 @@ import { ReactElement, useRef } from 'react'
 import { FileInput, InputWithDatalist, RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { getAlbum } from '../../redux/slices/album'
 import { getAlbums } from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchAddPhotos } from '../../redux/slices/photos'
-import { getWindowState, hideWindow } from '../../redux/slices/window'
+import { hideWindow } from '../../redux/slices/window'
 import { AddPhotoFormEvent, DataListElement } from '../../types'
 
 const AddPhoto = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const album = useAppSelector(getAlbum)
     const albums = useAppSelector(getAlbums)
-    const window = useAppSelector(getWindowState)
 
     const windowEl = useRef<HTMLDivElement>(null)
 
@@ -70,8 +67,6 @@ const AddPhoto = (): ReactElement => {
     }))
 
     useOutsideClick(windowEl, handleOutsideClick, ['context-menu'])
-
-    if (window.type !== 'add-photo' || !window.state) return <></>
 
     return (
         <div className="window" ref={windowEl}>

@@ -1,13 +1,12 @@
-import { ReactElement, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
-import useOutsideClick from '../../../hooks/useOutsideClick'
+import { ReactElement, useRef } from 'react'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import {
     getMobileMenuState,
     hideMobileMenu,
     showMobileMenu,
-} from '../../../redux/slices/mobileMenu'
-import { hideOverlay, showOverlay } from '../../../redux/slices/overlay'
+} from '../../redux/slices/mobileMenu'
+import { hideOverlay, showOverlay } from '../../redux/slices/overlay'
 
 const AddingMenu = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -16,13 +15,6 @@ const AddingMenu = (): ReactElement => {
     const mobileMenuEl = useRef<HTMLDivElement>(null)
 
     const outsideClickFunc = () => {
-        if (menuState.type !== 'adding' || !menuState.state) return
-
-        dispatch(hideMobileMenu())
-        dispatch(hideOverlay())
-    }
-
-    const menuClickHandler = () => {
         if (menuState.type !== 'adding' || !menuState.state) return
 
         dispatch(hideMobileMenu())
@@ -42,15 +34,8 @@ const AddingMenu = (): ReactElement => {
 
     useOutsideClick(mobileMenuEl, outsideClickFunc, ['mobile-button'])
 
-    if (menuState.type !== 'adding' || !menuState.state) return <></>
-
     return (
-        <div
-            className={`mobile-menu${
-                menuState.type === 'adding' && menuState.state ? ' _show' : ''
-            }`}
-            ref={mobileMenuEl}
-        >
+        <div className="mobile-menu" ref={mobileMenuEl}>
             <ul className="mobile-menu__list">
                 <li className="mobile-menu__item" onClick={addPhotoClickHadler}>
                     <h5>Додати фото</h5>

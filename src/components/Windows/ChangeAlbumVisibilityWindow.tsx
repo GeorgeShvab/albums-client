@@ -1,15 +1,12 @@
 import { ReactElement, useRef } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
-import useOutsideClick from '../../../hooks/useOutsideClick'
-import {
-    fetchChangeVisibility,
-    fetchDeleteAlbum,
-} from '../../../redux/slices/albums'
-import { hideOverlay } from '../../../redux/slices/overlay'
-import { getWindowState, hideWindow } from '../../../redux/slices/window'
-import RoundedButton from '../../RoundedButton'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import useOutsideClick from '../../hooks/useOutsideClick'
+import { fetchChangeVisibility } from '../../redux/slices/albums'
+import { hideOverlay } from '../../redux/slices/overlay'
+import { getWindowState, hideWindow } from '../../redux/slices/window'
+import RoundedButton from '../RoundedButton'
 
-const ChangeVisibility = (): ReactElement => {
+const ChangeAlbumVisibilityWindow = (): ReactElement => {
     const window = useAppSelector(getWindowState)
     const dispatch = useAppDispatch()
 
@@ -24,8 +21,6 @@ const ChangeVisibility = (): ReactElement => {
         'context-menu',
         'album-heading__item',
     ])
-
-    if (window.type !== 'change-album-visibility' || !window.state) return <></>
 
     const handleChangeVisibilityClick = async () => {
         try {
@@ -76,4 +71,4 @@ const ChangeVisibility = (): ReactElement => {
     )
 }
 
-export default ChangeVisibility
+export default ChangeAlbumVisibilityWindow

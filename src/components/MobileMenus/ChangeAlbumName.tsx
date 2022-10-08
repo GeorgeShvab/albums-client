@@ -1,5 +1,4 @@
 import { ReactElement, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { getAlbums, fetchChangeName } from '../../redux/slices/albums'
@@ -8,7 +7,6 @@ import {
     hideMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
-import { getWindowState, hideWindow } from '../../redux/slices/window'
 import { AddAlbumFormEvent } from '../../types'
 import RoundedButton from '../RoundedButton'
 
@@ -29,8 +27,6 @@ const ChangeAlbumName = (): ReactElement => {
         'context-menu',
         'album-heading__item',
     ])
-
-    if (!menuState.state || menuState.type !== 'change-album-name') return <></>
 
     const handleInput = () => {
         if (!errors.length) return

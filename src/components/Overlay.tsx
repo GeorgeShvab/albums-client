@@ -3,9 +3,7 @@ import { useAppSelector } from '../hooks/reduxHooks'
 import { getOverlayState } from '../redux/slices/overlay'
 
 const Overlay = (): ReactElement => {
-    const overlayState = useAppSelector(getOverlayState)
-
-    return <div className={`overlay${overlayState ? ' _show' : ''}`}></div>
+    return <div className="overlay"></div>
 }
 
 export default Overlay

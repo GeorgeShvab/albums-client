@@ -45,3 +45,6 @@ export { default as AlbumHeadingLoaderMobile } from './Loaders/AlbumHeadingMobil
 export { default as AlbumLoader } from './Loaders/Album'
 export { default as AddPhotoMobileMenu } from './MobileMenus/AddPhoto'
 export { default as AddPhotoWindow } from './Windows/AddPhoto'
+export { default as DownUpAnimation } from './Animation/DownUpAnimation'
+export { default as CenterAnimation } from './Animation/CenterAnimation'
+export { default as AnimationWrapper } from './Animation/AnimationWrapper'

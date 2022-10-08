@@ -7,7 +7,7 @@ import { getAlbums } from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchMovePhotos } from '../../redux/slices/photos'
 import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
-import { getWindowState, hideWindow } from '../../redux/slices/window'
+import { hideWindow } from '../../redux/slices/window'
 import { DataListElement } from '../../types'
 
 const MovePhotos = (): ReactElement => {
@@ -15,7 +15,6 @@ const MovePhotos = (): ReactElement => {
 
     const windowEl = useRef<HTMLDivElement>(null)
 
-    const window = useAppSelector(getWindowState)
     const albums = useAppSelector(getAlbums)
     const album = useAppSelector(getAlbum)
 
@@ -82,8 +81,6 @@ const MovePhotos = (): ReactElement => {
         'context-menu',
         'album-page__heading-btn',
     ])
-
-    if (window.type !== 'move-photos' || !window.state) return <></>
 
     return (
         <div className="window" ref={windowEl}>

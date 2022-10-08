@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useRef } from 'react'
+import { ReactElement, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
-import useOutsideClick from '../../../hooks/useOutsideClick'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import {
     getMobileMenuState,
     hideMobileMenu,
-} from '../../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../../redux/slices/overlay'
-import RoundedButton from '../../RoundedButton'
+} from '../../redux/slices/mobileMenu'
+import { hideOverlay } from '../../redux/slices/overlay'
+import RoundedButton from '../RoundedButton'
 
 const MobileNavigation = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -18,15 +18,11 @@ const MobileNavigation = (): ReactElement => {
     const authToken: string | null = localStorage.getItem('Authorization')
 
     const outsideClickFunc = () => {
-        if (menuState.type !== 'navigation' || !menuState.state) return
-
         dispatch(hideMobileMenu())
         dispatch(hideOverlay())
     }
 
     const menuClickHandler = () => {
-        if (menuState.type !== 'navigation' || !menuState.state) return
-
         dispatch(hideMobileMenu())
         dispatch(hideOverlay())
     }
@@ -35,17 +31,8 @@ const MobileNavigation = (): ReactElement => {
         menuState.type === 'navigation' ? 'nav__menu-btn' : 'adding-button',
     ])
 
-    if (menuState.type !== 'navigation' || !menuState.state) return <></>
-
     return (
-        <div
-            className={`mobile-menu${
-                menuState.type === 'navigation' && menuState.state
-                    ? ' _show'
-                    : ''
-            }`}
-            ref={mobileMenuEl}
-        >
+        <div className="mobile-menu" ref={mobileMenuEl}>
             <ul className="mobile-menu__list">
                 {authToken ? (
                     <>

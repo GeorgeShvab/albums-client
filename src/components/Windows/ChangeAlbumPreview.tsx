@@ -1,4 +1,4 @@
-import { FormEvent, ReactElement, useRef } from 'react'
+import { ReactElement, useRef } from 'react'
 import { FileInput, RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
@@ -45,8 +45,6 @@ const ChangeAlbumPreview = (): ReactElement => {
     }
 
     useOutsideClick(windowEl, handleOutsideClick, ['context-menu'])
-
-    if (!window.state || window.type !== 'change-album-preview') return <></>
 
     return (
         <div className="window" ref={windowEl}>

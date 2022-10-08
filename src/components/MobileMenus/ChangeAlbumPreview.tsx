@@ -50,9 +50,6 @@ const ChangeAlbumPreview = (): ReactElement => {
 
     useOutsideClick(mobileMenuEl, handleOutsideClick, ['context-menu'])
 
-    if (!menuState.state || menuState.type !== 'change-album-preview')
-        return <></>
-
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>
             <form action="" onSubmit={handleSubmit}>

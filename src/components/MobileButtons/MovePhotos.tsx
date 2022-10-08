@@ -1,17 +1,10 @@
 import { ReactElement } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { isMobile } from '../../redux/slices/device'
+import { useAppDispatch } from '../../hooks/reduxHooks'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
-import { isSelectionMode } from '../../redux/slices/selectionMode'
 
 const MovePhotos = (): ReactElement => {
-    const selectionMode = useAppSelector(isSelectionMode)
-    const mobile = useAppSelector(isMobile)
-
     const dispatch = useAppDispatch()
-
-    if (!mobile || !selectionMode.state) return <></>
 
     const handleBtnClick = () => {
         dispatch(showOverlay())
