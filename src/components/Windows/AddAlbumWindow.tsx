@@ -7,6 +7,7 @@ import { fetchAddAlbum, getAlbums } from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { hideWindow } from '../../redux/slices/window'
 import { AddAlbumFormEvent } from '../../types'
+import getNewAlbumName from '../../utils/getNewAlbumName'
 
 const AddAlbumWindow = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -19,17 +20,7 @@ const AddAlbumWindow = (): ReactElement => {
     const [defaultName, setDefaultName] = useState<string>('')
 
     useEffect(() => {
-        const largest = userAlbums
-            ?.filter((item) => /^Новий альбом/.test(item.name))
-            .map((item) =>
-                isNaN(Number(item.name.replace(/^Новий альбом/, '')))
-                    ? 1
-                    : Number(item.name.replace(/^Новий альбом/, ''))
-            )
-
-        if (largest) {
-            setDefaultName('Новий альбом ' + (Math.max(...largest) + 1))
-        }
+        if (userAlbums) setDefaultName(getNewAlbumName(userAlbums))
     }, [userAlbums])
 
     const handleOutsideClick = () => {
