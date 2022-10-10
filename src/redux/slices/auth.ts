@@ -131,3 +131,9 @@ export const isAuthorized = ({ auth }: { auth: AuthState }) =>
     Boolean(auth.data)
 
 export default authSlice.reducer
+
+export const authorized = ({ auth }: { auth: AuthState }): Boolean => {
+    if (!localStorage.getItem('Authorization')) return false
+    if (auth.status === 'error') return false
+    return true
+}
