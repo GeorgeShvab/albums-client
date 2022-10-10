@@ -249,6 +249,7 @@ const albumsSlice = createSlice({
 })
 
 export const getAlbums = ({ albums }: { albums: AlbumsState }) => albums.data
+export const getAlbumsState = ({ albums }: { albums: AlbumsState }) => albums
 
 export default albumsSlice.reducer
 export const { cleanAlbums, changeNumberOfPhotos, addAlbum } =
