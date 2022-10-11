@@ -7,6 +7,8 @@ import {
     showMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay, showOverlay } from '../../redux/slices/overlay'
+import RoundedButton from '../RoundedButton'
+import MobileMenuItem from './MobileMenuItem'
 
 const AddingMenu = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -37,11 +39,11 @@ const AddingMenu = (): ReactElement => {
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>
             <ul className="mobile-menu__list">
-                <li className="mobile-menu__item" onClick={addPhotoClickHadler}>
-                    <h5>Додати фото</h5>
+                <li onClick={addPhotoClickHadler}>
+                    <MobileMenuItem children="Додати фото" />
                 </li>
-                <li className="mobile-menu__item" onClick={addAlbumClickHadler}>
-                    <h5>Додати альбом</h5>
+                <li onClick={addAlbumClickHadler}>
+                    <MobileMenuItem children="Додати альбом" />
                 </li>
             </ul>
         </div>

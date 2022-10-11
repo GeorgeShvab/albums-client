@@ -6,6 +6,7 @@ import { hideMobileMenu } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchDeletePhotos } from '../../redux/slices/photos'
 import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
+import MobileMenuItem from './MobileMenuItem'
 
 const DeletePhotos = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -43,17 +44,18 @@ const DeletePhotos = (): ReactElement => {
             <p className="mobile-menu__text">
                 Ви впевнені, що хочете видалити обрані фотографії?
             </p>
-            <div className="mobile-menu__buttons">
-                <div className="mobile-menu__button" onClick={handleBackClick}>
-                    <RoundedButton text="Назад" style="dark" />
-                </div>
-                <div
-                    className="mobile-menu__button"
-                    onClick={handleDeleteClick}
-                >
-                    <RoundedButton text="Видалити" />
-                </div>
-            </div>
+            <ul className="mobile-menu__list">
+                <li onClick={handleBackClick}>
+                    <MobileMenuItem children={<RoundedButton text="Назад" />} />
+                </li>
+                <li onClick={handleDeleteClick}>
+                    <MobileMenuItem
+                        children={
+                            <RoundedButton text="Видалити" style="dark" />
+                        }
+                    />
+                </li>
+            </ul>
         </div>
     )
 }

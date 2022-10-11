@@ -8,6 +8,7 @@ import {
     hideMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
+import MobileMenuItem from './MobileMenuItem'
 
 const DeleteAlbum = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -52,17 +53,18 @@ const DeleteAlbum = (): ReactElement => {
                 Ви впевнені, що хочете видалити{' '}
                 <span className="highlited">{menuState.data.album.name}</span>?
             </p>
-            <div className="mobile-menu__buttons">
-                <div className="mobile-menu__button" onClick={handleBackClick}>
-                    <RoundedButton text="Назад" style="dark" />
-                </div>
-                <div
-                    className="mobile-menu__button"
-                    onClick={handleDeleteClick}
-                >
-                    <RoundedButton text="Видалити" />
-                </div>
-            </div>
+            <ul className="mobile-menu__list">
+                <li onClick={handleBackClick}>
+                    <MobileMenuItem children={<RoundedButton text="Назад" />} />
+                </li>
+                <li onClick={handleDeleteClick}>
+                    <MobileMenuItem
+                        children={
+                            <RoundedButton text="Видалити" style="dark" />
+                        }
+                    />
+                </li>
+            </ul>
         </div>
     )
 }

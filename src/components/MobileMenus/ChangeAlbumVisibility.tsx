@@ -8,6 +8,7 @@ import {
     hideMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
+import MobileMenuItem from './MobileMenuItem'
 
 const ChangeAlbumVisibility = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -64,17 +65,18 @@ const ChangeAlbumVisibility = (): ReactElement => {
                     : 'приватний'}{' '}
                 альбом?
             </p>
-            <div className="mobile-menu__buttons">
-                <div className="mobile-menu__button" onClick={handleBackClick}>
-                    <RoundedButton text="Назад" style="dark" />
-                </div>
-                <div
-                    className="mobile-menu__button"
-                    onClick={handleChangeVisibilityClick}
-                >
-                    <RoundedButton text="Перетворити" />
-                </div>
-            </div>
+            <ul className="mobile-menu__list">
+                <li onClick={handleBackClick}>
+                    <MobileMenuItem children={<RoundedButton text="Назад" />} />
+                </li>
+                <li onClick={handleChangeVisibilityClick}>
+                    <MobileMenuItem
+                        children={
+                            <RoundedButton text="Перетворити" style="dark" />
+                        }
+                    />
+                </li>
+            </ul>
         </div>
     )
 }

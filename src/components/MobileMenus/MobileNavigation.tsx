@@ -2,12 +2,14 @@ import { ReactElement, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
+import { authorized } from '../../redux/slices/auth'
 import {
     getMobileMenuState,
     hideMobileMenu,
 } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import RoundedButton from '../RoundedButton'
+import MobileMenuItem from './MobileMenuItem'
 
 const MobileNavigation = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -15,7 +17,7 @@ const MobileNavigation = (): ReactElement => {
 
     const mobileMenuEl = useRef<HTMLDivElement>(null)
 
-    const authToken: string | null = localStorage.getItem('Authorization')
+    const isAuthorized: boolean = useAppSelector(authorized)
 
     const outsideClickFunc = () => {
         dispatch(hideMobileMenu())
@@ -33,71 +35,36 @@ const MobileNavigation = (): ReactElement => {
 
     return (
         <div className="mobile-menu" ref={mobileMenuEl}>
-            <ul className="mobile-menu__list">
-                {authToken ? (
-                    <>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/home">
-                                <h5>Головна</h5>
-                            </Link>
-                        </li>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/albums">
-                                <h5>Альбоми</h5>
-                            </Link>
-                        </li>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/photos">
-                                <h5>Фото</h5>
-                            </Link>
-                        </li>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/settings">
-                                <h5>Налаштування</h5>
-                            </Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li
-                            className="mobile-menu__item unauthorized"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/settings">
-                                <h5>Головна</h5>
-                            </Link>
-                        </li>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/registration">
+            {isAuthorized ? (
+                <ul className="mobile-menu__list">
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem children="Головна" link="/home" />
+                    </li>
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem children="Альбоми" link="/albums" />
+                    </li>
+                </ul>
+            ) : (
+                <ul className="mobile-menu__list _rounded-buttons">
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem children="Головна" link="/" />
+                    </li>
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem
+                            children={
                                 <RoundedButton text="Реєстрація" style="dark" />
-                            </Link>
-                        </li>
-                        <li
-                            className="mobile-menu__item"
-                            onClick={menuClickHandler}
-                        >
-                            <Link to="/login">
-                                <RoundedButton text="Вхід" />
-                            </Link>
-                        </li>
-                    </>
-                )}
-            </ul>
+                            }
+                            link="/registration"
+                        />
+                    </li>
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem
+                            children={<RoundedButton text="Вхід" />}
+                            link="/login"
+                        />
+                    </li>
+                </ul>
+            )}
         </div>
     )
 }

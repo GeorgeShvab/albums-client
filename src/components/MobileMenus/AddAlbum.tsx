@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { fetchAddAlbum, getAlbums } from '../../redux/slices/albums'
 import { RoundedButton } from '..'
 import getNewAlbumName from '../../utils/getNewAlbumName'
+import MobileMenuItem from './MobileMenuItem'
 
 const AddAlbumMenu = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -27,6 +28,11 @@ const AddAlbumMenu = (): ReactElement => {
     }, [userAlbums])
 
     const outsideClickFunc = () => {
+        dispatch(hideMobileMenu())
+        dispatch(hideOverlay())
+    }
+
+    const hanldeBackClick = () => {
         dispatch(hideMobileMenu())
         dispatch(hideOverlay())
     }
@@ -115,13 +121,25 @@ const AddAlbumMenu = (): ReactElement => {
                         </div>
                     </div>
                 </div>
-                <div className="form__submit">
-                    <RoundedButton
-                        text="Створити альбом"
-                        style="dark"
-                        type="submit"
-                    />
-                </div>
+                <ul className="mobile-menu__list _rounded-buttons">
+                    <li onClick={hanldeBackClick}>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton text="Назад" style="dark" />
+                            }
+                        />
+                    </li>
+                    <li>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton
+                                    text="Створити альбом"
+                                    type="submit"
+                                />
+                            }
+                        />
+                    </li>
+                </ul>
             </form>
         </div>
     )

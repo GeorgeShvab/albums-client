@@ -197,8 +197,19 @@ a {
     z-index: 35;
 }
 
+.mobile-menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &._rounded-buttons {
+        .mobile-menu__item {
+            min-height: 54px;
+        }
+    }
+}
+
 .mobile-menu__item {
-    margin-bottom: 25px;
     font-size: 2.5rem;
     text-align: center;
     width: 100%;
@@ -212,10 +223,6 @@ a {
 
     &:last-child {
         margin-bottom: 0;
-    }
-
-    &.unauthorized {
-        margin-bottom: 40px;
     }
 }
 
@@ -454,7 +461,7 @@ a {
 }
 
 .mobile-menu__input {
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 
 .window__input {

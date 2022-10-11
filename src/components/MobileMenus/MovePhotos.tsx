@@ -9,6 +9,7 @@ import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchMovePhotos } from '../../redux/slices/photos'
 import { deactivateSelectionMode } from '../../redux/slices/selectionMode'
 import { DataListElement } from '../../types'
+import MobileMenuItem from './MobileMenuItem'
 
 const MovePhotos = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -96,17 +97,24 @@ const MovePhotos = (): ReactElement => {
                         style={{ bottom: '95%' }}
                     />
                 </div>
-                <div className="mobile-menu__buttons">
-                    <div
-                        className="mobile-menu__button"
-                        onClick={handleBackClick}
-                    >
-                        <RoundedButton text="Назад" style="dark" />
-                    </div>
-                    <div className="mobile-menu__button">
-                        <RoundedButton text="Перемістити" type="submit" />
-                    </div>
-                </div>
+                <ul className="mobile-menu__list">
+                    <li onClick={handleBackClick}>
+                        <MobileMenuItem
+                            children={<RoundedButton text="Назад" />}
+                        />
+                    </li>
+                    <li>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton
+                                    text="Перемістити"
+                                    type="submit"
+                                    style="dark"
+                                />
+                            }
+                        />
+                    </li>
+                </ul>
             </form>
         </div>
     )

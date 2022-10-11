@@ -10,6 +10,7 @@ import {
 import { hideOverlay } from '../../redux/slices/overlay'
 import { hideWindow } from '../../redux/slices/window'
 import { FileFormEvent } from '../../types'
+import MobileMenuItem from './MobileMenuItem'
 
 const ChangeAlbumPreview = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -63,21 +64,26 @@ const ChangeAlbumPreview = (): ReactElement => {
                         name="background"
                     />
                 </div>
-                <div className="mobile-menu__buttons">
-                    <div
-                        className="mobile-menu__button"
-                        onClick={handleBackClick}
-                    >
-                        <RoundedButton
-                            text="Назад"
-                            style="dark"
-                            type="button"
+                <ul className="mobile-menu__list">
+                    <li onClick={handleBackClick}>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton text="Назад" type="button" />
+                            }
                         />
-                    </div>
-                    <div className="mobile-menu__buttons">
-                        <RoundedButton text="Встановити" type="submit" />
-                    </div>
-                </div>
+                    </li>
+                    <li>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton
+                                    text="Встановити"
+                                    type="submit"
+                                    style="dark"
+                                />
+                            }
+                        />
+                    </li>
+                </ul>
             </form>
         </div>
     )

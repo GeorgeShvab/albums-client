@@ -9,6 +9,7 @@ import {
 import { hideOverlay } from '../../redux/slices/overlay'
 import { AddAlbumFormEvent } from '../../types'
 import RoundedButton from '../RoundedButton'
+import MobileMenuItem from './MobileMenuItem'
 
 const ChangeAlbumName = (): ReactElement => {
     const menuState = useAppSelector(getMobileMenuState)
@@ -101,21 +102,26 @@ const ChangeAlbumName = (): ReactElement => {
                         </div>
                     </div>
                 </div>
-                <div className="form__submit">
-                    <div
-                        className="mobile-menu__button"
-                        onClick={handleBackClick}
-                    >
-                        <RoundedButton text="Назад" type="button" />
-                    </div>
-                    <div className="mobile-menu__button">
-                        <RoundedButton
-                            text="Змінити назву"
-                            style="dark"
-                            type="submit"
+                <ul className="mobile-menu__list">
+                    <li onClick={handleBackClick}>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton text="Назад" type="button" />
+                            }
                         />
-                    </div>
-                </div>
+                    </li>
+                    <li>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton
+                                    text="Змінити назву"
+                                    style="dark"
+                                    type="submit"
+                                />
+                            }
+                        />
+                    </li>
+                </ul>
             </form>
         </div>
     )

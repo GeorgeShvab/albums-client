@@ -7,6 +7,7 @@ import { hideMobileMenu } from '../../redux/slices/mobileMenu'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { fetchAddPhotos } from '../../redux/slices/photos'
 import { AddPhotoFormEvent, DataListElement } from '../../types'
+import MobileMenuItem from './MobileMenuItem'
 
 const AddPhoto = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -96,21 +97,26 @@ const AddPhoto = (): ReactElement => {
                         style={{ bottom: '95%' }}
                     />
                 </div>
-                <div className="mobile-menu__buttons">
-                    <div
-                        className="mobile-menu__button"
-                        onClick={handleBackClick}
-                    >
-                        <RoundedButton
-                            text="Назад"
-                            style="dark"
-                            type="button"
+                <ul className="mobile-menu__list">
+                    <li onClick={handleBackClick}>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton
+                                    text="Назад"
+                                    style="dark"
+                                    type="button"
+                                />
+                            }
                         />
-                    </div>
-                    <div className="mobile-menu__buttons">
-                        <RoundedButton text="Додати" type="submit" />
-                    </div>
-                </div>
+                    </li>
+                    <li>
+                        <MobileMenuItem
+                            children={
+                                <RoundedButton text="Додати" type="submit" />
+                            }
+                        />
+                    </li>
+                </ul>
             </form>
         </div>
     )
