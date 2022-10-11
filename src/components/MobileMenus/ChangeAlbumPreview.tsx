@@ -2,8 +2,11 @@ import { ReactElement, useRef } from 'react'
 import { FileInput, RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { fetchChangePreview } from '../../redux/slices/albums'
 import {
+    fetchChangePreview,
+    fetchDeletePreview,
+} from '../../redux/slices/albums'
+import mobileMenu, {
     getMobileMenuState,
     hideMobileMenu,
 } from '../../redux/slices/mobileMenu'
@@ -43,9 +46,19 @@ const ChangeAlbumPreview = (): ReactElement => {
                 return
             }
             dispatch(hideOverlay())
-            dispatch(hideWindow())
+            dispatch(hideMobileMenu())
         } catch (e) {
             alert('Не вдалось оновити превью')
+        }
+    }
+
+    const handleDeletePreview = async () => {
+        try {
+            await dispatch(fetchDeletePreview(menuState.data.album._id))
+            dispatch(hideOverlay())
+            dispatch(hideMobileMenu())
+        } catch (e: any) {
+            alert('Не вдалось видалити превью')
         }
     }
 
@@ -65,6 +78,17 @@ const ChangeAlbumPreview = (): ReactElement => {
                     />
                 </div>
                 <ul className="mobile-menu__list">
+                    {menuState.data?.album?.background ? (
+                        <li onClick={handleDeletePreview}>
+                            <MobileMenuItem
+                                children={
+                                    <RoundedButton text="Видалити превью" />
+                                }
+                            />
+                        </li>
+                    ) : (
+                        ''
+                    )}
                     <li onClick={handleBackClick}>
                         <MobileMenuItem
                             children={

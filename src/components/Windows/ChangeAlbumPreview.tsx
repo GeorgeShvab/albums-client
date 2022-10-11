@@ -2,7 +2,10 @@ import { ReactElement, useRef } from 'react'
 import { FileInput, RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { fetchChangePreview } from '../../redux/slices/albums'
+import {
+    fetchChangePreview,
+    fetchDeletePreview,
+} from '../../redux/slices/albums'
 import { hideOverlay } from '../../redux/slices/overlay'
 import { getWindowState, hideWindow } from '../../redux/slices/window'
 import { FileFormEvent } from '../../types'
@@ -44,6 +47,16 @@ const ChangeAlbumPreview = (): ReactElement => {
         }
     }
 
+    const handleDeletePreview = async () => {
+        try {
+            await dispatch(fetchDeletePreview(window.data.album._id))
+            dispatch(hideOverlay())
+            dispatch(hideWindow())
+        } catch (e: any) {
+            alert('Не вдалось видалити превью')
+        }
+    }
+
     useOutsideClick(windowEl, handleOutsideClick, ['context-menu'])
 
     return (
@@ -60,6 +73,17 @@ const ChangeAlbumPreview = (): ReactElement => {
                     />
                 </div>
                 <div className="buttons-container">
+                    {window.data?.album?.background ? (
+                        <div onClick={handleDeletePreview}>
+                            <RoundedButton
+                                text="Видалити превью"
+                                style="dark"
+                                type="button"
+                            />
+                        </div>
+                    ) : (
+                        ''
+                    )}
                     <div onClick={handleBackClick}>
                         <RoundedButton
                             text="Назад"

@@ -144,7 +144,7 @@ export interface Album {
     count: number
     visibility: 'private' | 'public'
     last_photo?: Photo
-    background?: string
+    background?: string | null
     createdAt: string
     updatedAt: string
     _id: string

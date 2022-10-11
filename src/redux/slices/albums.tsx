@@ -130,6 +130,15 @@ export const fetchChangePreview = createAsyncThunk(
     }
 )
 
+export const fetchDeletePreview = createAsyncThunk(
+    'albums/fetchDeletePreview',
+    async (albumId: string) => {
+        const data = await axios.delete(`/album/${albumId}/background`)
+
+        return data.data
+    }
+)
+
 const initialState: AlbumsState = {
     status: 'loading',
     data: null,
@@ -240,6 +249,19 @@ const albumsSlice = createSlice({
                             ...item,
                             background: action.payload.data.background,
                         }
+                    }
+                    return item
+                })
+            }
+        },
+        [fetchDeletePreview.fulfilled.type]: (
+            state: AlbumsState,
+            action: AlbumsAction
+        ) => {
+            if (state.data) {
+                state.data = state.data?.map((item) => {
+                    if (item._id === action.meta.arg) {
+                        return { ...item, background: null }
                     }
                     return item
                 })

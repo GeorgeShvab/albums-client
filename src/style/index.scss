@@ -439,6 +439,12 @@ a {
     > div {
         width: 100%;
     }
+
+    > div {
+        &:last-child {
+            grid-area: 2 / 1 / 2 / 3;
+        }
+    }
 }
 
 .mobile-menu__text {
