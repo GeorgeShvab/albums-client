@@ -10,10 +10,10 @@ const MobileMenuItem = ({
 }) => {
     return link ? (
         <Link to={link}>
-            <div className="mobile-menu__item">{children}</div>
+            <button className="mobile-menu__item">{children}</button>
         </Link>
     ) : (
-        <div className="mobile-menu__item">{children}</div>
+        <button className="mobile-menu__item">{children}</button>
     )
 }
 

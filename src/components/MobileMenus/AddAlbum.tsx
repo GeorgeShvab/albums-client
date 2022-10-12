@@ -88,6 +88,7 @@ const AddAlbumMenu = (): ReactElement => {
                 action=""
                 className="form add-album-form"
                 onSubmit={handleSubmit}
+                autoComplete="off"
             >
                 <div className="form__item">
                     <input
