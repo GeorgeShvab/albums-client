@@ -1,15 +1,17 @@
 import { ReactElement, useRef, useState } from 'react'
-import { ContextMenuWrapper } from '..'
+import { Avatar, ContextMenuWrapper } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { authorized } from '../../redux/slices/auth'
+import { authorized, getUser } from '../../redux/slices/auth'
 import { showOverlay } from '../../redux/slices/overlay'
 import { showWindow } from '../../redux/slices/window'
 import ContextMenu from '../ContextMenu'
 import NavItem from './NavItem'
+import defaultAvatar from '../../static/default-avatar.jpg'
 
 const Nav = (): ReactElement => {
     const isAuthorized = useAppSelector(authorized)
+    const user = useAppSelector(getUser)
 
     const addBtnEl = useRef<HTMLLIElement>(null)
 
@@ -91,6 +93,20 @@ const Nav = (): ReactElement => {
                     <li>
                         <NavItem children="Альбоми" link="/albums" />
                     </li>
+                    <li className="circle-btn" style={{ marginLeft: '10px' }}>
+                        <NavItem
+                            children={
+                                <Avatar
+                                    avatarUrl={
+                                        user.data?.avatar
+                                            ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/avatars/${user.data?._id}/${user.data?.avatar}`
+                                            : defaultAvatar
+                                    }
+                                />
+                            }
+                            link={'/' + user.data?._id}
+                        />
+                    </li>
                 </ul>
             </nav>
         )
@@ -122,22 +138,3 @@ const Nav = (): ReactElement => {
 }
 
 export default Nav
-
-/*
-<li
-                    onClick={hadnleAddClick}
-                    ref={addBtnEl}
-                    className="circle-btn"
-                    style={{ position: 'relative', marginRight: '15px' }}
-                >
-                    <NavItem children={addBtnSvg} />
-                    {addingMenuState ? (
-                        <ContextMenu
-                            elements={contextMenuElements}
-                            style={contextMenuStyle}
-                            arrow={true}
-                        />
-                    ) : (
-                        ''
-                    )}
-                </li> */

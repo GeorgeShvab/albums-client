@@ -1,0 +1,22 @@
+.avatar {
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 36px;
+}
+
+.nav__list-item {
+    .avatar {
+        &:hover {
+            outline: 3px solid #efefef88;
+            outline-offset: 2px;
+        }
+    }
+}
+
+.avatar__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}

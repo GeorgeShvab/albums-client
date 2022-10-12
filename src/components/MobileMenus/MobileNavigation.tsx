@@ -1,8 +1,9 @@
 import { ReactElement, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Avatar } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { authorized } from '../../redux/slices/auth'
+import { authorized, getUser } from '../../redux/slices/auth'
 import {
     getMobileMenuState,
     hideMobileMenu,
@@ -10,14 +11,16 @@ import {
 import { hideOverlay } from '../../redux/slices/overlay'
 import RoundedButton from '../RoundedButton'
 import MobileMenuItem from './MobileMenuItem'
+import defaultAvatar from '../../static/default-avatar.jpg'
 
 const MobileNavigation = (): ReactElement => {
-    const menuState = useAppSelector(getMobileMenuState)
     const dispatch = useAppDispatch()
 
     const mobileMenuEl = useRef<HTMLDivElement>(null)
 
     const isAuthorized: boolean = useAppSelector(authorized)
+    const user = useAppSelector(getUser)
+    const menuState = useAppSelector(getMobileMenuState)
 
     const outsideClickFunc = () => {
         dispatch(hideMobileMenu())
@@ -38,10 +41,25 @@ const MobileNavigation = (): ReactElement => {
             {isAuthorized ? (
                 <ul className="mobile-menu__list">
                     <li onClick={menuClickHandler}>
-                        <MobileMenuItem children="Головна" link="/home" />
+                        <MobileMenuItem
+                            children={
+                                <Avatar
+                                    style={{ height: '70px', width: '70px' }}
+                                    avatarUrl={
+                                        user.data?.avatar
+                                            ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/avatars/${user.data?._id}/${user.data?.avatar}`
+                                            : defaultAvatar
+                                    }
+                                />
+                            }
+                            link={'/' + user.data?._id}
+                        />
                     </li>
                     <li onClick={menuClickHandler}>
                         <MobileMenuItem children="Альбоми" link="/albums" />
+                    </li>
+                    <li onClick={menuClickHandler}>
+                        <MobileMenuItem children="Головна" link="/home" />
                     </li>
                 </ul>
             ) : (

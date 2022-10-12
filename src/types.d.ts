@@ -54,6 +54,7 @@ export interface User {
     lastVisit: string
     createdAt: string
     updatedAt: string
+    avatar?: string
 }
 
 export type Status = 'loading' | 'loaded' | 'error'
