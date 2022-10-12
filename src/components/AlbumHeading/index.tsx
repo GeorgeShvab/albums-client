@@ -1,7 +1,9 @@
-import { memo, ReactElement } from 'react'
+import { memo, ReactElement, useRef } from 'react'
 import {
     AlbumHeadingLoader,
     AlbumHeadingLoaderMobile,
+    ContextMenu,
+    ContextMenuWrapper,
     DotsMenu,
     RoundedButton,
     Title,
@@ -29,6 +31,8 @@ const AlbumHeading = memo(
     }): ReactElement => {
         const mobile = useAppSelector(isMobile)
         const selectionMode = useAppSelector(isSelectionMode)
+
+        const refEl = useRef<HTMLDivElement>(null)
 
         const dispatch = useAppDispatch()
 
@@ -138,6 +142,25 @@ const AlbumHeading = memo(
             dispatch(showWindow('move-photos'))
         }
 
+        const dotsMenuStyle = {
+            position: 'absolute',
+            left: '110%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+        }
+
+        const contextMenuStyle = mobile
+            ? {
+                  top: '110%',
+                  right: '0',
+                  transform: 'none',
+              }
+            : {
+                  top: '130%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+              }
+
         return (
             <div className="album-page__heading">
                 {album ? (
@@ -148,29 +171,24 @@ const AlbumHeading = memo(
                                 {user?._id === album?.creator._id &&
                                 user &&
                                 album ? (
-                                    <DotsMenu
-                                        contextMenuElements={
-                                            contextMenuElements
-                                        }
-                                        contextMenuStyle={
-                                            mobile
-                                                ? {
-                                                      top: '110%',
-                                                      right: '0',
-                                                      transform: 'none',
-                                                  }
-                                                : {
-                                                      top: '110%',
-                                                  }
-                                        }
-                                        hideContextMenuOnOutsideHover={true}
-                                        style={{
-                                            position: 'absolute',
-                                            left: '110%',
-                                            top: '50%',
-                                            transform: 'translateY(-50%)',
-                                        }}
-                                    />
+                                    <div ref={refEl}>
+                                        <DotsMenu style={dotsMenuStyle}>
+                                            <ContextMenuWrapper
+                                                refEl={refEl}
+                                                type="click"
+                                            >
+                                                <ContextMenu
+                                                    elements={
+                                                        contextMenuElements
+                                                    }
+                                                    style={contextMenuStyle}
+                                                    arrow={
+                                                        mobile ? false : true
+                                                    }
+                                                />
+                                            </ContextMenuWrapper>
+                                        </DotsMenu>
+                                    </div>
                                 ) : (
                                     ''
                                 )}

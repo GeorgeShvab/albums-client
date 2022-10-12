@@ -441,7 +441,7 @@ a {
     }
 
     > div {
-        &:last-child {
+        &:nth-child(3) {
             grid-area: 2 / 1 / 2 / 3;
         }
     }

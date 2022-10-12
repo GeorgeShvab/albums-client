@@ -1,4 +1,5 @@
 import { ReactElement, useRef, useState } from 'react'
+import { ContextMenuWrapper } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { authorized } from '../../redux/slices/auth'
@@ -10,31 +11,19 @@ import NavItem from './NavItem'
 const Nav = (): ReactElement => {
     const isAuthorized = useAppSelector(authorized)
 
-    const [addingMenuState, setAddingMenuState] = useState(false)
-
     const addBtnEl = useRef<HTMLLIElement>(null)
 
     const dispatch = useAppDispatch()
-
-    const hadnleAddClick = () => {
-        setAddingMenuState((prev) => !prev)
-    }
 
     const handleAddAlbumClick = () => {
         dispatch(showOverlay())
         dispatch(showWindow('add-album'))
     }
 
-    const handleOutsideClick = () => {
-        setAddingMenuState(false)
-    }
-
     const handleAddPhotoClick = () => {
         dispatch(showOverlay())
         dispatch(showWindow('add-photo'))
     }
-
-    useOutsideClick(addBtnEl, handleOutsideClick, ['context-menu'])
 
     const contextMenuElements: { func: () => void; text: string }[] = [
         {
@@ -52,6 +41,7 @@ const Nav = (): ReactElement => {
         transform: 'translateX(-50%)',
     }
 
+    // Svg хрест на кнопці
     const addBtnSvg = (
         <svg
             width="28"
@@ -77,10 +67,64 @@ const Nav = (): ReactElement => {
         </svg>
     )
 
-    return isAuthorized ? (
-        <nav className="nav">
-            <ul className="nav__list">
-                <li
+    if (isAuthorized) {
+        return (
+            <nav className="nav">
+                <ul className="nav__list">
+                    <li
+                        ref={addBtnEl}
+                        className="circle-btn"
+                        style={{ position: 'relative', marginRight: '15px' }}
+                    >
+                        <NavItem children={addBtnSvg} />
+                        <ContextMenuWrapper refEl={addBtnEl} type="click">
+                            <ContextMenu
+                                elements={contextMenuElements}
+                                style={contextMenuStyle}
+                                arrow={true}
+                            />
+                        </ContextMenuWrapper>
+                    </li>
+                    <li>
+                        <NavItem children="Головна" link="/home" />
+                    </li>
+                    <li>
+                        <NavItem children="Альбоми" link="/albums" />
+                    </li>
+                </ul>
+            </nav>
+        )
+    } else {
+        return (
+            <nav className="nav">
+                <ul className="nav__list fixed-size-btns">
+                    <li>
+                        <NavItem children="Головна" link="/albums" />
+                    </li>
+                    <li>
+                        <NavItem
+                            children="Реєстрація"
+                            link="/albums"
+                            style="outline black"
+                        />
+                    </li>
+                    <li>
+                        <NavItem
+                            children="Вхід"
+                            link="/albums"
+                            style="outline white"
+                        />
+                    </li>
+                </ul>
+            </nav>
+        )
+    }
+}
+
+export default Nav
+
+/*
+<li
                     onClick={hadnleAddClick}
                     ref={addBtnEl}
                     className="circle-btn"
@@ -96,38 +140,4 @@ const Nav = (): ReactElement => {
                     ) : (
                         ''
                     )}
-                </li>
-                <li>
-                    <NavItem children="Головна" link="/home" />
-                </li>
-                <li>
-                    <NavItem children="Альбоми" link="/albums" />
-                </li>
-            </ul>
-        </nav>
-    ) : (
-        <nav className="nav">
-            <ul className="nav__list fixed-size-btns">
-                <li>
-                    <NavItem children="Головна" link="/albums" />
-                </li>
-                <li>
-                    <NavItem
-                        children="Реєстрація"
-                        link="/albums"
-                        style="outline black"
-                    />
-                </li>
-                <li>
-                    <NavItem
-                        children="Вхід"
-                        link="/albums"
-                        style="outline white"
-                    />
-                </li>
-            </ul>
-        </nav>
-    )
-}
-
-export default Nav
+                </li> */

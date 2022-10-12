@@ -1,4 +1,5 @@
 import { ReactElement, useRef, useState } from 'react'
+import { ContextMenuWrapper } from '..'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import useOutsideHover from '../../hooks/useOutsideHover'
 import ContextMenu from '../ContextMenu'
@@ -6,48 +7,21 @@ import './style.scss'
 
 const DotsMenu = (props: {
     style?: any
-    contextMenuStyle: any
-    contextMenuElements: { func: () => void; text: string }[]
+    children: ReactElement
     hideContextMenuOnOutsideHover?: boolean
+    type?: 'hover' | 'click'
 }): ReactElement => {
-    const [showConextMenu, setShowContextMenu] = useState<boolean>(false)
-
     const btnEl = useRef<HTMLButtonElement | null>(null)
 
-    const handleButtonClcick = (): void => {
-        setShowContextMenu((prev) => !prev)
-    }
-
-    const handleOutsideClick = () => {
-        setShowContextMenu(false)
-    }
-
-    useOutsideHover(
-        btnEl,
-        handleOutsideClick,
-        ['dots-menu'],
-        props.hideContextMenuOnOutsideHover
-    )
-
-    useOutsideClick(btnEl, handleOutsideClick)
-
     return (
-        <button
-            className={`dots-menu${showConextMenu ? ' _show-menu' : ''}`}
-            style={props.style}
-            onClick={handleButtonClcick}
-            ref={btnEl}
-        >
+        <button className={`dots-menu`} style={props.style} ref={btnEl}>
             <span></span>
-            {showConextMenu ? (
-                <ContextMenu
-                    elements={props.contextMenuElements}
-                    arrow={false}
-                    style={props.contextMenuStyle}
-                />
-            ) : (
-                ''
-            )}
+            <ContextMenuWrapper
+                refEl={btnEl}
+                type={props.type ? props.type : 'click'}
+            >
+                {props.children}
+            </ContextMenuWrapper>
         </button>
     )
 }
