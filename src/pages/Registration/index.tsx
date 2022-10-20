@@ -20,7 +20,7 @@ const Registration = (): ReactElement => {
     }, [])
 
     if (user.status === 'loaded' && user.data) {
-        return <Navigate to="/home" />
+        return <Navigate to="/albums" />
     }
 
     return (

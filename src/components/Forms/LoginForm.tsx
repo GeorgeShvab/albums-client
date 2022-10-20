@@ -50,7 +50,7 @@ const LoginFrom = (): ReactElement => {
             if (!data.payload.success) {
                 setErrors(data.payload.errors)
             } else {
-                navigate('/home')
+                navigate('/albums')
             }
         } catch (e) {
             setErrors([
