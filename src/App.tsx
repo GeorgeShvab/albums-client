@@ -15,7 +15,7 @@ import {
     MobileNavigation,
     Overlay,
 } from './components'
-import { AlbumPage, Albums, Login, Main } from './pages'
+import { AlbumPage, Albums, Login, Main, Profile } from './pages'
 import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
 import { fetchMe, getUser } from './redux/slices/auth'
@@ -80,6 +80,15 @@ function App() {
                         element={
                             <>
                                 <AlbumPage />
+                                <AddingButton />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/:userId"
+                        element={
+                            <>
+                                <Profile />
                                 <AddingButton />
                             </>
                         }

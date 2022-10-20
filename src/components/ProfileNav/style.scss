@@ -1,0 +1,36 @@
+.profile-nav__container {
+    display: flex;
+    position: relative;
+    border-top: 1px solid #efefef88;
+    border-bottom: 1px solid #efefef88;
+
+    &._saved {
+        .profile-nav__line {
+            left: 50%;
+        }
+    }
+}
+
+.profile-nav__btn-container {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.profile-nav__text {
+    font-size: 1.6rem;
+}
+
+.profile-nav__line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 50%;
+    background-color: black;
+    transition: 0.2s ease-in left;
+}

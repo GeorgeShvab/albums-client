@@ -10,9 +10,12 @@ import { showWindow } from '../../redux/slices/window'
 import * as types from '../../types'
 import ContextMenu from '../ContextMenu'
 import DotsMenu from '../DotsMenu'
+import SaveAlbum from './SaveAlbum'
 import './style.scss'
 
-const Album = (props: types.Album): ReactElement => {
+const Album = (
+    props: types.Album & { authorAuthorized?: boolean }
+): ReactElement => {
     const dispatch = useAppDispatch()
 
     const refEl = useRef<HTMLDivElement>(null)
@@ -133,22 +136,29 @@ const Album = (props: types.Album): ReactElement => {
                     <p className="album__count">{props.count + ' фото'}</p>
                 </div>
             </Link>
-            <div ref={refEl}>
-                <DotsMenu
-                    style={{ top: '20px', right: mobile ? '12.5px' : '17.5px' }}
-                >
-                    <ContextMenuWrapper refEl={refEl} type="hover">
-                        <ContextMenu
-                            elements={contextMenuElements}
-                            style={{
-                                top: mobile ? '-7px' : '0',
-                                right: '0',
-                                transform: 'none',
-                            }}
-                        />
-                    </ContextMenuWrapper>
-                </DotsMenu>
-            </div>
+            {props.authorAuthorized ? (
+                <div ref={refEl}>
+                    <DotsMenu
+                        style={{
+                            top: '20px',
+                            right: mobile ? '12.5px' : '17.5px',
+                        }}
+                    >
+                        <ContextMenuWrapper refEl={refEl} type="hover">
+                            <ContextMenu
+                                elements={contextMenuElements}
+                                style={{
+                                    top: mobile ? '-7px' : '0',
+                                    right: '0',
+                                    transform: 'none',
+                                }}
+                            />
+                        </ContextMenuWrapper>
+                    </DotsMenu>
+                </div>
+            ) : (
+                <SaveAlbum albumId={props._id} saved={props.saved} />
+            )}
         </div>
     )
 }

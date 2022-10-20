@@ -55,6 +55,7 @@ export interface User {
     createdAt: string
     updatedAt: string
     avatar?: string
+    description?: string
 }
 
 export type Status = 'loading' | 'loaded' | 'error'
@@ -149,6 +150,7 @@ export interface Album {
     createdAt: string
     updatedAt: string
     _id: string
+    saved: boolean
 }
 
 export interface AlbumsState {
@@ -300,5 +302,35 @@ export interface AddPhotoAction extends ThunkAction, AnyAction {
     payload: {
         photos: Photo[]
         album?: Album
+    }
+}
+
+export interface Save {
+    album: Album
+    user: User
+}
+
+export interface UserProfileData extends User {
+    saved: Save[]
+    albums: Album[]
+    section: 'albums' | 'saved'
+}
+
+export interface ProfileState {
+    data: UserProfileData | null
+    status: Status
+}
+
+export interface ProfileAction extends ThunkAction, AnyAction {
+    payload: {
+        success: boolean
+        data: UserProfileData
+    }
+}
+
+export interface GetProfileAction extends ThunkAction, AnyAction {
+    payload: {
+        success: boolean
+        data: {}
     }
 }

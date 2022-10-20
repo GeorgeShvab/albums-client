@@ -17,6 +17,24 @@
         white-space: nowrap;
     }
 
+    &._average {
+        height: 5rem;
+        max-width: 30rem;
+
+        span {
+            font-size: 1.8rem;
+        }
+    }
+
+    &._small {
+        height: 4.5rem;
+        max-width: 25rem;
+
+        span {
+            font-size: 1.6rem;
+        }
+    }
+
     &:hover {
         &:not(._dark) {
             background-color: black;

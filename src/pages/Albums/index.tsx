@@ -83,7 +83,16 @@ const Albums = (): ReactElement => {
             <div className="albums__container">
                 {albums
                     ? albums?.map((item, index) => (
-                          <Album {...item} key={item._id} />
+                          <Album
+                              {...item}
+                              key={item._id}
+                              authorAuthorized={
+                                  user.data?._id === item.creator._id &&
+                                  user.data
+                                      ? true
+                                      : false
+                              }
+                          />
                       ))
                     : new Array(10)
                           .fill(null)

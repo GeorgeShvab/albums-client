@@ -9,6 +9,7 @@ import overlay from './slices/overlay'
 import page from './slices/page'
 import photos from './slices/photos'
 import window from './slices/window'
+import profile from './slices/profile'
 
 const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
         photos,
         album,
         selectionMode,
+        profile,
     },
 })
 
