@@ -8,6 +8,7 @@ import {
     FullScreenPhoto,
     Photo,
     PhotoLoader,
+    SimpleLoader,
     Title,
 } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
@@ -194,29 +195,27 @@ const Album = (): ReactElement => {
                         selectionMode.state ? ' _selection-mode' : ''
                     }`}
                 >
-                    {photos
-                        ? photos.map((item) => (
-                              <Photo
-                                  selectionMode={selectionMode.state}
-                                  {...item}
-                                  key={item._id}
-                                  selected={selectionMode.selected.includes(
-                                      item._id
-                                  )}
-                                  isAuthor={
-                                      album?.creator._id === user.data?._id &&
-                                      album &&
-                                      user.data
-                                          ? true
-                                          : false
-                                  }
-                              />
-                          ))
-                        : new Array(50)
-                              .fill(null)
-                              .map((item, index) => (
-                                  <PhotoLoader key={index} />
-                              ))}
+                    {photos && album ? (
+                        photos.map((item) => (
+                            <Photo
+                                selectionMode={selectionMode.state}
+                                {...item}
+                                key={item._id}
+                                selected={selectionMode.selected.includes(
+                                    item._id
+                                )}
+                                isAuthor={
+                                    album?.creator._id === user.data?._id &&
+                                    album &&
+                                    user.data
+                                        ? true
+                                        : false
+                                }
+                            />
+                        ))
+                    ) : (
+                        <SimpleLoader />
+                    )}
                 </div>
             </div>
         </>

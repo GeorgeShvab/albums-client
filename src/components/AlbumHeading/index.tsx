@@ -161,85 +161,73 @@ const AlbumHeading = memo(
                   transform: 'translateX(-50%)',
               }
 
+        if (!album) return <></>
+
         return (
             <div className="album-page__heading">
-                {album ? (
-                    <>
-                        <div className="album-page__heading-title">
-                            <div className="album-page__heading-container">
-                                <Title text={album?.name || '  '} />
-                                {user?._id === album?.creator._id &&
-                                user &&
-                                album ? (
-                                    <div ref={refEl}>
-                                        <DotsMenu style={dotsMenuStyle}>
-                                            <ContextMenuWrapper
-                                                refEl={refEl}
-                                                type="click"
-                                            >
-                                                <ContextMenu
-                                                    elements={
-                                                        contextMenuElements
-                                                    }
-                                                    style={contextMenuStyle}
-                                                    arrow={
-                                                        mobile ? false : true
-                                                    }
-                                                />
-                                            </ContextMenuWrapper>
-                                        </DotsMenu>
-                                    </div>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
+                <>
+                    <div className="album-page__heading-title">
+                        <div className="album-page__heading-container">
+                            <Title text={album?.name || '  '} />
+                            {user?._id === album?.creator._id &&
+                            user &&
+                            album ? (
+                                <div ref={refEl}>
+                                    <DotsMenu style={dotsMenuStyle}>
+                                        <ContextMenuWrapper
+                                            refEl={refEl}
+                                            type="click"
+                                        >
+                                            <ContextMenu
+                                                elements={contextMenuElements}
+                                                style={contextMenuStyle}
+                                                arrow={mobile ? false : true}
+                                            />
+                                        </ContextMenuWrapper>
+                                    </DotsMenu>
+                                </div>
+                            ) : (
+                                ''
+                            )}
                         </div>
-                        {(!selectionMode.state || mobile) && album ? (
-                            <div className="album-page__heading-data">
-                                <p className="album-page__heading-count">
-                                    {album?.count + ' фото'}
-                                </p>
-                                <p className="album-page__heading-author">
-                                    {'Автор: ' + album?.creator.name}
-                                </p>
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                        {selectionMode.state && !mobile ? (
-                            <div className="album-page__heading-selection">
-                                <button
-                                    className="album-page__heading-btn"
-                                    onClick={handleDeleteClick}
-                                >
-                                    Видалити
-                                </button>
-                                <button
-                                    className="album-page__heading-btn"
-                                    onClick={handleMoveClick}
-                                >
-                                    Перемістити
-                                </button>
-                                <button
-                                    className="album-page__heading-btn"
-                                    onClick={handleCancelClick}
-                                >
-                                    Відмінити
-                                </button>
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                    </>
-                ) : (
-                    <div className="album-page__heading-loader">
-                        {mobile ? (
-                            <AlbumHeadingLoaderMobile />
-                        ) : (
-                            <AlbumHeadingLoader />
-                        )}
                     </div>
-                )}
+                    {(!selectionMode.state || mobile) && album ? (
+                        <div className="album-page__heading-data">
+                            <p className="album-page__heading-count">
+                                {album?.count + ' фото'}
+                            </p>
+                            <p className="album-page__heading-author">
+                                {'Автор: ' + album?.creator.name}
+                            </p>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {selectionMode.state && !mobile ? (
+                        <div className="album-page__heading-selection">
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleDeleteClick}
+                            >
+                                Видалити
+                            </button>
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleMoveClick}
+                            >
+                                Перемістити
+                            </button>
+                            <button
+                                className="album-page__heading-btn"
+                                onClick={handleCancelClick}
+                            >
+                                Відмінити
+                            </button>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                </>
             </div>
         )
     }
