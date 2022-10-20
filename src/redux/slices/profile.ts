@@ -5,9 +5,9 @@ import { ProfileAction, ProfileState } from '../../types'
 export const fetchProfile = createAsyncThunk(
     'profile/fetchProfile',
     async (userId: string) => {
-        const userDataPromise = axios.get(`/user/${userId}`)
-        const userAlbumsPromise = axios.get(`/user/${userId}/albums`)
-        const userSaved = axios.get(`/user/${userId}/saved`)
+        const userDataPromise = axios.get(`/user/${userId}?amount=200`)
+        const userAlbumsPromise = axios.get(`/user/${userId}/albums?amount=200`)
+        const userSaved = axios.get(`/user/${userId}/saved?amount=200`)
 
         const [userData, albumsData] = await Promise.all([
             userDataPromise,
