@@ -53,6 +53,12 @@ const Profile = (): ReactElement => {
         }
     }, [])
 
+    const copyLink = async () => {
+        await navigator.clipboard.writeText(
+            'http://192.168.31.166:3000/' + profile?._id
+        )
+    }
+
     return (
         <div className="profile">
             {profile ? (
@@ -84,6 +90,7 @@ const Profile = (): ReactElement => {
                                     <button
                                         className="circle-button"
                                         title="Копіювати посилання на сторінку"
+                                        onClick={copyLink}
                                     >
                                         <div>
                                             <svg
