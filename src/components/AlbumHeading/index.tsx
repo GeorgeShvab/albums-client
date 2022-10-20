@@ -20,6 +20,7 @@ import { showOverlay } from '../../redux/slices/overlay'
 import { showWindow } from '../../redux/slices/window'
 import { Album, User } from '../../types'
 import './style.scss'
+import { Link } from 'react-router-dom'
 
 const AlbumHeading = memo(
     ({
@@ -197,7 +198,10 @@ const AlbumHeading = memo(
                                 {album?.count + ' фото'}
                             </p>
                             <p className="album-page__heading-author">
-                                {'Автор: ' + album?.creator.name}
+                                <Link to={`../../${album?.creator._id}`}>
+                                    Автор:{' '}
+                                    <strong>{album?.creator.name}</strong>
+                                </Link>
                             </p>
                         </div>
                     ) : (

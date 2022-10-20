@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ContextMenuWrapper } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { fetchDeleteAlbum } from '../../redux/slices/albums'
+import { isAuthorized } from '../../redux/slices/auth'
 import { isMobile } from '../../redux/slices/device'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
@@ -25,6 +26,7 @@ const Album = (
         '/static/system/default_album_background.jpg'
 
     const mobile = useAppSelector(isMobile)
+    const authorized = useAppSelector(isAuthorized)
 
     if (props.background) {
         imgLink =
@@ -156,8 +158,10 @@ const Album = (
                         </ContextMenuWrapper>
                     </DotsMenu>
                 </div>
-            ) : (
+            ) : authorized ? (
                 <SaveAlbum albumId={props._id} saved={props.saved} />
+            ) : (
+                ''
             )}
         </div>
     )
