@@ -166,30 +166,15 @@ const FixedElementsContainer = () => {
                     <AddAlbumMenu />
                 </DownUpAnimation>
             </AnimationWrapper>
-            <AnimationWrapper opened={selection.state && mobile ? true : false}>
-                <DownUpAnimation
-                    zIndex={50}
-                    opened={selection.state && mobile ? true : false}
-                >
+            {selection.state && mobile ? (
+                <>
                     <DeletePhotos />
-                </DownUpAnimation>
-            </AnimationWrapper>
-            <AnimationWrapper opened={selection.state && mobile ? true : false}>
-                <DownUpAnimation
-                    zIndex={50}
-                    opened={selection.state && mobile ? true : false}
-                >
                     <CancelSelection />
-                </DownUpAnimation>
-            </AnimationWrapper>
-            <AnimationWrapper opened={selection.state && mobile ? true : false}>
-                <DownUpAnimation
-                    zIndex={50}
-                    opened={selection.state && mobile ? true : false}
-                >
                     <MovePhotos />
-                </DownUpAnimation>
-            </AnimationWrapper>
+                </>
+            ) : (
+                ''
+            )}
             {/*Вікна для векстопної версії*/}
             <AnimationWrapper
                 opened={window.type === 'delete-album' ? true : false}
