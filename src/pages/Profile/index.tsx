@@ -55,7 +55,7 @@ const Profile = (): ReactElement => {
 
     const copyLink = async () => {
         await navigator.clipboard.writeText(
-            'http://192.168.31.166:3000/' + profile?._id
+            'http://localhost:3000/' + profile?._id
         )
     }
 

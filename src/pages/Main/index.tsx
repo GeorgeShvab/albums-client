@@ -28,7 +28,7 @@ const Main = (): ReactElement => {
                             </p>
                         </div>
                         <div className="intro__button">
-                            <Link to={isAuth ? '/home' : '/login'}>
+                            <Link to={isAuth ? '/albums' : '/login'}>
                                 <RoundedButton
                                     text="Розпочати роботу з Albums"
                                     style="dark"
