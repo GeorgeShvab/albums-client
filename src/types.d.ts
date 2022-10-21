@@ -151,6 +151,7 @@ export interface Album {
     updatedAt: string
     _id: string
     saved: boolean
+    description?: string
 }
 
 export interface AlbumsState {

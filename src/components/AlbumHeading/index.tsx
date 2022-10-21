@@ -2,6 +2,7 @@ import { memo, ReactElement, useRef } from 'react'
 import {
     AlbumHeadingLoader,
     AlbumHeadingLoaderMobile,
+    Avatar,
     ContextMenu,
     ContextMenuWrapper,
     DotsMenu,
@@ -21,6 +22,7 @@ import { showWindow } from '../../redux/slices/window'
 import { Album, User } from '../../types'
 import './style.scss'
 import { Link } from 'react-router-dom'
+import defaultAvatar from '../../static/default-avatar.jpg'
 
 const AlbumHeading = memo(
     ({
@@ -165,10 +167,10 @@ const AlbumHeading = memo(
         if (!album) return <></>
 
         return (
-            <div className="album-page__heading">
+            <div className="album-heading">
                 <>
-                    <div className="album-page__heading-title">
-                        <div className="album-page__heading-container">
+                    <div className="album-heading__title">
+                        <div className="album-heading__container">
                             <Title text={album?.name || '  '} />
                             {user?._id === album?.creator._id &&
                             user &&
@@ -193,36 +195,59 @@ const AlbumHeading = memo(
                         </div>
                     </div>
                     {(!selectionMode.state || mobile) && album ? (
-                        <div className="album-page__heading-data">
-                            <p className="album-page__heading-count">
-                                {album?.count + ' фото'}
-                            </p>
-                            <p className="album-page__heading-author">
+                        <div className="album-heading__data">
+                            <div className="album-heading__description">
+                                <p className="album-heading__text-item">
+                                    {album?.description ? (
+                                        <>{album?.description} &bull;</>
+                                    ) : (
+                                        ''
+                                    )}{' '}
+                                    <strong>{album?.count + ' фото'}</strong>
+                                </p>
+                            </div>
+                            <div className="album-heading__author">
                                 <Link to={`../../${album?.creator._id}`}>
-                                    Автор:{' '}
-                                    <strong>{album?.creator.name}</strong>
+                                    <div className="album-heading__author-container">
+                                        <div className="album-heading__avatar">
+                                            <Avatar
+                                                style={{
+                                                    height: '40px',
+                                                    width: '40px',
+                                                }}
+                                                avatarUrl={
+                                                    album?.creator.avatar
+                                                        ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/avatars/${album?.creator._id}/${album?.creator.avatar}`
+                                                        : defaultAvatar
+                                                }
+                                            />
+                                        </div>
+                                        <p className="album-heading__name">
+                                            {album?.creator.name}
+                                        </p>
+                                    </div>
                                 </Link>
-                            </p>
+                            </div>
                         </div>
                     ) : (
                         ''
                     )}
                     {selectionMode.state && !mobile ? (
-                        <div className="album-page__heading-selection">
+                        <div className="album-heading__selection">
                             <button
-                                className="album-page__heading-btn"
+                                className="album-heading__btn"
                                 onClick={handleDeleteClick}
                             >
                                 Видалити
                             </button>
                             <button
-                                className="album-page__heading-btn"
+                                className="album-heading__btn"
                                 onClick={handleMoveClick}
                             >
                                 Перемістити
                             </button>
                             <button
-                                className="album-page__heading-btn"
+                                className="album-heading__btn"
                                 onClick={handleCancelClick}
                             >
                                 Відмінити

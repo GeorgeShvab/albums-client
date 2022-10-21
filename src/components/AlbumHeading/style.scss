@@ -1,18 +1,25 @@
-.album-page__heading-selection {
+.album-heading {
+    padding: 20px 0 30px;
+}
+
+.album-heading__selection {
     display: flex;
     gap: 30px;
     justify-content: center;
     padding-top: 20px;
 }
 
-.album-page__heading-title {
+.album-heading__title {
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
 
     .title {
-        font-size: 3rem;
+        font-size: 3.5rem;
+        font-weight: 800;
+        letter-spacing: 0.05rem;
     }
 
     @media screen and (min-width: 769px) {
@@ -24,7 +31,7 @@
     }
 }
 
-.album-page__heading-btn {
+.album-heading__btn {
     background: none;
     outline: none;
     border: none;
@@ -42,9 +49,7 @@
     }
 }
 
-.album-page__heading {
-    margin-bottom: 20px;
-
+.album-heading {
     .dots-menu {
         position: relative;
         visibility: visible;
@@ -75,30 +80,37 @@
     }
 }
 
-.album-page__heading-container {
+.album-heading__container {
     position: relative;
 }
 
-.album-page__heading-data {
-    padding-top: 10px;
-}
-
-.album-page__heading-count {
-    margin-bottom: 5px;
-}
-
-.album-page__heading-count,
-.album-page__heading-author {
+.album-heading__text-item {
     text-align: center;
     font-size: 1.7rem;
     color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
 
-    a {
-        color: rgba(0, 0, 0, 0.4);
+    &:last-child {
+        margin-bottom: 0;
     }
 }
 
-.album-page__heading-loader {
+.album-heading__avatar {
     display: flex;
     justify-content: center;
+}
+
+.album-heading__author-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.album-heading__description {
+    margin-bottom: 15px;
+}
+
+.album-heading__name {
+    font-size: 1.7rem;
 }
