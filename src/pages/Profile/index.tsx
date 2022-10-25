@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
     Avatar,
     Heading,
@@ -10,7 +10,7 @@ import {
 } from '../../components'
 import { ProfileSaved } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { getUser } from '../../redux/slices/auth'
+import { getUser, logout } from '../../redux/slices/auth'
 import {
     clearProfileState,
     fetchProfile,
@@ -26,6 +26,8 @@ const Profile = (): ReactElement => {
 
     const profile = useAppSelector(getProfile)
     const user = useAppSelector(getUser)
+
+    const navigate = useNavigate()
 
     const { userId } = useParams()
 
@@ -57,6 +59,11 @@ const Profile = (): ReactElement => {
         await navigator.clipboard.writeText(
             'http://localhost:3000/' + profile?._id
         )
+    }
+
+    const logOut = () => {
+        dispatch(logout())
+        navigate('/login')
     }
 
     return (
@@ -144,12 +151,39 @@ const Profile = (): ReactElement => {
                                     />
                                 </div>
                             )}
-                            {user.data?._id !== profile?._id ? (
+                            {user.data?._id == profile?._id &&
+                            user.data &&
+                            profile ? (
                                 <div className="profile__link _right">
                                     <div className="profile__link-element">
                                         <button
                                             className="circle-button"
-                                            title="Копіювати посилання на сторінку"
+                                            title="Вийти"
+                                            onClick={logOut}
+                                        >
+                                            <div>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M10.085 15.585L11.5 17L16.5 12L11.5 7L10.085 8.415L12.67 11H3V13H12.67L10.085 15.585ZM19 3H5C3.895 3 3 3.895 3 5V9H5V5H19V19H5V15H3V19C3 20.105 3.895 21 5 21H19C20.105 21 21 20.105 21 19V5C21 3.895 20.105 3 19 3Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="profile__link _right">
+                                    <div className="profile__link-element">
+                                        <button
+                                            className="circle-button"
+                                            title="Надіслати повідомлення"
                                         >
                                             <div>
                                                 <svg
@@ -203,8 +237,6 @@ const Profile = (): ReactElement => {
                                         </button>
                                     </div>
                                 </div>
-                            ) : (
-                                ''
                             )}
                         </div>
                     </div>

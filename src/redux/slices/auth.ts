@@ -1,4 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import {
+    createSlice,
+    createAsyncThunk,
+    PayloadAction,
+    createAction,
+    Dispatch,
+} from '@reduxjs/toolkit'
 import {
     AuthAction,
     AuthResponseData,
@@ -10,6 +16,8 @@ import {
 } from '../../types'
 import axios from '../../axios'
 import axiosInstance from '../../axios'
+import { AppDispatch } from '../store'
+import { cleanAlbums } from './albums'
 
 export const fetchLog = createAsyncThunk(
     'auth/fetchLog',
@@ -78,6 +86,14 @@ export const fetchMe = createAsyncThunk('auth/fetchMe', async () => {
     }
 })
 
+export const logout = () => (dispatch: AppDispatch) => {
+    localStorage.removeItem('Authorization')
+    localStorage.removeItem('Refresh')
+
+    dispatch(logOut())
+    dispatch(cleanAlbums())
+}
+
 const initialState: AuthState = {
     data: null,
     status: 'loading',
@@ -86,7 +102,12 @@ const initialState: AuthState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logOut: (state) => {
+            state.data = null
+            state.status = 'loading'
+        },
+    },
     extraReducers: {
         [fetchLog.pending.type]: (state: AuthState) => {
             state.status = 'loading'
@@ -137,3 +158,5 @@ export const authorized = ({ auth }: { auth: AuthState }): boolean => {
     if (auth.status === 'error') return false
     return true
 }
+
+export const { logOut } = authSlice.actions
