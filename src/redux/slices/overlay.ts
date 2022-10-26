@@ -11,17 +11,21 @@ const overlaySLice = createSlice({
     reducers: {
         showOverlay: (state: OverlayState) => {
             state.state = true
-            const body = document.querySelector('body')
-            if (body?.offsetHeight !== window.innerHeight) {
-                body?.classList.add('_overflow-hidden')
+            const app: HTMLDivElement | null = document.querySelector('.App')
+            const body: HTMLBodyElement | null = document.querySelector('body')
+            if (!app) return
+            if (app?.offsetHeight !== window.innerHeight) {
+                app?.classList.add('_overflow-hidden')
             }
             if (body) body.style.overflow = 'hidden'
         },
         hideOverlay: (state: OverlayState) => {
             state.state = false
-            const body = document.querySelector('body')
+            const app: HTMLDivElement | null = document.querySelector('.App')
+            const body: HTMLBodyElement | null = document.querySelector('body')
+            if (!app) return
             if (body) body.style.overflow = 'auto'
-            body?.classList.remove('_overflow-hidden')
+            app?.classList.remove('_overflow-hidden')
         },
     },
 })

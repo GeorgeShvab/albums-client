@@ -51,17 +51,7 @@ const FixedElementsContainer = () => {
 
     return (
         <>
-            <AnimationWrapper opened={overlay}>
-                {mobile ? (
-                    <DownUpAnimation opened={overlay} zIndex={100}>
-                        <Overlay />
-                    </DownUpAnimation>
-                ) : (
-                    <CenterAnimation opened={overlay} zIndex={100}>
-                        <Overlay />
-                    </CenterAnimation>
-                )}
-            </AnimationWrapper>
+            {overlay ? <Overlay /> : ''}
             <AnimationWrapper
                 opened={mobileMenu.type === 'adding' ? true : false}
             >
