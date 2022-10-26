@@ -9,7 +9,7 @@
     align-items: center;
 
     @media screen and (min-width: 769px) {
-        height: calc(100vh - 92px);
+        height: calc(100vh - 90px);
         background: url('../../static/intro_bg-dekstop.png') center no-repeat;
         background-size: cover;
     }
