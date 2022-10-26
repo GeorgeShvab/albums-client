@@ -25,6 +25,7 @@ export type MobileMenuType =
     | 'delete-photos'
     | 'move-photos'
     | 'add-photo'
+    | 'logout'
 
 export interface MobileMenuState {
     state: boolean
@@ -128,6 +129,7 @@ export type WindowType =
     | 'delete-photos'
     | 'move-photos'
     | 'add-photo'
+    | 'logout'
 
 export interface WindowAction extends ThunkAction {
     payload: WindowType | { data: any; type: WindowType }

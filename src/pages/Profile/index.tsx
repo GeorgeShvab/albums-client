@@ -11,11 +11,15 @@ import {
 import { ProfileSaved } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { getUser, logout } from '../../redux/slices/auth'
+import { isMobile } from '../../redux/slices/device'
+import { showMobileMenu } from '../../redux/slices/mobileMenu'
+import { showOverlay } from '../../redux/slices/overlay'
 import {
     clearProfileState,
     fetchProfile,
     getProfile,
 } from '../../redux/slices/profile'
+import { showWindow } from '../../redux/slices/window'
 import defaultAvatar from '../../static/default-avatar.jpg'
 import './style.scss'
 
@@ -24,10 +28,9 @@ const Profile = (): ReactElement => {
 
     const [error, setError] = useState<string | null>(null)
 
+    const mobile = useAppSelector(isMobile)
     const profile = useAppSelector(getProfile)
     const user = useAppSelector(getUser)
-
-    const navigate = useNavigate()
 
     const { userId } = useParams()
 
@@ -62,8 +65,12 @@ const Profile = (): ReactElement => {
     }
 
     const logOut = () => {
-        dispatch(logout())
-        navigate('/login')
+        dispatch(showOverlay())
+        if (mobile) {
+            dispatch(showMobileMenu('logout'))
+            return
+        }
+        dispatch(showWindow('logout'))
     }
 
     return (

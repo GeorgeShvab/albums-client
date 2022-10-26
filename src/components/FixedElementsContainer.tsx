@@ -19,6 +19,8 @@ import {
     AnimationWrapper,
     DownUpAnimation,
     CenterAnimation,
+    MobileLogout,
+    DekstopLogout,
 } from '.'
 import { useAppSelector } from '../hooks/reduxHooks'
 import { isMobile } from '../redux/slices/device'
@@ -156,6 +158,15 @@ const FixedElementsContainer = () => {
                     <AddAlbumMenu />
                 </DownUpAnimation>
             </AnimationWrapper>
+            <AnimationWrapper
+                opened={mobileMenu.type === 'logout' ? true : false}
+            >
+                <DownUpAnimation
+                    opened={mobileMenu.type === 'logout' ? true : false}
+                >
+                    <MobileLogout />
+                </DownUpAnimation>
+            </AnimationWrapper>
             {selection.state && mobile ? (
                 <>
                     <DeletePhotos />
@@ -165,7 +176,7 @@ const FixedElementsContainer = () => {
             ) : (
                 ''
             )}
-            {/*Вікна для векстопної версії*/}
+            {/*Вікна для декстопної версії*/}
             <AnimationWrapper
                 opened={window.type === 'delete-album' ? true : false}
             >
@@ -242,6 +253,13 @@ const FixedElementsContainer = () => {
                     opened={window.type === 'add-photo' ? true : false}
                 >
                     <AddPhotoWindow />
+                </CenterAnimation>
+            </AnimationWrapper>
+            <AnimationWrapper opened={window.type === 'logout' ? true : false}>
+                <CenterAnimation
+                    opened={window.type === 'logout' ? true : false}
+                >
+                    <DekstopLogout />
                 </CenterAnimation>
             </AnimationWrapper>
         </>
