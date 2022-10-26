@@ -174,7 +174,8 @@ const AlbumHeading = memo(
                             <Title text={album?.name || '  '} />
                             {user?._id === album?.creator._id &&
                             user &&
-                            album ? (
+                            album &&
+                            !mobile ? (
                                 <div ref={refEl}>
                                     <DotsMenu style={dotsMenuStyle}>
                                         <ContextMenuWrapper
@@ -199,11 +200,10 @@ const AlbumHeading = memo(
                             <div className="album-heading__description">
                                 <p className="album-heading__text-item">
                                     {album?.description ? (
-                                        <>{album?.description} &bull;</>
+                                        <>{album?.description}</>
                                     ) : (
                                         ''
-                                    )}{' '}
-                                    <strong>{album?.count + ' фото'}</strong>
+                                    )}
                                 </p>
                             </div>
                             <div className="album-heading__author">
