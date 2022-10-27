@@ -63,7 +63,7 @@ const MobileNavigation = (): ReactElement => {
                     </li>
                 </ul>
             ) : (
-                <ul className="mobile-menu__list _rounded-buttons">
+                <ul className="mobile-menu__list">
                     <li onClick={menuClickHandler}>
                         <MobileMenuItem children="Головна" link="/" />
                     </li>

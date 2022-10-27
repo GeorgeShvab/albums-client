@@ -115,19 +115,19 @@ const Nav = (): ReactElement => {
             <nav className="nav">
                 <ul className="nav__list fixed-size-btns">
                     <li>
-                        <NavItem children="Головна" link="/albums" />
+                        <NavItem children="Головна" link="/" />
                     </li>
                     <li style={{ marginRight: '20px' }}>
                         <NavItem
                             children="Реєстрація"
-                            link="/albums"
+                            link="/registration"
                             style="outline black"
                         />
                     </li>
                     <li>
                         <NavItem
                             children="Вхід"
-                            link="/albums"
+                            link="/login"
                             style="outline white"
                         />
                     </li>
