@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react'
 import throttle from '../utils/thorttle'
 
 const useOutsideEvent = (
-    ref: RefObject<HTMLDivElement>,
+    ref: RefObject<HTMLElement>,
     func: () => void,
     type: 'click' | 'hover',
     classList?: string[]

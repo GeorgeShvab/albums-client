@@ -47,12 +47,7 @@ const ContextMenuWrapper = ({
         }
     }, [])
 
-    useOutsideEvent(
-        contextMenuWrapper,
-        handleOutsideEvent,
-        type ? type : 'click',
-        ['nav__list-item', 'dots-menu']
-    )
+    useOutsideEvent(refEl, handleOutsideEvent, type ? type : 'click')
 
     if (!menuState) return <></>
 
