@@ -117,7 +117,7 @@ const Nav = (): ReactElement => {
                     <li>
                         <NavItem children="Головна" link="/albums" />
                     </li>
-                    <li>
+                    <li style={{ marginRight: '20px' }}>
                         <NavItem
                             children="Реєстрація"
                             link="/albums"

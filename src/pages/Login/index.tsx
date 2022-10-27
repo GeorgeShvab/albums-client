@@ -24,25 +24,20 @@ const Login = (): ReactElement => {
             <div className="container">
                 <div className="auth__conatiner">
                     <div className="auth__wrapper">
-                        <div className="auth__item">
-                            <div className="auth__img"></div>
-                        </div>
-                        <div className="auth__item">
+                        <div className="auth__form-wrapper">
                             <div className="auth__heading">
                                 <Heading
                                     title="Вхід"
                                     subtitle="Увійдіть, щоб сповна користуватись можливостями Albums"
                                 />
                             </div>
-                            <div className="auth__form-wrapper">
-                                <LoginForm />
-                                <p className="auth__change-page">
-                                    Ще не маєте аккаунту?{' '}
-                                    <Link to="/registration">
-                                        <span>Зареєструватись</span>
-                                    </Link>
-                                </p>
-                            </div>
+                            <LoginForm />
+                            <p className="auth__change-page">
+                                Ще не маєте аккаунту?{' '}
+                                <Link to="/registration">
+                                    <span>Зареєструватись</span>
+                                </Link>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,32 @@ const Registration = (): ReactElement => {
             <div className="container">
                 <div className="auth__conatiner">
                     <div className="auth__wrapper">
+                        <div className="auth__form-wrapper">
+                            <div className="auth__heading">
+                                <Heading
+                                    title="Реєстрація"
+                                    subtitle="Зареєструйтеся, щоб сповна користуватись можливостями Albums"
+                                />
+                            </div>
+                            <RegistrationForm />
+                            <p className="auth__change-page">
+                                Вже маєте аккаунт?{' '}
+                                <Link to="/login">
+                                    <span>Увійти</span>
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
+    /*return (
+        <div className="auth">
+            <div className="container">
+                <div className="auth__conatiner">
+                    <div className="auth__wrapper">
                         <div className="auth__item"></div>
                         <div className="auth__item">
                             <div className="auth__heading">
@@ -50,7 +76,7 @@ const Registration = (): ReactElement => {
                 </div>
             </div>
         </div>
-    )
+    )*/
 }
 
 export default Registration
