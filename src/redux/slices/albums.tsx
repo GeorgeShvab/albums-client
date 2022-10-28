@@ -1,16 +1,22 @@
-import { createSlice, createAsyncThunk, Store } from '@reduxjs/toolkit'
+import {
+    createSlice,
+    createAsyncThunk,
+    Store,
+    AnyAction,
+} from '@reduxjs/toolkit'
 import axios from '../../axios'
 import {
     Album,
     AlbumsAction,
     AlbumsActionOne,
     AlbumsState,
+    AlbumState,
     AlbumUpdateParams,
     AuthState,
     ChangeNumberOfPhotosAction,
     CustomStore,
 } from '../../types'
-import { changeAlbumName, changeAlbumVisibility } from './album'
+import { changeAlbumName, changeAlbumVisibility, setDescription } from './album'
 
 export const fetchAlbums = createAsyncThunk(
     'albums/fetchAlbums',
@@ -139,6 +145,24 @@ export const fetchDeletePreview = createAsyncThunk(
     }
 )
 
+export const fetchUpdateDescription = createAsyncThunk(
+    'albums/fetchAupdateDescription',
+    async (
+        { albumId, description }: { albumId: string; description: string },
+        { dispatch, getState }
+    ) => {
+        await axios.patch(`/album/${albumId}/description`, {
+            description: description,
+        })
+
+        const state: any = getState()
+
+        if (state.album?.data?._id === albumId) {
+            dispatch(setDescription(description))
+        }
+    }
+)
+
 const initialState: AlbumsState = {
     status: 'loading',
     data: null,
@@ -262,6 +286,22 @@ const albumsSlice = createSlice({
                 state.data = state.data?.map((item) => {
                     if (item._id === action.meta.arg) {
                         return { ...item, background: null }
+                    }
+                    return item
+                })
+            }
+        },
+        [fetchUpdateDescription.fulfilled.type]: (
+            state: AlbumsState,
+            action: AnyAction
+        ) => {
+            if (state.data) {
+                state.data = state.data?.map((item) => {
+                    if (item._id === action.meta.arg.albumId) {
+                        return {
+                            ...item,
+                            description: action.meta.arg.description,
+                        }
                     }
                     return item
                 })

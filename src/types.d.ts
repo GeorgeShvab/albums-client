@@ -26,6 +26,7 @@ export type MobileMenuType =
     | 'move-photos'
     | 'add-photo'
     | 'logout'
+    | 'change-album-description'
 
 export interface MobileMenuState {
     state: boolean
@@ -130,6 +131,7 @@ export type WindowType =
     | 'move-photos'
     | 'add-photo'
     | 'logout'
+    | 'change-album-description'
 
 export interface WindowAction extends ThunkAction {
     payload: WindowType | { data: any; type: WindowType }
@@ -336,4 +338,39 @@ export interface GetProfileAction extends ThunkAction, AnyAction {
         success: boolean
         data: {}
     }
+}
+
+export type PopupType =
+    | 'navigation'
+    | 'adding'
+    | 'add-album'
+    | 'delete-album'
+    | 'update-album-name'
+    | 'update-album-visibility'
+    | 'update-album-preview'
+    | 'delete-photos'
+    | 'move-photos'
+    | 'add-photo'
+    | 'logout'
+    | 'update-album-description'
+    | null
+
+export interface PopupState {
+    state: boolean
+    data: any
+    type: PopupType
+}
+
+export interface PopupAction extends AnyAction {
+    payload: {
+        type: PopupType
+        data?: any
+    }
+}
+
+export interface PopupFormEvent extends FormEvent<HTMLFormElement> {
+    target: EventTarget &
+        HTMLFormElement & {
+            description: HTMLInputElement
+        }
 }

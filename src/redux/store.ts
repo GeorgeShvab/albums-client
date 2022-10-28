@@ -10,6 +10,7 @@ import page from './slices/page'
 import photos from './slices/photos'
 import window from './slices/window'
 import profile from './slices/profile'
+import popup from './slices/popup'
 
 const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
         album,
         selectionMode,
         profile,
+        popup,
     },
 })
 

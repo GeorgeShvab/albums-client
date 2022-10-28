@@ -48,7 +48,7 @@ a {
 }
 
 .overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
@@ -471,4 +471,30 @@ a {
 
 ._pointer {
     cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    height: 54px;
+    font-size: 1.6rem;
+    color: #b2b2b2;
+    padding: 0 20px;
+    background-color: #f8f8f8;
+    border-radius: 27px;
+    outline: none;
+    border: 3px solid transparent;
+
+    &:not(._error) {
+        &:focus {
+            border: 3px solid black;
+        }
+    }
+
+    &::placeholder {
+        color: #bcbcbc;
+    }
+
+    &._error {
+        border: 3px solid #ff9d8a;
+    }
 }

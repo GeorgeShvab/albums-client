@@ -55,6 +55,11 @@ const albumSlice = createSlice({
                 }
             }
         },
+        setDescription: (state: AlbumState, action: { payload: string }) => {
+            if (state.data) {
+                state.data.description = action.payload
+            }
+        },
     },
     extraReducers: {
         [fetchAlbum.fulfilled.type]: (
@@ -77,6 +82,7 @@ export const {
     changeAlbumName,
     changeAlbumVisibility,
     changeNumberOfPhotosAlbum,
+    setDescription,
 } = albumSlice.actions
 
 export const getAlbum = ({ album }: { album: AlbumState }) => album.data

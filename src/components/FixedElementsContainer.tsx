@@ -39,8 +39,12 @@ import AddAlbumMenu from './MobileMenus/AddAlbum'
 import AddingMenu from './MobileMenus/AddingMenu'
 import MobileNavigation from './MobileMenus/MobileNavigation'
 import Overlay from './Overlay'
+import UpdateAlbumDescription from './Popups/UpdateAlbumDescription'
 import AddAlbumWindow from './Windows/AddAlbumWindow'
 import DeleteAlbumWindow from './Windows/DeleteAlbumWindow'
+import Animation from './Animation/Animation'
+import { getPopupState } from '../redux/slices/popup'
+import PopupWrapper from './Popups/PopupWrapper'
 
 const FixedElementsContainer = () => {
     const [state, setState] = useState<boolean>(false)
@@ -50,6 +54,7 @@ const FixedElementsContainer = () => {
     const window = useAppSelector(getWindowState)
     const selection = useAppSelector(isSelectionMode)
     const mobile = useAppSelector(isMobile)
+    const popup = useAppSelector(getPopupState)
 
     return (
         <>
@@ -261,6 +266,26 @@ const FixedElementsContainer = () => {
                 >
                     <DekstopLogout />
                 </CenterAnimation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'update-album-description' && popup.state
+                        ? true
+                        : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'update-album-description' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <UpdateAlbumDescription />
+                    </PopupWrapper>
+                </Animation>
             </AnimationWrapper>
         </>
     )
