@@ -1,28 +1,18 @@
 import { ReactElement, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Album, AlbumLoader, Error } from '../../components'
 import { Empty, UnexpectedError } from '../../components/Svgs'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import {
-    fetchAlbums,
-    getAlbums,
-    getAlbumsState,
-} from '../../redux/slices/albums'
-import { getUser, isAuthorized } from '../../redux/slices/auth'
-import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
+import { getAlbums, getAlbumsState } from '../../redux/slices/albums'
+import { getUser } from '../../redux/slices/auth'
 import { setPage } from '../../redux/slices/page'
 import { showPopup } from '../../redux/slices/popup'
-import { showWindow } from '../../redux/slices/window'
-import throttle from '../../utils/thorttle'
 import './style.scss'
 
 const Albums = (): ReactElement => {
     const albums = useAppSelector(getAlbums)
     const albumsState = useAppSelector(getAlbumsState)
     const dispatch = useAppDispatch()
-    const mobile = useAppSelector(isMobile)
     const user = useAppSelector(getUser)
 
     useEffect(() => {

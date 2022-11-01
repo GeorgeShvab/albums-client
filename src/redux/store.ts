@@ -4,11 +4,9 @@ import albums from './slices/albums'
 import auth from './slices/auth'
 import selectionMode from './slices/selectionMode'
 import device from './slices/device'
-import mobileMenu from './slices/mobileMenu'
 import overlay from './slices/overlay'
 import page from './slices/page'
 import photos from './slices/photos'
-import window from './slices/window'
 import profile from './slices/profile'
 import popup from './slices/popup'
 
@@ -17,9 +15,7 @@ const store = configureStore({
         device,
         page,
         overlay,
-        mobileMenu,
         auth,
-        window,
         albums,
         photos,
         album,

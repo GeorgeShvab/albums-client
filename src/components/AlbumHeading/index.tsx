@@ -7,9 +7,6 @@ import {
     isSelectionMode,
 } from '../../redux/slices/selectionMode'
 import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
-import { showWindow } from '../../redux/slices/window'
 import { Album, User } from '../../types'
 import './style.scss'
 import { Link } from 'react-router-dom'

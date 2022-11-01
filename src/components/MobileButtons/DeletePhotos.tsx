@@ -1,7 +1,5 @@
 import { ReactElement } from 'react'
 import { useAppDispatch } from '../../hooks/reduxHooks'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
 import { showPopup } from '../../redux/slices/popup'
 
 const DeletePhotos = (): ReactElement => {

@@ -2,10 +2,7 @@ import { ReactElement, useRef } from 'react'
 import { ContextMenu, ContextMenuWrapper, DotsMenu } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
 import { showPopup } from '../../redux/slices/popup'
-import { showWindow } from '../../redux/slices/window'
 import * as types from '../../types'
 
 const AlbumSettings = (

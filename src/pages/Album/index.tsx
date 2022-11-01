@@ -1,22 +1,15 @@
 import { ReactElement, useEffect, useState } from 'react'
-import { Link, Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import {
     AlbumHeading,
-    AlbumHeadingLoader,
-    DotsMenu,
     Error,
     FullScreenPhoto,
     Photo,
-    PhotoLoader,
     SimpleLoader,
-    Title,
 } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { cleanAlbumState, fetchAlbum, getAlbum } from '../../redux/slices/album'
 import { getUser } from '../../redux/slices/auth'
-import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
 import { setPage } from '../../redux/slices/page'
 import {
     cleanPhotosState,
@@ -24,7 +17,6 @@ import {
     getPhotos,
     getPhotosState,
 } from '../../redux/slices/photos'
-import { showWindow } from '../../redux/slices/window'
 import './style.scss'
 import {
     UnexpectedError,

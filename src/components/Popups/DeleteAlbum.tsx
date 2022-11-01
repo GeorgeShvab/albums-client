@@ -1,10 +1,7 @@
 import { ReactElement } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { fetchDeleteAlbum } from '../../redux/slices/albums'
-import { hideMobileMenu } from '../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../redux/slices/overlay'
 import { closePopup, getPopupState } from '../../redux/slices/popup'
-import Input from '../Input'
 import RoundedButton from '../RoundedButton'
 
 const DeleteAlbum = (): ReactElement => {

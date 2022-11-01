@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useAppDispatch } from '../../hooks/reduxHooks'
 import { showPopup } from '../../redux/slices/popup'
-import MobileMenuItem from '../MobileMenus/MobileMenuItem'
+import MobileMenuItem from './MobileMenuItem'
 
 const AddingMenu = (): ReactElement => {
     const dispatch = useAppDispatch()

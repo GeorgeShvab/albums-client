@@ -2,8 +2,6 @@ import { ReactElement } from 'react'
 import { RoundedButton } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { fetchChangeVisibility } from '../../redux/slices/albums'
-import { hideMobileMenu } from '../../redux/slices/mobileMenu'
-import { hideOverlay } from '../../redux/slices/overlay'
 import { closePopup, getPopupState } from '../../redux/slices/popup'
 
 const UpdateAlbumVisibility = (): ReactElement => {
