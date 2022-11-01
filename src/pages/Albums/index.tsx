@@ -3,7 +3,11 @@ import { Navigate } from 'react-router-dom'
 import { Album, AlbumLoader, Error } from '../../components'
 import { Empty, UnexpectedError } from '../../components/Svgs'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { getAlbums, getAlbumsState } from '../../redux/slices/albums'
+import {
+    fetchAlbums,
+    getAlbums,
+    getAlbumsState,
+} from '../../redux/slices/albums'
 import { getUser } from '../../redux/slices/auth'
 import { setPage } from '../../redux/slices/page'
 import { showPopup } from '../../redux/slices/popup'
@@ -18,6 +22,10 @@ const Albums = (): ReactElement => {
     useEffect(() => {
         dispatch(setPage('albums'))
         document.title = 'Ваші альбоми'
+
+        if (user.data) {
+            dispatch(fetchAlbums())
+        }
 
         window.scrollTo(0, 0)
     }, [])

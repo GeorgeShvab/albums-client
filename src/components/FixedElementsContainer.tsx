@@ -18,15 +18,29 @@ import DeletePhotos from './Popups/DeletePhotos'
 import MovePhotos from './Popups/MovePhotos'
 import AddPhoto from './Popups/AddPhoto'
 import UpdatePreview from './Popups/UpdatePreview'
+import DeletePhotosBtn from './MobileButtons/DeletePhotos'
+import CancelSelectionBtn from './MobileButtons/CancelSelection'
+import MovePhotosBtn from './MobileButtons/MovePhotos'
+import { isSelectionMode } from '../redux/slices/selectionMode'
 
 const FixedElementsContainer = () => {
     const overlay = useAppSelector(getOverlayState)
     const mobile = useAppSelector(isMobile)
     const popup = useAppSelector(getPopupState)
+    const selection = useAppSelector(isSelectionMode)
 
     return (
         <>
             {overlay ? <Overlay /> : ''}
+            {selection.state && mobile ? (
+                <>
+                    <DeletePhotosBtn />
+                    <CancelSelectionBtn />
+                    <MovePhotosBtn />
+                </>
+            ) : (
+                ''
+            )}
             <AnimationWrapper
                 opened={
                     popup.type === 'update-album-description' && popup.state
