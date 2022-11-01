@@ -13,6 +13,7 @@ import { isMobile } from '../../redux/slices/device'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
 import { setPage } from '../../redux/slices/page'
+import { showPopup } from '../../redux/slices/popup'
 import { showWindow } from '../../redux/slices/window'
 import throttle from '../../utils/thorttle'
 import './style.scss'
@@ -35,12 +36,7 @@ const Albums = (): ReactElement => {
         return <Navigate to="/login"></Navigate>
 
     const handleAddAlbumClick = () => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(showMobileMenu('add-album'))
-            return
-        }
-        dispatch(showWindow('add-album'))
+        showPopup({ dispatch, type: 'add-album' })
     }
 
     const emptyErrorText = 'Ви не маєте альбомів, натисніть щоб створити новий'

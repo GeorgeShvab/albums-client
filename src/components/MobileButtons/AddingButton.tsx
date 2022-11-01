@@ -4,6 +4,7 @@ import { isAuthorized } from '../../redux/slices/auth'
 import { isMobile } from '../../redux/slices/device'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
+import { showPopup } from '../../redux/slices/popup'
 import { isSelectionMode } from '../../redux/slices/selectionMode'
 import './style.scss'
 
@@ -19,8 +20,7 @@ const AddButton = (): ReactElement => {
     }
 
     const handleBtnClick = () => {
-        dispatch(showOverlay())
-        dispatch(showMobileMenu('adding'))
+        showPopup({ dispatch: dispatch, type: 'adding' })
     }
 
     return (

@@ -14,6 +14,7 @@ import { getUser, logout } from '../../redux/slices/auth'
 import { isMobile } from '../../redux/slices/device'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
+import { showPopup } from '../../redux/slices/popup'
 import {
     clearProfileState,
     fetchProfile,
@@ -65,12 +66,7 @@ const Profile = (): ReactElement => {
     }
 
     const logOut = () => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(showMobileMenu('logout'))
-            return
-        }
-        dispatch(showWindow('logout'))
+        showPopup({ type: 'logout', dispatch: dispatch })
     }
 
     return (

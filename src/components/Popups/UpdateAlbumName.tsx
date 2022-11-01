@@ -1,13 +1,12 @@
-import { FormEvent, ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { fetchUpdateDescription } from '../../redux/slices/albums'
-import { closePopup, getPopupState } from '../../redux/slices/popup'
+import { fetchChangeName } from '../../redux/slices/albums'
+import { getPopupState, closePopup } from '../../redux/slices/popup'
 import { PopupFormEvent } from '../../types'
 import Input from '../Input'
 import RoundedButton from '../RoundedButton'
-import './style.scss'
 
-const UpdateAlbumDescription = (): ReactElement => {
+const UpdateAlbumName = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const popupState = useAppSelector(getPopupState)
@@ -15,9 +14,9 @@ const UpdateAlbumDescription = (): ReactElement => {
     const handleSubmit = (e: PopupFormEvent) => {
         e.preventDefault()
         dispatch(
-            fetchUpdateDescription({
+            fetchChangeName({
                 albumId: popupState.data.album._id,
-                description: e.target.description.value,
+                name: e.target.name.value,
             })
         )
 
@@ -31,15 +30,15 @@ const UpdateAlbumDescription = (): ReactElement => {
     return (
         <div className="popup">
             <p className="popup__text">
-                Введіть опис альбому {popupState.data.album.name}
+                Введіть нове ім'я альбому {popupState.data.album.name}
             </p>
             <form onSubmit={handleSubmit}>
                 <div className="popup__input-group">
                     <Input
-                        name="description"
+                        name="name"
                         onInput={() => {}}
-                        defaultValue={popupState.data.album.description}
-                        placeholder={'Опис альбому'}
+                        defaultValue=""
+                        placeholder="Нове ім'я"
                         max={100}
                     />
                 </div>
@@ -60,4 +59,4 @@ const UpdateAlbumDescription = (): ReactElement => {
     )
 }
 
-export default UpdateAlbumDescription
+export default UpdateAlbumName

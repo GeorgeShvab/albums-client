@@ -17,65 +17,35 @@ const AlbumSettings = (
     const refEl = useRef<HTMLDivElement>(null)
 
     const deleteAlbum = (): void => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(
-                showMobileMenu({ type: 'delete-album', data: { album: props } })
-            )
-            return
-        }
-        dispatch(showWindow({ type: 'delete-album', data: { album: props } }))
+        showPopup({
+            dispatch: dispatch,
+            type: 'delete-album',
+            data: { album: props },
+        })
     }
 
-    const changeVisibility = (): void => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(
-                showMobileMenu({
-                    type: 'change-album-visibility',
-                    data: { album: props },
-                })
-            )
-            return
-        }
-        dispatch(
-            showWindow({
-                type: 'change-album-visibility',
-                data: { album: props },
-            })
-        )
+    const updateVisibility = (): void => {
+        showPopup({
+            dispatch: dispatch,
+            type: 'update-album-visibility',
+            data: { album: props },
+        })
     }
 
     const changeName = (): void => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(
-                showMobileMenu({
-                    type: 'change-album-name',
-                    data: { album: props },
-                })
-            )
-            return
-        }
-        dispatch(
-            showWindow({ type: 'change-album-name', data: { album: props } })
-        )
+        showPopup({
+            type: 'update-album-name',
+            dispatch,
+            data: { album: props },
+        })
     }
 
     const changePreview = () => {
-        dispatch(showOverlay())
-        if (mobile) {
-            dispatch(
-                showMobileMenu({
-                    type: 'change-album-preview',
-                    data: { album: props },
-                })
-            )
-            return
-        }
-        dispatch(
-            showWindow({ type: 'change-album-preview', data: { album: props } })
-        )
+        showPopup({
+            dispatch,
+            type: 'update-album-preview',
+            data: { album: props },
+        })
     }
 
     const changeAlbumDescription = () => {
@@ -101,7 +71,7 @@ const AlbumSettings = (
         },
         {
             text: 'Змінити видимість альбому',
-            func: changeVisibility,
+            func: updateVisibility,
         },
         {
             text: 'Змінити опис альбому',

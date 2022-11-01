@@ -1,14 +1,5 @@
 import { memo, ReactElement, useRef } from 'react'
-import {
-    AlbumHeadingLoader,
-    AlbumHeadingLoaderMobile,
-    Avatar,
-    ContextMenu,
-    ContextMenuWrapper,
-    DotsMenu,
-    RoundedButton,
-    Title,
-} from '..'
+import { Avatar, ContextMenu, ContextMenuWrapper, DotsMenu, Title } from '..'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import {
     activateSelectionMode,
@@ -23,6 +14,7 @@ import { Album, User } from '../../types'
 import './style.scss'
 import { Link } from 'react-router-dom'
 import defaultAvatar from '../../static/default-avatar.jpg'
+import { showPopup } from '../../redux/slices/popup'
 
 const AlbumHeading = memo(
     ({
@@ -40,57 +32,35 @@ const AlbumHeading = memo(
         const dispatch = useAppDispatch()
 
         const deleteAlbum = (): void => {
-            dispatch(showOverlay())
-            if (mobile) {
-                dispatch(
-                    showMobileMenu({
-                        type: 'delete-album',
-                        data: { album: album },
-                    })
-                )
-                return
-            }
-            dispatch(
-                showWindow({ type: 'delete-album', data: { album: album } })
-            )
+            showPopup({
+                dispatch: dispatch,
+                type: 'delete-album',
+                data: { album: album },
+            })
         }
 
-        const changeVisibility = (): void => {
-            dispatch(showOverlay())
-            if (mobile) {
-                dispatch(
-                    showMobileMenu({
-                        type: 'change-album-visibility',
-                        data: { album: album },
-                    })
-                )
-                return
-            }
-            dispatch(
-                showWindow({
-                    type: 'change-album-visibility',
-                    data: { album: album },
-                })
-            )
+        const updateVisibility = (): void => {
+            showPopup({
+                dispatch: dispatch,
+                type: 'update-album-visibility',
+                data: { album: album },
+            })
         }
 
         const changeName = (): void => {
-            dispatch(showOverlay())
-            if (mobile) {
-                dispatch(
-                    showMobileMenu({
-                        type: 'change-album-name',
-                        data: { album: album },
-                    })
-                )
-                return
-            }
-            dispatch(
-                showWindow({
-                    type: 'change-album-name',
-                    data: { album: album },
-                })
-            )
+            showPopup({
+                type: 'update-album-name',
+                dispatch,
+                data: { album: album },
+            })
+        }
+
+        const changeAlbumDescription = () => {
+            showPopup({
+                type: 'update-album-description',
+                dispatch,
+                data: { album: album },
+            })
         }
 
         const selectPhotos = () => {
@@ -118,7 +88,11 @@ const AlbumHeading = memo(
             },
             {
                 text: 'Змінити видимість альбому',
-                func: changeVisibility,
+                func: updateVisibility,
+            },
+            {
+                text: 'Змінити опис альбому',
+                func: changeAlbumDescription,
             },
         ]
 
@@ -127,22 +101,11 @@ const AlbumHeading = memo(
         }
 
         const handleDeleteClick = async () => {
-            dispatch(showOverlay())
-            if (mobile) {
-                dispatch(showMobileMenu('delete-photos'))
-                return
-            }
-
-            dispatch(showWindow('delete-photos'))
+            showPopup({ dispatch, type: 'delete-photos' })
         }
 
         const handleMoveClick = () => {
-            dispatch(showOverlay())
-            if (mobile) {
-                dispatch(showMobileMenu('move-photos'))
-                return
-            }
-            dispatch(showWindow('move-photos'))
+            showPopup({ dispatch, type: 'move-photos' })
         }
 
         const dotsMenuStyle = {

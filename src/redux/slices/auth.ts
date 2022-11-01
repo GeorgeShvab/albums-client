@@ -86,7 +86,7 @@ export const fetchMe = createAsyncThunk('auth/fetchMe', async () => {
     }
 })
 
-export const logout = () => (dispatch: AppDispatch) => {
+export const logout = (dispatch: AppDispatch) => {
     localStorage.removeItem('Authorization')
     localStorage.removeItem('Refresh')
 

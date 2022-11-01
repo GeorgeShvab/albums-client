@@ -2,13 +2,13 @@ import { ReactElement } from 'react'
 import { useAppDispatch } from '../../hooks/reduxHooks'
 import { showMobileMenu } from '../../redux/slices/mobileMenu'
 import { showOverlay } from '../../redux/slices/overlay'
+import { showPopup } from '../../redux/slices/popup'
 
 const MovePhotos = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const handleBtnClick = () => {
-        dispatch(showOverlay())
-        dispatch(showMobileMenu('move-photos'))
+        showPopup({ dispatch, type: 'move-photos' })
     }
 
     return (

@@ -2,19 +2,17 @@ import { memo, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
 import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
+import { showPopup } from '../../redux/slices/popup'
 import Nav from './Nav'
 import './style.scss'
 
 const Header = memo((): ReactElement => {
-    const mobile = useAppSelector(isMobile)
-
     const dispatch = useAppDispatch()
 
+    const mobile = useAppSelector(isMobile)
+
     const handleMenuClick = () => {
-        dispatch(showOverlay())
-        dispatch(showMobileMenu('navigation'))
+        showPopup({ type: 'navigation', dispatch: dispatch })
     }
 
     return (

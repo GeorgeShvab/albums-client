@@ -41,24 +41,15 @@ export const fetchAlbums = createAsyncThunk(
 
 export const fetchAddAlbum = createAsyncThunk(
     'albums/fetchAddAlbum',
-
-    async (
-        body: { visibility: 'public' | 'private'; name: string },
-        { rejectWithValue }
-    ) => {
+    async (name: string, { rejectWithValue }) => {
         try {
-            const data = await axios.post('/album', body)
+            const data = await axios.post('/album', { name: name })
             return data.data
         } catch (e: any) {
             if (!e.response) {
                 throw e
             }
-
-            if (e.code === 'ERR_NETWORK') {
-                throw e
-            }
-
-            return rejectWithValue(e.response)
+            return rejectWithValue(e.response.data)
         }
     }
 )

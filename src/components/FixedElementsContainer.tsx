@@ -7,9 +7,7 @@ import {
     ChangeAlbumNameMobileMenu,
     ChangeAlbumPreviewWindow,
     ChangeAlbumPreviewMobileMenu,
-    DeletePhotos,
     CancelSelection,
-    MovePhotos,
     DeletePhotosMobileMenu,
     DeletePhotosWindow,
     MovePhotosMobileMenu,
@@ -36,7 +34,7 @@ import {
     WindowState,
 } from '../types'
 import AddAlbumMenu from './MobileMenus/AddAlbum'
-import AddingMenu from './MobileMenus/AddingMenu'
+import AddingMenu from './Popups/AddingMenu'
 import MobileNavigation from './MobileMenus/MobileNavigation'
 import Overlay from './Overlay'
 import UpdateAlbumDescription from './Popups/UpdateAlbumDescription'
@@ -45,6 +43,18 @@ import DeleteAlbumWindow from './Windows/DeleteAlbumWindow'
 import Animation from './Animation/Animation'
 import { getPopupState } from '../redux/slices/popup'
 import PopupWrapper from './Popups/PopupWrapper'
+import UpdateAlbumName from './Popups/UpdateAlbumName'
+import Navigation from './Popups/Navigation'
+import Logount from './Popups/Logout'
+import AddAlbum from './Popups/AddAlbum'
+import DeleteAlbum from './Popups/DeleteAlbum'
+import UpdateAlbumVisibility from './Popups/UpdateAlbumVisibility'
+import DeletePhotos from './Popups/DeletePhotos'
+import DeletePhotosBtn from './MobileButtons/DeletePhotos'
+import MovePhotosBtn from './MobileButtons/MovePhotos'
+import MovePhotos from './Popups/MovePhotos'
+import AddPhoto from './Popups/AddPhoto'
+import UpdatePreview from './Popups/UpdatePreview'
 
 const FixedElementsContainer = () => {
     const [state, setState] = useState<boolean>(false)
@@ -68,15 +78,7 @@ const FixedElementsContainer = () => {
                     <AddingMenu />
                 </DownUpAnimation>
             </AnimationWrapper>
-            <AnimationWrapper
-                opened={mobileMenu.type === 'navigation' ? true : false}
-            >
-                <DownUpAnimation
-                    opened={mobileMenu.type === 'navigation' ? true : false}
-                >
-                    <MobileNavigation />
-                </DownUpAnimation>
-            </AnimationWrapper>
+
             <AnimationWrapper
                 opened={mobileMenu.type === 'add-photo' ? true : false}
             >
@@ -128,24 +130,6 @@ const FixedElementsContainer = () => {
                 </DownUpAnimation>
             </AnimationWrapper>
             <AnimationWrapper
-                opened={mobileMenu.type === 'delete-album' ? true : false}
-            >
-                <DownUpAnimation
-                    opened={mobileMenu.type === 'delete-album' ? true : false}
-                >
-                    <DeleteAlbumMobileMenu />
-                </DownUpAnimation>
-            </AnimationWrapper>
-            <AnimationWrapper
-                opened={mobileMenu.type === 'delete-photos' ? true : false}
-            >
-                <DownUpAnimation
-                    opened={mobileMenu.type === 'delete-photos' ? true : false}
-                >
-                    <DeletePhotosMobileMenu />
-                </DownUpAnimation>
-            </AnimationWrapper>
-            <AnimationWrapper
                 opened={mobileMenu.type === 'move-photos' ? true : false}
             >
                 <DownUpAnimation
@@ -174,23 +158,14 @@ const FixedElementsContainer = () => {
             </AnimationWrapper>
             {selection.state && mobile ? (
                 <>
-                    <DeletePhotos />
+                    <DeletePhotosBtn />
                     <CancelSelection />
-                    <MovePhotos />
+                    <MovePhotosBtn />
                 </>
             ) : (
                 ''
             )}
             {/*Вікна для декстопної версії*/}
-            <AnimationWrapper
-                opened={window.type === 'delete-album' ? true : false}
-            >
-                <CenterAnimation
-                    opened={window.type === 'delete-album' ? true : false}
-                >
-                    <DeleteAlbumWindow />
-                </CenterAnimation>
-            </AnimationWrapper>
             <AnimationWrapper
                 opened={window.type === 'add-album' ? true : false}
             >
@@ -267,6 +242,7 @@ const FixedElementsContainer = () => {
                     <DekstopLogout />
                 </CenterAnimation>
             </AnimationWrapper>
+            {/* ######################################## */}
             <AnimationWrapper
                 opened={
                     popup.type === 'update-album-description' && popup.state
@@ -284,6 +260,198 @@ const FixedElementsContainer = () => {
                 >
                     <PopupWrapper>
                         <UpdateAlbumDescription />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'update-album-name' && popup.state
+                        ? true
+                        : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'update-album-name' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <UpdateAlbumName />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'navigation' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'navigation' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <Navigation />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={popup.type === 'logout' && popup.state ? true : false}
+            >
+                <Animation
+                    opened={
+                        popup.type === 'logout' && popup.state ? true : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <Logount />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'add-album' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'add-album' && popup.state ? true : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <AddAlbum />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={popup.type === 'adding' && popup.state ? true : false}
+            >
+                <Animation
+                    opened={
+                        popup.type === 'adding' && popup.state ? true : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <AddingMenu />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'delete-album' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'delete-album' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <DeleteAlbum />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'update-album-visibility' && popup.state
+                        ? true
+                        : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'update-album-visibility' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <UpdateAlbumVisibility />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'delete-photos' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'delete-photos' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <DeletePhotos />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'move-photos' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'move-photos' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <MovePhotos />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'add-photo' && popup.state ? true : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'add-photo' && popup.state ? true : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <AddPhoto />
+                    </PopupWrapper>
+                </Animation>
+            </AnimationWrapper>
+            <AnimationWrapper
+                opened={
+                    popup.type === 'update-album-preview' && popup.state
+                        ? true
+                        : false
+                }
+            >
+                <Animation
+                    opened={
+                        popup.type === 'update-album-preview' && popup.state
+                            ? true
+                            : false
+                    }
+                    type={mobile ? 'down-up' : 'center'}
+                >
+                    <PopupWrapper>
+                        <UpdatePreview />
                     </PopupWrapper>
                 </Animation>
             </AnimationWrapper>

@@ -25,7 +25,7 @@ const Logout = (): ReactElement => {
     }
 
     const handleLogout = () => {
-        dispatch(logout())
+        logout(dispatch)
         handleBackClick()
         navigate('/login')
     }

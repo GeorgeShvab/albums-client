@@ -372,5 +372,7 @@ export interface PopupFormEvent extends FormEvent<HTMLFormElement> {
     target: EventTarget &
         HTMLFormElement & {
             description: HTMLInputElement
+            name: HTMLInputElement
+            [key: string]: HTMLInputElement
         }
 }

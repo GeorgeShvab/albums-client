@@ -8,6 +8,7 @@ import { showWindow } from '../../redux/slices/window'
 import ContextMenu from '../ContextMenu'
 import NavItem from './NavItem'
 import defaultAvatar from '../../static/default-avatar.jpg'
+import { showPopup } from '../../redux/slices/popup'
 
 const Nav = (): ReactElement => {
     const isAuthorized = useAppSelector(authorized)
@@ -18,13 +19,11 @@ const Nav = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const handleAddAlbumClick = () => {
-        dispatch(showOverlay())
-        dispatch(showWindow('add-album'))
+        showPopup({ dispatch: dispatch, type: 'add-album' })
     }
 
     const handleAddPhotoClick = () => {
-        dispatch(showOverlay())
-        dispatch(showWindow('add-photo'))
+        showPopup({ dispatch: dispatch, type: 'add-photo' })
     }
 
     const contextMenuElements: { func: () => void; text: string }[] = [

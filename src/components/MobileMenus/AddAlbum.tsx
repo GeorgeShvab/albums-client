@@ -62,9 +62,7 @@ const AddAlbumMenu = (): ReactElement => {
                 return
             }
 
-            const data = await dispatch(
-                fetchAddAlbum({ name: name, visibility: visibility })
-            )
+            const data = await dispatch(fetchAddAlbum(name))
 
             if (!data.payload.success) {
                 setErrors(data.payload.errors)
