@@ -1,27 +1,15 @@
-import React, { useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from './hooks/reduxHooks'
-import { isMobile, setIsMobile } from './redux/slices/device'
+import { setIsMobile } from './redux/slices/device'
 import throttle from './utils/thorttle'
 import './style/reset.scss'
 import './style/index.scss'
-import {
-    AddingButton,
-    AddingMenu,
-    DeleteAlbumWindow,
-    FixedElementsContainer,
-    FullScreenPhoto,
-    Header,
-    MobileNavigation,
-    Overlay,
-} from './components'
+import { AddingButton, FixedElementsContainer, Header } from './components'
 import { AlbumPage, Albums, Login, Main, Profile } from './pages'
-import { getCurrentPage } from './redux/slices/page'
 import Registration from './pages/Registration'
 import { fetchMe, getUser } from './redux/slices/auth'
-import { AddAlbumWindow } from './components'
 import { fetchAlbums } from './redux/slices/albums'
-import AddAlbumMenu from './components/MobileMenus/AddAlbum'
 
 function App() {
     const dispatch = useAppDispatch()

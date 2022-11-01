@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
     Avatar,
     Heading,
@@ -10,17 +10,14 @@ import {
 } from '../../components'
 import { ProfileSaved } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { getUser, logout } from '../../redux/slices/auth'
+import { getUser } from '../../redux/slices/auth'
 import { isMobile } from '../../redux/slices/device'
-import { showMobileMenu } from '../../redux/slices/mobileMenu'
-import { showOverlay } from '../../redux/slices/overlay'
 import { showPopup } from '../../redux/slices/popup'
 import {
     clearProfileState,
     fetchProfile,
     getProfile,
 } from '../../redux/slices/profile'
-import { showWindow } from '../../redux/slices/window'
 import defaultAvatar from '../../static/default-avatar.jpg'
 import './style.scss'
 
