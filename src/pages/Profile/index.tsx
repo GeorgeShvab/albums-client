@@ -75,7 +75,7 @@ const Profile = (): ReactElement => {
                             <Avatar
                                 avatarUrl={
                                     profile?.avatar
-                                        ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/avatars/${profile?._id}/${profile?.avatar}`
+                                        ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/small/avatars/${profile?._id}/${profile?.avatar}`
                                         : defaultAvatar
                                 }
                                 style={{ height: '180px', width: '180px' }}

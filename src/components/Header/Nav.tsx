@@ -95,7 +95,7 @@ const Nav = (): ReactElement => {
                                 <Avatar
                                     avatarUrl={
                                         user.data?.avatar
-                                            ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/avatars/${user.data?._id}/${user.data?.avatar}`
+                                            ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/small/avatars/${user.data?._id}/${user.data?.avatar}`
                                             : defaultAvatar
                                     }
                                 />

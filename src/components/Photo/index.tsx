@@ -61,7 +61,7 @@ const Photo = memo(
             >
                 <div className="photo-container">
                     <img
-                        src={`${process.env.REACT_APP_SERVER_ADDRESS}/static/photos/${props.uploader}/${props.name}`}
+                        src={`${process.env.REACT_APP_SERVER_ADDRESS}/static/small/photos/${props.uploader}/${props.name}`}
                         alt={props.name}
                         loading="lazy"
                     />

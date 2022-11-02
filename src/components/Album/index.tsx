@@ -12,14 +12,14 @@ const Album = (
 ): ReactElement => {
     let imgLink: string =
         process.env.REACT_APP_SERVER_ADDRESS +
-        '/static/system/default_album_background.jpg'
+        '/static/small/system/default_album_background.jpg'
 
     const authorized = useAppSelector(isAuthorized)
 
     if (props.background) {
         imgLink =
             process.env.REACT_APP_SERVER_ADDRESS +
-            '/static' +
+            '/static/small' +
             '/backgrounds/' +
             props._id +
             '/' +
@@ -27,7 +27,7 @@ const Album = (
     } else if (props.last_photo) {
         imgLink =
             process.env.REACT_APP_SERVER_ADDRESS +
-            '/static' +
+            '/static/small' +
             '/photos/' +
             props.last_photo.uploader +
             '/' +
