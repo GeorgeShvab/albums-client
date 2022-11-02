@@ -282,9 +282,8 @@ a {
     margin-bottom: 2rem;
 
     div {
-        max-width: 36rem;
         width: 100%;
-        padding-right: 1rem;
+        padding-right: 20px;
         display: flex;
         justify-content: end;
     }
@@ -312,8 +311,7 @@ a {
 
 .form__oauth-item {
     width: 100%;
-    max-width: 36rem;
-    height: 60px;
+    height: 54px;
     background-color: #f8f8f8;
     border-radius: 30px;
     margin-bottom: 15px;
@@ -333,7 +331,7 @@ a {
     align-items: center;
     justify-content: start;
     height: 100%;
-    padding-left: 5rem;
+    padding-left: 50px;
 
     svg {
         margin-right: 1.5rem;
@@ -352,7 +350,6 @@ a {
 }
 
 .form__error-container {
-    max-width: 360px;
     width: 100%;
     position: relative;
     height: 1.4rem;

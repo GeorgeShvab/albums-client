@@ -9,6 +9,7 @@ import emailValidator from '../../utils/emailValidator'
 import findError from '../../utils/findErrorByName'
 import nameValidator from '../../utils/nameValidator'
 import passwordValidator from '../../utils/passwordValidator'
+import Input from '../Input'
 
 const RegistrationFrom = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -126,42 +127,33 @@ const RegistrationFrom = (): ReactElement => {
     return (
         <form action="" className="auth__form form" onSubmit={handleSubmit}>
             <div className="form__item">
-                <input
-                    type="name"
-                    className={`form__input${
-                        errors[0] ? findError(errors, 'name') : ''
-                    }`}
+                <Input
                     name="name"
-                    autoComplete="name"
+                    autocomplete="name"
                     placeholder="Ім'я"
                     onInput={handleInput}
-                    spellCheck={false}
+                    error={errors[0]}
+                    max={100}
                 />
             </div>
             <div className="form__item">
-                <input
-                    type="text"
-                    className={`form__input${
-                        errors[0] ? findError(errors, 'email') : ''
-                    }`}
+                <Input
                     name="email"
-                    autoComplete="new-password"
+                    autocomplete="email"
                     placeholder="Емейл"
                     onInput={handleInput}
-                    spellCheck={false}
+                    error={errors[0]}
+                    max={100}
                 />
             </div>
             <div className="form__item">
-                <input
-                    type="text"
-                    className={`form__input${
-                        errors[0] ? findError(errors, 'password') : ''
-                    }`}
+                <Input
                     name="password"
-                    autoComplete="password"
+                    autocomplete="new-password"
                     placeholder="Пароль"
                     onInput={handleInput}
-                    spellCheck={false}
+                    error={errors[0]}
+                    max={100}
                 />
             </div>
             <div className="form__forgot-password">

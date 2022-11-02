@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { FormEvent, ReactElement } from 'react'
 
 const Input = ({
     name,
@@ -7,20 +7,22 @@ const Input = ({
     defaultValue,
     error,
     max,
+    autocomplete,
 }: {
     name: string
     placeholder: string
-    onInput: () => void
+    onInput: any
     error?: boolean
     defaultValue?: string
     max: number
+    autocomplete?: string
 }): ReactElement => {
     return (
         <input
             className={`input${error ? ' _error' : ''}`}
             name={name}
             type="text"
-            autoComplete="off"
+            autoComplete={autocomplete ? autocomplete : 'off'}
             placeholder={placeholder}
             spellCheck={false}
             onInput={onInput}

@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../hooks/reduxHooks'
 import { fetchLog } from '../../redux/slices/auth'
 import { LoginFormEvent } from '../../types'
 import findError from '../../utils/findErrorByName'
+import Input from '../Input'
 
 const LoginFrom = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -61,7 +62,7 @@ const LoginFrom = (): ReactElement => {
 
     const handleInput = (
         e: FormEvent<HTMLInputElement> & { target: HTMLInputElement }
-    ) => {
+    ): void => {
         if (errors.length) {
             setErrors((prev) =>
                 prev.filter(
@@ -75,29 +76,23 @@ const LoginFrom = (): ReactElement => {
     return (
         <form action="" className="auth__form form" onSubmit={handleSubmit}>
             <div className="form__item">
-                <input
-                    type="text"
-                    className={`form__input${
-                        errors[0] ? findError(errors, 'email') : ''
-                    }`}
+                <Input
                     name="email"
-                    autoComplete="email"
+                    autocomplete="email"
                     placeholder="Емейл"
                     onInput={handleInput}
-                    spellCheck={false}
+                    error={errors[0]}
+                    max={100}
                 />
             </div>
             <div className="form__item">
-                <input
-                    type="password"
-                    className={`form__input${
-                        errors[0] ? findError(errors, 'password') : ''
-                    }`}
+                <Input
                     name="password"
-                    autoComplete="password"
+                    autocomplete="password"
                     placeholder="Пароль"
                     onInput={handleInput}
-                    spellCheck={false}
+                    error={errors[0]}
+                    max={100}
                 />
             </div>
             <div className="form__forgot-password">
