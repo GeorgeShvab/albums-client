@@ -177,7 +177,7 @@ const AlbumHeading = memo(
                                                 }}
                                                 avatarUrl={
                                                     album?.creator.avatar
-                                                        ? `${process.env.REACT_APP_SERVER_ADDRESS}/static/small/avatars/${album?.creator._id}/${album?.creator.avatar}`
+                                                        ? `/static/small/avatars/${album?.creator._id}/${album?.creator.avatar}`
                                                         : defaultAvatar
                                                 }
                                             />
